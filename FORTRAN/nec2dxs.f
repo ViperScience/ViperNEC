@@ -3,13 +3,13 @@ C				(Thanks to Raymond Anderson for letting me know
 C				about this compiler and doing initial compilations)
 C	av01	14-mar-02	Var PI not used in routine GWAVE
 C	av02	14-mar-02	Sub SECOND already intrinsic function
-C	av03	15-mar-02	Multiple changes to include SOMNEC routines in nec2d.exe 
+C	av03	15-mar-02	Multiple changes to include SOMNEC routines in nec2d.exe
 C	av04	16-mar-02	Status='NEW', seems not to replace existing file.
 C	av05	21-okt-02	Max number of loads (LOADMX) made equal to max-nr of segments.
 C	av06	21-okt-02	Max number of NT cards (NETMX) increased form 30 to 99
 C	av07	21-okt-02	Max number of EX cards (NSMAX) increased form 30 to 99
-C	av08  22-oct-02	Use of VSRC is uncertain, in some sources equal 10 and some 
-C				equal 30 (=nr EX?). What should be new value ??? 
+C	av08  22-oct-02	Use of VSRC is uncertain, in some sources equal 10 and some
+C				equal 30 (=nr EX?). What should be new value ???
 C	av09	??		??
 C	av10	30-jan-03	Used DGJJ port of G77 compiler which delivers speed increase
 C				from 30 to 60%
@@ -119,7 +119,7 @@ C***
       DATA TA/1.745329252D-02/,CVEL/299.8/
 
 Cav05-7 DATA LOADMX,NSMAX,NETMX/30,30,30/,NORMF/200/
-      DATA NORMF/200/							
+      DATA NORMF/200/
 
       print *, ''
       print *, 'Numerical Electromagnetics Code, ',
@@ -132,11 +132,11 @@ Cav03      & 'Fortran file was created 4/11/80, last changed: Jan 15, 96, by'
 Cav03      Write(*,*)
 Cav03     & 'J. Bergervoet (bergervo@prl.philips.nl)'
       print *, 'Maximum number of segments in core : MAXMAT=',MAXMAT
-      If(MaxSeg.ne.MaxMat) 
+      If(MaxSeg.ne.MaxMat)
      &print *, 'Maximum when using swap files      : MAXSEG=',MAXSEG
 
       print *, ''
-	print *, 
+	print *,
      & 'Merged nec2d/som2d file created by Arie. (4nec2@gmx.net)'
 	print *,
      & 'V2.2  31-jan-2003   (maxLD=MaxSeg, MaxEX=99, MaxTL=64)'
@@ -1113,7 +1113,7 @@ C     NORMALIZED RECEIVING PATTERN PRINTED
 183   FORMAT (20X,2(F7.2,3X),1X,F7.2,4X,1P,E11.4)
 184   FORMAT (///,36X,32H- - - INPUT IMPEDANCE DATA - - -,/   ,45X,18HSO
      1URCE SEGMENT NO.,I4,/  ,45X,21HNORMALIZATION FACTOR=,1P,E12.5,//
-     2,7X,5HFREQ.,13X,34H-  -  UNNORMALIZED IMPEDANCE  -  -,21X,   32H- 
+     2,7X,5HFREQ.,13X,34H-  -  UNNORMALIZED IMPEDANCE  -  -,21X,   32H-
      3 -  NORMALIZED IMPEDANCE  -  -,/    ,19X,10HRESISTANCE,4X,9HREACTA
      4NCE,6X,9HMAGNITUDE,4X,5HPHASE,7X,10HRESISTANCE,4X,9HREACTANCE,6X,
      5 9HMAGNITUDE,4X,5HPHASE,/    ,8X,3HMHZ,11X,4HOHMS,10X,4HOHMS,11X,
@@ -4052,7 +4052,7 @@ C     EXTENDED THIN WIRE APPROXIMATION.
 
 Cav03 SUBROUTINE ERROR
 C ***
-C     GET REASON FOR FILE ERROR (VAX ONLY).  ERROR SHOULD BE REDUCED TO 
+C     GET REASON FOR FILE ERROR (VAX ONLY).  ERROR SHOULD BE REDUCED TO
 C     "RETURN END" FOR MACINTOSH.
 C
 C      IMPLICIT INTEGER (A-Z)
@@ -5506,7 +5506,7 @@ Cav04 OPEN(UNIT=IGFL,FILE='NGF2D.NEC',FORM='UNFORMATTED',STATUS='NEW')
       WRITE (IGFL) (BET(I),I=J,LD),(SALP(I),I=J,LD)
 C
 C*** ERROR CORRECTED 11/20/89 *******************************
-                                                             
+
       WRITE (IGFL) (T2X(I),I=J,LD),(T2Y(I),I=J,LD)
       WRITE (IGFL) (T2Z(I),I=J,LD)
 C      WRITE (IGFL) (ICON1(I),I=J,LD),(ICON2(I),I=J,LD)
@@ -6943,7 +6943,7 @@ C
       IPSYM=0
       RETURN
       END
-         
+
       SUBROUTINE NEFLD (XOB,YOB,ZOB,EX,EY,EZ)
 C ***
 C     DOUBLE PRECISION 6/4/85
@@ -7084,39 +7084,30 @@ C     PRESENT.
 C
       COMPLEX*16 CMN,RHNT,YMIT,RHS,ZPED,EINC,VSANT,VLT,CUR,VSRC,RHNX
      1,VQD,VQDS,CUX,CM,CMB,CMC,CMD
-
       COMMON /DATA/ X(MAXSEG),Y(MAXSEG),Z(MAXSEG),SI(MAXSEG),BI(MAXSEG),
      &ALP(MAXSEG),BET(MAXSEG),WLAM,ICON1(2*MAXSEG),ICON2(2*MAXSEG),
      &ITAG(2*MAXSEG),ICONX(MAXSEG),LD,N1,N2,N,NP,M1,M2,M,MP,IPSYM
-
       COMMON /CRNT/ AIR(MAXSEG),AII(MAXSEG),BIR(MAXSEG),BII(MAXSEG),
      &CIR(MAXSEG),CII(MAXSEG),CUR(3*MAXSEG)
-
-Cav07 COMMON /VSORC/ VQD(30),VSANT(30),VQDS(30),IVQD(30),ISANT(30),IQDS(
-Cav07 130),NVQD,NSANT,NQDS
-      COMMON /VSORC/ VQD(nsmax),VSANT(nsmax),VQDS(nsmax),IVQD(nsmax),
-     &ISANT(nsmax),IQDS(nsmax),NVQD,NSANT,NQDS			! av07
-
-Cav06 COMMON/NETCX/ZPED,PIN,PNLS,X11R(30),X11I(30),X12R(30),X12I(30),
-C     &X22R(30),X22I(30),NTYP(30),ISEG1(30),ISEG2(30),NEQ,NPEQ,NEQ2,
-Cav06 &NONET,NTSOL,NPRINT,MASYM
-
-      COMMON/NETCX/ZPED,PIN,PNLS,X11R(netmx),X11I(netmx),X12R(netmx),
-     &X12I(netmx),X22R(netmx),X22I(netmx),NTYP(netmx),ISEG1(netmx),
-     &ISEG2(netmx),NEQ,NPEQ,NEQ2,NONET,NTSOL,NPRINT,MASYM	! av06
-
+      COMMON /VSORC/ VQD(30),VSANT(30),VQDS(30),IVQD(30),ISANT(30),IQDS(
+     130),NVQD,NSANT,NQDS
+      COMMON/NETCX/ZPED,PIN,PNLS,X11R(30),X11I(30),X12R(30),X12I(30),
+     &X22R(30),X22I(30),NTYP(30),ISEG1(30),ISEG2(30),NEQ,NPEQ,NEQ2,
+     &NONET,NTSOL,NPRINT,MASYM
       DIMENSION EINC(1), IP(1),CM(1),CMB(1),CMC(1),CMD(1)
+      DIMENSION CMN(30,30), RHNT(30), IPNT(30), NTEQA(30), NTSCA(30),
+     &RHS(3*MAXSEG), VSRC(30), RHNX(30)
+      DATA NDIMN,NDIMNP/30,31/,TP/6.283185308D+0/
 
-Cav07 DIMENSION CMN(30,30), RHNT(30), IPNT(30), NTEQA(30), NTSCA(30),
-Cav07 &RHS(3*MAXSEG), VSRC(30), RHNX(30)
-
+C     COMMON /VSORC/ VQD(nsmax),VSANT(nsmax),VQDS(nsmax),IVQD(nsmax),
+C    &ISANT(nsmax),IQDS(nsmax),NVQD,NSANT,NQDS			! av07
+C     COMMON/NETCX/ZPED,PIN,PNLS,X11R(netmx),X11I(netmx),X12R(netmx),
+C    &X12I(netmx),X22R(netmx),X22I(netmx),NTYP(netmx),ISEG1(netmx),
+C    &ISEG2(netmx),NEQ,NPEQ,NEQ2,NONET,NTSOL,NPRINT,MASYM	! av06
 Cav08	Keep VSRC dimension to 30 (for now) as it's use is uncertain.
-
-      DIMENSION CMN(netmx,netmx), RHNT(netmx), IPNT(netmx), 
-     &NTEQA(netmx), NTSCA(netmx), RHS(3*MAXSEG), VSRC(30), RHNX(netmx)
-
-Cav06 DATA NDIMN,NDIMNP/30,31/,TP/6.283185308D+0/
-      DATA NDIMN,NDIMNP/netmx,netmx+1/,TP/6.283185308D+0/	! av06
+C     DIMENSION CMN(netmx,netmx), RHNT(netmx), IPNT(netmx),
+C    &NTEQA(netmx), NTSCA(netmx), RHS(3*MAXSEG), VSRC(30), RHNX(netmx)
+C     DATA NDIMN,NDIMNP/netmx,netmx+1/,TP/6.283185308D+0/	! av06
 
       NEQZ2=NEQ2
       IF(NEQZ2.EQ.0)NEQZ2=1
@@ -7832,7 +7823,7 @@ C     DIVIDE PATCH FOR WIRE CONNECTION
       IF (NY.GT.0) Z(MI)=10000.
       RETURN
 C
-14    FORMAT (62H ERROR -- CORNERS OF QUADRILATERAL PATCH DO NOT LIE IN 
+14    FORMAT (62H ERROR -- CORNERS OF QUADRILATERAL PATCH DO NOT LIE IN
      1A PLANE)
       END
       SUBROUTINE PCINT (XI,YI,ZI,CABI,SABI,SALPI,E)
@@ -9221,7 +9212,7 @@ c          However, we want t=0 to be defined when this routine is first
 c          called.  Hence, define initial CPU time here.
 c          Wall clock timer counts in seconds from 1-Jan-70  Thus,
 c          initial wall clock time is non-zero.  It is obtained here.
-c 
+c
 Cav03           cpuinit  = etime(tarray)
 Cav03           wallinit = time()
 C#endif
@@ -9295,7 +9286,7 @@ c           The input to "lib$cvtf_from_internal_time" goes in the 3rd
 c           argument, the result is returned in the 2nd argument.
 c           input_code = 2 returns elapsed cpu time as an integer in
 c           units of 10msec.  This is converted to seconds here.
-c 
+c
 C        istatus = lib$stat_timer(1,iwall,)
 C        istatus = lib$cvtf_from_internal_time(30,rwall,iwall)
 C        wallnow = rwall
@@ -9336,7 +9327,7 @@ c          "elapsed execution time" = tarray(1) + tarray(2)
 c                                   = user time + system time
 c       I am uncertain whether to let cpunow = return value or
 c       else tarray(1).
-c 
+c
 C        cpunow  = etime(tarray)
 C        wallnow = stime()
 C#endif
