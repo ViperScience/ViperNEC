@@ -1,0 +1,5 @@
+f2c command used to generate nec2dxs.c
+Dylan Crocker
+07/14/15
+
+f2c -wAa nec2dxs.f
