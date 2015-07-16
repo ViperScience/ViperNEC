@@ -30,3 +30,12 @@
 
 # Debug files
 *.dSYM/
+
+# Build Files
+*bin/
+*obj/
+
+# Code::Blocks IDE files
+*.cbp
+*.layout
+*.depend

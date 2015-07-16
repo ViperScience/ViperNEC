@@ -50,7 +50,6 @@ extern int MAIN__();
 #else
 extern void f_init(void), sig_die(const char*, int);
 extern int MAIN__(void);
-extern int nec2vs(char *, char *);
 #define Int int
 #endif
 
@@ -106,9 +105,9 @@ char **xargv;
 
  int
 #ifdef KR_headers
-_main(argc, argv) int argc; char **argv; // Don't use this main
+main(argc, argv) int argc; char **argv;
 #else
-_main(int argc, char **argv) // Don't use this main
+main(int argc, char **argv)
 #endif
 {
 xargc = argc;
@@ -136,8 +135,7 @@ f_init();
 #ifndef NO_ONEXIT
 ONEXIT(f_exit);
 #endif
-//MAIN__();
-nec2vs("EX1.nec","result.txt");
+MAIN__();
 #ifdef NO_ONEXIT
 f_exit();
 #endif

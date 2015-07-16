@@ -10,14 +10,14 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+#include "libf2c/f2c.h"
 
 /* Common Block Declarations */
 
 struct {
-    doublereal x[1500], y[1500], z__[1500], si[1500], bi[1500], alp[1500], 
+    doublereal x[1500], y[1500], z__[1500], si[1500], bi[1500], alp[1500],
 	    bet[1500], wlam;
-    integer icon1[3000], icon2[3000], itag[3000], iconx[1500], ld, n1, n2, n, 
+    integer icon1[3000], icon2[3000], itag[3000], iconx[1500], ld, n1, n2, n,
 	    np, m1, m2, m, mp, ipsym;
 } data_;
 
@@ -30,7 +30,7 @@ struct {
 #define cmb_1 cmb_
 
 struct {
-    integer icase, nbloks, npblk, nlast, nblsym, npsym, nlsym, imat, icasx, 
+    integer icase, nbloks, npblk, nlast, nblsym, npsym, nlsym, imat, icasx,
 	    nbbx, npbx, nlbx, nbbl, npbl, nlbl;
 } matpar_;
 
@@ -103,9 +103,9 @@ union {
 union {
     struct {
 	doublecomplex zped;
-	doublereal pin, pnls, x11r[128], x11i[128], x12r[128], x12i[128], 
+	doublereal pin, pnls, x11r[128], x11i[128], x12r[128], x12i[128],
 		x22r[128], x22i[128];
-	integer ntyp[128], iseg1[128], iseg2[128], neq, npeq, neq2, nonet, 
+	integer ntyp[128], iseg1[128], iseg2[128], neq, npeq, neq2, nonet,
 		ntsol, nprint, masym;
     } _1;
     struct {
@@ -123,7 +123,7 @@ union {
 struct {
     doublereal thets, phis, dth, dph, rfld, gnor, clt, cht, epsr2, sig2, xpr6,
 	     pinr, pnlr, ploss, xnr, ynr, znr, dxnr, dynr, dznr;
-    integer nth, nph, ipd, iavp, inor, iax, ixtyp, near__, nfeh, nrx, nry, 
+    integer nth, nph, ipd, iavp, inor, iax, ixtyp, near__, nfeh, nrx, nry,
 	    nrz;
 } fpat_;
 
@@ -336,7 +336,7 @@ static integer c__4 = 4;
 {
     /* Initialized data */
 
-    static char atst[2*22] = "CE" "FR" "LD" "GN" "EX" "NT" "XQ" "NE" "GD" 
+    static char atst[2*22] = "CE" "FR" "LD" "GN" "EX" "NT" "XQ" "NE" "GD"
 	    "RP" "CM" "NX" "EN" "TL" "PT" "KH" "NH" "PQ" "EK" "WG" "CP" "PL";
     static struct {
 	char e_1[24];
@@ -348,7 +348,7 @@ static integer c__4 = 4;
     static struct {
 	char e_1[48];
 	doublereal e_2;
-	} equiv_200 = { "                STRAIG  HT      CROSSE  D       ", 
+	} equiv_200 = { "                STRAIG  HT      CROSSE  D       ",
 		0. };
 
 #define pnet ((doublereal *)&equiv_200)
@@ -522,15 +522,15 @@ static integer c__4 = 4;
     olist o__1;
 
     /* Builtin functions */
-    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
-	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void), s_rsfe(cilist *), 
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen),
+	    e_wsle(void), s_wsfe(cilist *), e_wsfe(void), s_rsfe(cilist *),
 	    do_fio(integer *, char *, ftnlen), e_rsfe(void), f_open(olist *);
     /* Subroutine */ int s_stop(char *, ftnlen);
     integer s_cmp(char *, char *, ftnlen, ftnlen);
     double z_abs(doublecomplex *);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
-    double sqrt(doublereal), d_imag(doublecomplex *), pow_di(doublereal *, 
+    double sqrt(doublereal), d_imag(doublecomplex *), pow_di(doublereal *,
 	    integer *);
 
     /* Local variables */
@@ -560,32 +560,32 @@ static integer c__4 = 4;
     integer ix11, igo;
     doublereal rkh;
     integer mhz;
-    doublereal tim, tim1, tim2, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, xpr1, 
+    doublereal tim, tim1, tim2, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, xpr1,
 	    xpr2, xpr3, xpr4, xpr5, cmag;
     extern doublereal cang_(doublecomplex *);
     doublereal epha;
-    extern /* Subroutine */ int load_(integer *, integer *, integer *, 
+    extern /* Subroutine */ int load_(integer *, integer *, integer *,
 	    integer *, doublereal *, doublereal *, doublereal *);
     integer iped, lain;
     doublereal etha;
     doublecomplex epsc, curi;
     integer nfrq, iexk, ifrq, nthi, nphi, jump;
     doublereal ethm, ephm;
-    extern /* Subroutine */ int som2d_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int som2d_(doublereal *, doublereal *, doublereal
 	    *);
     doublereal fmhz1;
     integer itmp1, itmp2, itmp3, itmp4, itmp5;
-    extern /* Subroutine */ int facgf_(doublecomplex *, doublecomplex *, 
-	    doublecomplex *, doublecomplex *, doublecomplex *, integer *, 
-	    integer *, integer *, integer *, integer *, integer *, integer *, 
-	    integer *), fbngf_(integer *, integer *, integer *, integer *, 
-	    integer *, integer *, integer *), cmngf_(doublecomplex *, 
+    extern /* Subroutine */ int facgf_(doublecomplex *, doublecomplex *,
+	    doublecomplex *, doublecomplex *, doublecomplex *, integer *,
+	    integer *, integer *, integer *, integer *, integer *, integer *,
+	    integer *), fbngf_(integer *, integer *, integer *, integer *,
+	    integer *, integer *, integer *), cmngf_(doublecomplex *,
 	    doublecomplex *, doublecomplex *, integer *, integer *, integer *,
 	     doublereal *, integer *);
     integer ldtag[1500];
     shortint llneg;
     integer iptag, irngf;
-    extern /* Subroutine */ int cmset_(integer *, doublecomplex *, doublereal 
+    extern /* Subroutine */ int cmset_(integer *, doublecomplex *, doublereal
 	    *, integer *);
     integer ldtyp[1500];
     doublereal fnorm[200], xtemp[1500], ytemp[1500], ztemp[1500], extim;
@@ -594,16 +594,16 @@ static integer c__4 = 4;
     integer iptaq;
     extern /* Subroutine */ int gfout_(void);
     integer nthic, nphic;
-    extern /* Subroutine */ int etmns_(doublereal *, doublereal *, doublereal 
-	    *, doublereal *, doublereal *, doublereal *, integer *, 
-	    doublecomplex *), netwk_(doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int etmns_(doublereal *, doublereal *, doublereal
+	    *, doublereal *, doublereal *, doublereal *, integer *,
+	    doublecomplex *), netwk_(doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, integer *, doublecomplex *);
     integer isave;
-    extern /* Subroutine */ int nfpat_(void), rdpat_(void), datagn_(void), 
+    extern /* Subroutine */ int nfpat_(void), rdpat_(void), datagn_(void),
 	    fblock_(integer *, integer *, integer *, integer *, integer *);
     integer ldtagf[1500];
     char infile__[80];
-    extern /* Subroutine */ int readmn_(integer *, char *, integer *, integer 
+    extern /* Subroutine */ int readmn_(integer *, char *, integer *, integer
 	    *, integer *, integer *, doublereal *, doublereal *, doublereal *,
 	     doublereal *, doublereal *, doublereal *, ftnlen);
     integer iptagf;
@@ -611,7 +611,7 @@ static integer c__4 = 4;
     doublereal delfrq;
     integer ldtagt[1500];
     doublereal bitemp[1500];
-    extern /* Subroutine */ int upcase_(char *, char *, integer *, ftnlen, 
+    extern /* Subroutine */ int upcase_(char *, char *, integer *, ftnlen,
 	    ftnlen), factrs_(integer *, integer *, doublecomplex *, integer *,
 	     integer *, integer *, integer *, integer *, integer *);
     integer iptflg;
@@ -949,7 +949,7 @@ L4:
 /*     CORE ALLOCATION FOR ARRAYS B, C, AND D FOR N.G.F. SOLUTION */
 
     netcx_1.neq = data_1.n1 + (data_1.m1 << 1);
-    netcx_1.neq2 = data_1.n - data_1.n1 + (data_1.m - data_1.m1 << 1) + 
+    netcx_1.neq2 = data_1.n - data_1.n1 + (data_1.m - data_1.m1 << 1) +
 	    segj_1.nscon + (segj_1.npcon << 1);
     fbngf_(&netcx_1.neq, &netcx_1.neq2, &c_b101, &ib11, &ic11, &id11, &ix11);
     goto L6;
@@ -1776,7 +1776,7 @@ L46:
     z_div(&z__1, &c_b245, &z__2);
     gnd_1.zrati.r = z__1.r, gnd_1.zrati.i = z__1.i;
     gwav_1.u.r = gnd_1.zrati.r, gwav_1.u.i = gnd_1.zrati.i;
-    z__1.r = gwav_1.u.r * gwav_1.u.r - gwav_1.u.i * gwav_1.u.i, z__1.i = 
+    z__1.r = gwav_1.u.r * gwav_1.u.r - gwav_1.u.i * gwav_1.u.i, z__1.i =
 	    gwav_1.u.r * gwav_1.u.i + gwav_1.u.i * gwav_1.u.r;
     gwav_1.u2.r = z__1.r, gwav_1.u2.i = z__1.i;
     if (gnd_1.nradl == 0) {
@@ -1889,8 +1889,8 @@ L324:
 	    matpar_1.npbx, &netcx_1.neq, &netcx_1.neq2, &rkh, &iexk);
     second_(&tim2);
     tim = tim2 - tim1;
-    facgf_(cmb_1.cm, &cmb_1.cm[ib11 - 1], &cmb_1.cm[ic11 - 1], &cmb_1.cm[id11 
-	    - 1], &cmb_1.cm[ix11 - 1], save_1.ip, ix, &data_1.np, &data_1.n1, 
+    facgf_(cmb_1.cm, &cmb_1.cm[ib11 - 1], &cmb_1.cm[ic11 - 1], &cmb_1.cm[id11
+	    - 1], &cmb_1.cm[ix11 - 1], save_1.ip, ix, &data_1.np, &data_1.n1,
 	    &data_1.mp, &data_1.m1, &netcx_1.neq, &netcx_1.neq2);
 L323:
     second_(&tim1);
@@ -1959,7 +1959,7 @@ L55:
 	e_wsfe();
     }
 L56:
-    etmns_(&tmp1, &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, &fpat_1.ixtyp, 
+    etmns_(&tmp1, &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, &fpat_1.ixtyp,
 	    crnt_1.cur);
 
 /*     MATRIX SOLVING  (NETWK CALLS SOLVES) */
@@ -2001,7 +2001,7 @@ L57:
 		d__2 = data_1.y[itmp5 - 1] - data_1.y[itmp4 - 1];
 /* Computing 2nd power */
 		d__3 = data_1.z__[itmp5 - 1] - data_1.z__[itmp4 - 1];
-		netcx_1.x11i[j - 1] = data_1.wlam * sqrt(d__1 * d__1 + d__2 * 
+		netcx_1.x11i[j - 1] = data_1.wlam * sqrt(d__1 * d__1 + d__2 *
 			d__2 + d__3 * d__3);
 	    }
 	    s_wsfe(&io___156);
@@ -2041,7 +2041,7 @@ L60:
     if (inc > 1 && iptflg > 0) {
 	netcx_1.nprint = 1;
     }
-    netwk_(cmb_1.cm, &cmb_1.cm[ib11 - 1], &cmb_1.cm[ic11 - 1], &cmb_1.cm[id11 
+    netwk_(cmb_1.cm, &cmb_1.cm[ib11 - 1], &cmb_1.cm[ic11 - 1], &cmb_1.cm[id11
 	    - 1], save_1.ip, crnt_1.cur);
     netcx_1.ntsol = 1;
     if (iped == 0) {
@@ -2096,7 +2096,7 @@ L63:
     i__2 = data_1.n;
     for (i__ = 1; i__ <= i__2; ++i__) {
 	i__1 = i__ - 1;
-	z__1.r = data_1.wlam * crnt_1.cur[i__1].r, z__1.i = data_1.wlam * 
+	z__1.r = data_1.wlam * crnt_1.cur[i__1].r, z__1.i = data_1.wlam *
 		crnt_1.cur[i__1].i;
 	curi.r = z__1.r, curi.i = z__1.i;
 	cmag = z_abs(&curi);
@@ -2109,7 +2109,7 @@ L63:
 	    goto L64;
 	}
 	i__1 = i__ - 1;
-	fpat_1.ploss += cmag * .5f * cmag * zload_1.zarray[i__1].r * 
+	fpat_1.ploss += cmag * .5f * cmag * zload_1.zarray[i__1].r *
 		data_1.si[i__ - 1];
 L64:
 	if (jump < 0) {
@@ -2576,12 +2576,12 @@ L123:
     olist o__1;
 
     /* Builtin functions */
-    void d_cnjg(doublecomplex *, doublecomplex *), z_sqrt(doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_sqrt(doublecomplex *,
 	    doublecomplex *);
     double z_abs(doublecomplex *);
     void z_div(doublecomplex *, doublecomplex *, doublecomplex *);
     double cos(doublereal), sin(doublereal);
-    integer f_open(olist *), s_wsfe(cilist *), do_fio(integer *, char *, 
+    integer f_open(olist *), s_wsfe(cilist *), do_fio(integer *, char *,
 	    ftnlen), e_wsfe(void);
 
     /* Local variables */
@@ -2599,7 +2599,7 @@ L123:
     integer ipt, irs;
     doublecomplex ezv;
     doublereal wlam, fmhz, thet, tfac1, tfac2;
-    extern /* Subroutine */ int evlua_(doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int evlua_(doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
     /* Fortran I/O blocks */
@@ -2665,7 +2665,7 @@ L2:
     evlcom_1.tkmag = z_abs(&evlcom_1.ck1) * 100.f;
     z__2.r = evlcom_1.ck1.r * 100.f, z__2.i = evlcom_1.ck1.i * 100.f;
     d_cnjg(&z__3, &evlcom_1.ck1);
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     evlcom_1.tsmag = z__1.r;
     z__2.r = evlcom_1.ck2sq, z__2.i = 0.;
@@ -2675,8 +2675,8 @@ L2:
     z__2.r = evlcom_1.ck1sq.r - evlcom_1.ck2sq, z__2.i = evlcom_1.ck1sq.i;
     z__1.r = z__2.r * .5f, z__1.i = z__2.i * .5f;
     evlcom_1.ct1.r = z__1.r, evlcom_1.ct1.i = z__1.i;
-    z__1.r = evlcom_1.ck1sq.r * evlcom_1.ck1sq.r - evlcom_1.ck1sq.i * 
-	    evlcom_1.ck1sq.i, z__1.i = evlcom_1.ck1sq.r * evlcom_1.ck1sq.i + 
+    z__1.r = evlcom_1.ck1sq.r * evlcom_1.ck1sq.r - evlcom_1.ck1sq.i *
+	    evlcom_1.ck1sq.i, z__1.i = evlcom_1.ck1sq.r * evlcom_1.ck1sq.i +
 	    evlcom_1.ck1sq.i * evlcom_1.ck1sq.r;
     erv.r = z__1.r, erv.i = z__1.i;
     d__1 = evlcom_1.ck2sq * evlcom_1.ck2sq;
@@ -2684,7 +2684,7 @@ L2:
     z__2.r = erv.r - ezv.r, z__2.i = erv.i - ezv.i;
     z__1.r = z__2.r * .125f, z__1.i = z__2.i * .125f;
     evlcom_1.ct2.r = z__1.r, evlcom_1.ct2.i = z__1.i;
-    z__1.r = erv.r * evlcom_1.ck1sq.r - erv.i * evlcom_1.ck1sq.i, z__1.i = 
+    z__1.r = erv.r * evlcom_1.ck1sq.r - erv.i * evlcom_1.ck1sq.i, z__1.i =
 	    erv.r * evlcom_1.ck1sq.i + erv.i * evlcom_1.ck1sq.r;
     erv.r = z__1.r, erv.i = z__1.i;
     z__1.r = evlcom_1.ck2sq * ezv.r, z__1.i = evlcom_1.ck2sq * ezv.i;
@@ -2744,55 +2744,55 @@ L2:
 		}
 L3:
 		i__3 = ir + (ith + 10) * 11 - 122;
-		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r * 
+		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r *
 			con.i + erv.i * con.r;
 		ggrid_1.ar1[i__3].r = z__1.r, ggrid_1.ar1[i__3].i = z__1.i;
 		i__3 = ir + (ith + 20) * 11 - 122;
-		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r * 
+		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r *
 			con.i + ezv.i * con.r;
 		ggrid_1.ar1[i__3].r = z__1.r, ggrid_1.ar1[i__3].i = z__1.i;
 		i__3 = ir + (ith + 30) * 11 - 122;
-		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r * 
+		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r *
 			con.i + erh.i * con.r;
 		ggrid_1.ar1[i__3].r = z__1.r, ggrid_1.ar1[i__3].i = z__1.i;
 		i__3 = ir + (ith + 40) * 11 - 122;
-		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r * 
+		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r *
 			con.i + eph.i * con.r;
 		ggrid_1.ar1[i__3].r = z__1.r, ggrid_1.ar1[i__3].i = z__1.i;
 		goto L6;
 L4:
 		i__3 = ir + (ith + 5) * 17 - 103;
-		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r * 
+		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r *
 			con.i + erv.i * con.r;
 		ggrid_1.ar2[i__3].r = z__1.r, ggrid_1.ar2[i__3].i = z__1.i;
 		i__3 = ir + (ith + 10) * 17 - 103;
-		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r * 
+		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r *
 			con.i + ezv.i * con.r;
 		ggrid_1.ar2[i__3].r = z__1.r, ggrid_1.ar2[i__3].i = z__1.i;
 		i__3 = ir + (ith + 15) * 17 - 103;
-		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r * 
+		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r *
 			con.i + erh.i * con.r;
 		ggrid_1.ar2[i__3].r = z__1.r, ggrid_1.ar2[i__3].i = z__1.i;
 		i__3 = ir + (ith + 20) * 17 - 103;
-		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r * 
+		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r *
 			con.i + eph.i * con.r;
 		ggrid_1.ar2[i__3].r = z__1.r, ggrid_1.ar2[i__3].i = z__1.i;
 		goto L6;
 L5:
 		i__3 = ir + (ith + 8) * 9 - 82;
-		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r * 
+		z__1.r = erv.r * con.r - erv.i * con.i, z__1.i = erv.r *
 			con.i + erv.i * con.r;
 		ggrid_1.ar3[i__3].r = z__1.r, ggrid_1.ar3[i__3].i = z__1.i;
 		i__3 = ir + (ith + 16) * 9 - 82;
-		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r * 
+		z__1.r = ezv.r * con.r - ezv.i * con.i, z__1.i = ezv.r *
 			con.i + ezv.i * con.r;
 		ggrid_1.ar3[i__3].r = z__1.r, ggrid_1.ar3[i__3].i = z__1.i;
 		i__3 = ir + (ith + 24) * 9 - 82;
-		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r * 
+		z__1.r = erh.r * con.r - erh.i * con.i, z__1.i = erh.r *
 			con.i + erh.i * con.r;
 		ggrid_1.ar3[i__3].r = z__1.r, ggrid_1.ar3[i__3].i = z__1.i;
 		i__3 = ir + (ith + 32) * 9 - 82;
-		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r * 
+		z__1.r = eph.r * con.r - eph.i * con.i, z__1.i = eph.r *
 			con.i + eph.i * con.r;
 		ggrid_1.ar3[i__3].r = z__1.r, ggrid_1.ar3[i__3].i = z__1.i;
 L6:
@@ -2804,7 +2804,7 @@ L6:
 /*     FILL GRID 1 FOR R EQUAL TO ZERO. */
 
     z__3.r = ggrid_1.epscf.r - 1.f, z__3.i = ggrid_1.epscf.i;
-    z__2.r = z__3.r * -0.f - z__3.i * -188.37f, z__2.i = z__3.r * -188.37f + 
+    z__2.r = z__3.r * -0.f - z__3.i * -188.37f, z__2.i = z__3.r * -188.37f +
 	    z__3.i * -0.f;
     z__4.r = ggrid_1.epscf.r + 1.f, z__4.i = ggrid_1.epscf.i;
     z_div(&z__1, &z__2, &z__4);
@@ -2812,7 +2812,7 @@ L6:
     z__2.r = ggrid_1.epscf.r + 1.f, z__2.i = ggrid_1.epscf.i;
     z_div(&z__1, &cl2, &z__2);
     cl1.r = z__1.r, cl1.i = z__1.i;
-    z__1.r = ggrid_1.epscf.r * cl1.r - ggrid_1.epscf.i * cl1.i, z__1.i = 
+    z__1.r = ggrid_1.epscf.r * cl1.r - ggrid_1.epscf.i * cl1.i, z__1.i =
 	    ggrid_1.epscf.r * cl1.i + ggrid_1.epscf.i * cl1.r;
     ezv.r = z__1.r, ezv.i = z__1.i;
     thet = -dth;
@@ -2826,7 +2826,7 @@ L6:
 	tfac2 = cos(thet);
 	tfac1 = (1.f - sin(thet)) / tfac2;
 	tfac2 = tfac1 / tfac2;
-	z__2.r = ggrid_1.epscf.r * cl1.r - ggrid_1.epscf.i * cl1.i, z__2.i = 
+	z__2.r = ggrid_1.epscf.r * cl1.r - ggrid_1.epscf.i * cl1.i, z__2.i =
 		ggrid_1.epscf.r * cl1.i + ggrid_1.epscf.i * cl1.r;
 	z__1.r = tfac1 * z__2.r, z__1.i = tfac1 * z__2.i;
 	erv.r = z__1.r, erv.i = z__1.i;
@@ -2922,7 +2922,7 @@ L10:
 		do_fio(&c__1, (char *)&ir, (ftnlen)sizeof(integer));
 		i__2 = nth;
 		for (ith = 1; ith <= i__2; ++ith) {
-		    do_fio(&c__2, (char *)&ggrid_1.ar1[ir + (ith + l * 10) * 
+		    do_fio(&c__2, (char *)&ggrid_1.ar1[ir + (ith + l * 10) *
 			    11 - 122], (ftnlen)sizeof(doublereal));
 		}
 		e_wsfe();
@@ -2932,7 +2932,7 @@ L11:
 		do_fio(&c__1, (char *)&ir, (ftnlen)sizeof(integer));
 		i__2 = nth;
 		for (ith = 1; ith <= i__2; ++ith) {
-		    do_fio(&c__2, (char *)&ggrid_1.ar2[ir + (ith + l * 5) * 
+		    do_fio(&c__2, (char *)&ggrid_1.ar2[ir + (ith + l * 5) *
 			    17 - 103], (ftnlen)sizeof(doublereal));
 		}
 		e_wsfe();
@@ -2972,7 +2972,7 @@ L14:
 /* *********************************************************************** */
 
 /* *********************************************************************** */
-/* Subroutine */ int bessel_(doublecomplex *z__, doublecomplex *j0, 
+/* Subroutine */ int bessel_(doublecomplex *z__, doublecomplex *j0,
 	doublecomplex *j0p)
 {
     /* Initialized data */
@@ -2999,8 +2999,8 @@ L14:
     doublecomplex z__1, z__2, z__3, z__4, z__5;
 
     /* Builtin functions */
-    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
-	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
+	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *,
 	    doublecomplex *), z_sqrt(doublecomplex *, doublecomplex *);
     double sqrt(doublereal), cos(doublereal);
 
@@ -3030,7 +3030,7 @@ L14:
     }
 L1:
     d_cnjg(&z__2, z__);
-    z__1.r = z__->r * z__2.r - z__->i * z__2.i, z__1.i = z__->r * z__2.i + 
+    z__1.r = z__->r * z__2.r - z__->i * z__2.i, z__1.i = z__->r * z__2.i +
 	    z__->i * z__2.r;
     zms = z__1.r;
     if (zms > 1e-12f) {
@@ -3054,14 +3054,14 @@ L2:
     j0->r = 1.f, j0->i = 0.f;
     j0p->r = j0->r, j0p->i = j0->i;
     zk.r = j0->r, zk.i = j0->i;
-    z__1.r = z__->r * z__->r - z__->i * z__->i, z__1.i = z__->r * z__->i + 
+    z__1.r = z__->r * z__->r - z__->i * z__->i, z__1.i = z__->r * z__->i +
 	    z__->i * z__->r;
     zi.r = z__1.r, zi.i = z__1.i;
     i__1 = miz;
     for (k = 1; k <= i__1; ++k) {
 	i__2 = k - 1;
 	z__2.r = a1[i__2] * zk.r, z__2.i = a1[i__2] * zk.i;
-	z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + 
+	z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i +
 		z__2.i * zi.r;
 	zk.r = z__1.r, zk.i = z__1.i;
 	z__1.r = j0->r + zk.r, z__1.i = j0->i + zk.i;
@@ -3073,7 +3073,7 @@ L2:
 	j0p->r = z__1.r, j0p->i = z__1.i;
     }
     z__2.r = z__->r * -.5f, z__2.i = z__->i * -.5f;
-    z__1.r = z__2.r * j0p->r - z__2.i * j0p->i, z__1.i = z__2.r * j0p->i + 
+    z__1.r = z__2.r * j0p->r - z__2.i * j0p->i, z__1.i = z__2.r * j0p->i +
 	    z__2.i * j0p->r;
     j0p->r = z__1.r, j0p->i = z__1.i;
     if (ib == 0) {
@@ -3089,28 +3089,28 @@ L4:
     zi2.r = z__1.r, zi2.i = z__1.i;
     z__4.r = p20 * zi2.r, z__4.i = p20 * zi2.i;
     z__3.r = z__4.r - p10, z__3.i = z__4.i;
-    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i + 
+    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i +
 	    z__3.i * zi2.r;
     z__1.r = z__2.r + 1.f, z__1.i = z__2.i;
     p0z.r = z__1.r, p0z.i = z__1.i;
     z__4.r = p21 * zi2.r, z__4.i = p21 * zi2.i;
     z__3.r = p11 - z__4.r, z__3.i = -z__4.i;
-    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i + 
+    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i +
 	    z__3.i * zi2.r;
     z__1.r = z__2.r + 1.f, z__1.i = z__2.i;
     p1z.r = z__1.r, p1z.i = z__1.i;
     z__3.r = q20 * zi2.r, z__3.i = q20 * zi2.i;
     z__2.r = z__3.r - q10, z__2.i = z__3.i;
-    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i * 
+    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i *
 	    zi.r;
     q0z.r = z__1.r, q0z.i = z__1.i;
     z__3.r = q21 * zi2.r, z__3.i = q21 * zi2.i;
     z__2.r = q11 - z__3.r, z__2.i = -z__3.i;
-    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i * 
+    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i *
 	    zi.r;
     q1z.r = z__1.r, q1z.i = z__1.i;
     z__3.r = z__->r - pof, z__3.i = z__->i;
-    z__2.r = fj->r * z__3.r - fj->i * z__3.i, z__2.i = fj->r * z__3.i + fj->i 
+    z__2.r = fj->r * z__3.r - fj->i * z__3.i, z__2.i = fj->r * z__3.i + fj->i
 	    * z__3.r;
     z_exp(&z__1, &z__2);
     zk.r = z__1.r, zk.i = z__1.i;
@@ -3121,27 +3121,27 @@ L4:
     cz.r = z__1.r, cz.i = z__1.i;
     z__2.r = fj->r * .5f, z__2.i = fj->i * .5f;
     z__3.r = zi2.r - zk.r, z__3.i = zi2.i - zk.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     sz.r = z__1.r, sz.i = z__1.i;
     z_sqrt(&z__2, &zi);
     z__1.r = c3 * z__2.r, z__1.i = c3 * z__2.i;
     zk.r = z__1.r, zk.i = z__1.i;
-    z__3.r = p0z.r * cz.r - p0z.i * cz.i, z__3.i = p0z.r * cz.i + p0z.i * 
+    z__3.r = p0z.r * cz.r - p0z.i * cz.i, z__3.i = p0z.r * cz.i + p0z.i *
 	    cz.r;
-    z__4.r = q0z.r * sz.r - q0z.i * sz.i, z__4.i = q0z.r * sz.i + q0z.i * 
+    z__4.r = q0z.r * sz.r - q0z.i * sz.i, z__4.i = q0z.r * sz.i + q0z.i *
 	    sz.r;
     z__2.r = z__3.r - z__4.r, z__2.i = z__3.i - z__4.i;
-    z__1.r = zk.r * z__2.r - zk.i * z__2.i, z__1.i = zk.r * z__2.i + zk.i * 
+    z__1.r = zk.r * z__2.r - zk.i * z__2.i, z__1.i = zk.r * z__2.i + zk.i *
 	    z__2.r;
     j0->r = z__1.r, j0->i = z__1.i;
     z__2.r = -zk.r, z__2.i = -zk.i;
-    z__4.r = p1z.r * sz.r - p1z.i * sz.i, z__4.i = p1z.r * sz.i + p1z.i * 
+    z__4.r = p1z.r * sz.r - p1z.i * sz.i, z__4.i = p1z.r * sz.i + p1z.i *
 	    sz.r;
-    z__5.r = q1z.r * cz.r - q1z.i * cz.i, z__5.i = q1z.r * cz.i + q1z.i * 
+    z__5.r = q1z.r * cz.r - q1z.i * cz.i, z__5.i = q1z.r * cz.i + q1z.i *
 	    cz.r;
     z__3.r = z__4.r + z__5.r, z__3.i = z__4.i + z__5.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     j0p->r = z__1.r, j0p->i = z__1.i;
     if (ib == 0) {
@@ -3191,7 +3191,7 @@ L8:
 
 
 /* *********************************************************************** */
-/* Subroutine */ int evlua_(doublecomplex *erv, doublecomplex *ezv, 
+/* Subroutine */ int evlua_(doublecomplex *erv, doublecomplex *ezv,
 	doublecomplex *erh, doublecomplex *eph)
 {
     /* Initialized data */
@@ -3218,8 +3218,8 @@ L8:
     static doublecomplex delta;
     static doublereal slope;
     static doublecomplex delta2;
-    extern /* Subroutine */ int gshank_(doublecomplex *, doublecomplex *, 
-	    doublecomplex *, integer *, doublecomplex *, integer *, 
+    extern /* Subroutine */ int gshank_(doublecomplex *, doublecomplex *,
+	    doublecomplex *, integer *, doublecomplex *, integer *,
 	    doublecomplex *, doublecomplex *);
 
 /* *********************************************************************** */
@@ -3334,7 +3334,7 @@ L4:
     d__1 = -evlcom_1.zph;
     z__2.r = d__1, z__2.i = evlcom_1.rho;
     z__3.r = evlcom_1.ck1.r - cp3.r, z__3.i = evlcom_1.ck1.i - cp3.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     bk.r = z__1.r, bk.i = z__1.i;
     rmis = -bk.r / (d__1 = d_imag(&bk), abs(d__1));
@@ -3389,18 +3389,18 @@ L8:
     delta.r = z__1.r, delta.i = z__1.i;
     gshank_(&cp3, &delta, ans, &c__6, sum, &c__1, &bk, &delta2);
 L10:
-    z__1.r = ans[5].r * evlcom_1.ck1.r - ans[5].i * evlcom_1.ck1.i, z__1.i = 
+    z__1.r = ans[5].r * evlcom_1.ck1.r - ans[5].i * evlcom_1.ck1.i, z__1.i =
 	    ans[5].r * evlcom_1.ck1.i + ans[5].i * evlcom_1.ck1.r;
     ans[5].r = z__1.r, ans[5].i = z__1.i;
 /*     CONJUGATE SINCE NEC USES EXP(+JWT) */
-    z__2.r = evlcom_1.ck1sq.r * ans[2].r - evlcom_1.ck1sq.i * ans[2].i, 
+    z__2.r = evlcom_1.ck1sq.r * ans[2].r - evlcom_1.ck1sq.i * ans[2].i,
 	    z__2.i = evlcom_1.ck1sq.r * ans[2].i + evlcom_1.ck1sq.i * ans[2]
 	    .r;
     d_cnjg(&z__1, &z__2);
     erv->r = z__1.r, erv->i = z__1.i;
     z__4.r = evlcom_1.ck2sq * ans[4].r, z__4.i = evlcom_1.ck2sq * ans[4].i;
     z__3.r = ans[1].r + z__4.r, z__3.i = ans[1].i + z__4.i;
-    z__2.r = evlcom_1.ck1sq.r * z__3.r - evlcom_1.ck1sq.i * z__3.i, z__2.i = 
+    z__2.r = evlcom_1.ck1sq.r * z__3.r - evlcom_1.ck1sq.i * z__3.i, z__2.i =
 	    evlcom_1.ck1sq.r * z__3.i + evlcom_1.ck1sq.i * z__3.r;
     d_cnjg(&z__1, &z__2);
     ezv->r = z__1.r, ezv->i = z__1.i;
@@ -3417,8 +3417,8 @@ L10:
 } /* evlua_ */
 
 /* *********************************************************************** */
-/* Subroutine */ int gshank_(doublecomplex *start, doublecomplex *dela, 
-	doublecomplex *sum, integer *nans, doublecomplex *seed, integer *ibk, 
+/* Subroutine */ int gshank_(doublecomplex *start, doublecomplex *dela,
+	doublecomplex *sum, integer *nans, doublecomplex *seed, integer *ibk,
 	doublecomplex *bk, doublecomplex *delb)
 {
     /* Initialized data */
@@ -3443,7 +3443,7 @@ L10:
 
     /* Local variables */
     static integer i__, j;
-    static doublecomplex a1, a2, q1[120]	/* was [6][20] */, q2[120]	
+    static doublecomplex a1, a2, q1[120]	/* was [6][20] */, q2[120]
 	    /* was [6][20] */, aa;
     static integer jm;
     static doublecomplex as1, as2, del;
@@ -3588,7 +3588,7 @@ L11:
 		z__1.r = aa.r - q1[i__4].r, z__1.i = aa.i - q1[i__4].i;
 		a2.r = z__1.r, a2.i = z__1.i;
 		i__4 = i__ + jm * 6 - 7;
-		z__3.r = a2.r * a2.r - a2.i * a2.i, z__3.i = a2.r * a2.i + 
+		z__3.r = a2.r * a2.r - a2.i * a2.i, z__3.i = a2.r * a2.i +
 			a2.i * a2.r;
 		z_div(&z__2, &z__3, &a1);
 		z__1.r = q1[i__4].r - z__2.r, z__1.i = q1[i__4].i - z__2.i;
@@ -3607,7 +3607,7 @@ L13:
 		}
 		z__4.r = as1.r - aa.r, z__4.i = as1.i - aa.i;
 		z__5.r = as1.r - aa.r, z__5.i = as1.i - aa.i;
-		z__3.r = z__4.r * z__5.r - z__4.i * z__5.i, z__3.i = z__4.r * 
+		z__3.r = z__4.r * z__5.r - z__4.i * z__5.i, z__3.i = z__4.r *
 			z__5.i + z__4.i * z__5.r;
 		z_div(&z__2, &z__3, &a2);
 		z__1.r = aa.r - z__2.r, z__1.i = aa.i - z__2.i;
@@ -3695,7 +3695,7 @@ L22:
 } /* gshank_ */
 
 /* *********************************************************************** */
-/* Subroutine */ int hankel_(doublecomplex *z__, doublecomplex *h0, 
+/* Subroutine */ int hankel_(doublecomplex *z__, doublecomplex *h0,
 	doublecomplex *h0p)
 {
     /* Initialized data */
@@ -3732,8 +3732,8 @@ L22:
     void d_cnjg(doublecomplex *, doublecomplex *);
     integer s_wsfe(cilist *), e_wsfe(void);
     /* Subroutine */ int s_stop(char *, ftnlen);
-    void z_log(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
-	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *, 
+    void z_log(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
+	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *,
 	    doublecomplex *), z_sqrt(doublecomplex *, doublecomplex *);
     double sqrt(doublereal), cos(doublereal);
 
@@ -3766,7 +3766,7 @@ L22:
     }
 L1:
     d_cnjg(&z__2, z__);
-    z__1.r = z__->r * z__2.r - z__->i * z__2.i, z__1.i = z__->r * z__2.i + 
+    z__1.r = z__->r * z__2.r - z__->i * z__2.i, z__1.i = z__->r * z__2.i +
 	    z__->i * z__2.r;
     zms = z__1.r;
     if (zms != 0.f) {
@@ -3791,14 +3791,14 @@ L2:
     y0.r = 0.f, y0.i = 0.f;
     y0p.r = y0.r, y0p.i = y0.i;
     zk.r = j0.r, zk.i = j0.i;
-    z__1.r = z__->r * z__->r - z__->i * z__->i, z__1.i = z__->r * z__->i + 
+    z__1.r = z__->r * z__->r - z__->i * z__->i, z__1.i = z__->r * z__->i +
 	    z__->i * z__->r;
     zi.r = z__1.r, zi.i = z__1.i;
     i__1 = miz;
     for (k = 1; k <= i__1; ++k) {
 	i__2 = k - 1;
 	z__2.r = a1[i__2] * zk.r, z__2.i = a1[i__2] * zk.i;
-	z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + 
+	z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i +
 		z__2.i * zi.r;
 	zk.r = z__1.r, zk.i = z__1.i;
 	z__1.r = j0.r + zk.r, z__1.i = j0.i + zk.i;
@@ -3818,14 +3818,14 @@ L2:
 	y0p.r = z__1.r, y0p.i = z__1.i;
     }
     z__2.r = z__->r * -.5f, z__2.i = z__->i * -.5f;
-    z__1.r = z__2.r * j0p.r - z__2.i * j0p.i, z__1.i = z__2.r * j0p.i + 
+    z__1.r = z__2.r * j0p.r - z__2.i * j0p.i, z__1.i = z__2.r * j0p.i +
 	    z__2.i * j0p.r;
     j0p.r = z__1.r, j0p.i = z__1.i;
     z__2.r = z__->r * .5f, z__2.i = z__->i * .5f;
     z_log(&z__1, &z__2);
     clogz.r = z__1.r, clogz.i = z__1.i;
     z__5.r = j0.r * 2.f, z__5.i = j0.i * 2.f;
-    z__4.r = z__5.r * clogz.r - z__5.i * clogz.i, z__4.i = z__5.r * clogz.i + 
+    z__4.r = z__5.r * clogz.r - z__5.i * clogz.i, z__4.i = z__5.r * clogz.i +
 	    z__5.i * clogz.r;
     z__3.r = z__4.r - y0.r, z__3.i = z__4.i - y0.i;
     z__2.r = z__3.r / pi, z__2.i = z__3.i / pi;
@@ -3833,22 +3833,22 @@ L2:
     y0.r = z__1.r, y0.i = z__1.i;
     z_div(&z__5, &c_b622, z__);
     z__7.r = j0p.r * 2.f, z__7.i = j0p.i * 2.f;
-    z__6.r = z__7.r * clogz.r - z__7.i * clogz.i, z__6.i = z__7.r * clogz.i + 
+    z__6.r = z__7.r * clogz.r - z__7.i * clogz.i, z__6.i = z__7.r * clogz.i +
 	    z__7.i * clogz.r;
     z__4.r = z__5.r + z__6.r, z__4.i = z__5.i + z__6.i;
     z__9.r = y0p.r * .5f, z__9.i = y0p.i * .5f;
-    z__8.r = z__9.r * z__->r - z__9.i * z__->i, z__8.i = z__9.r * z__->i + 
+    z__8.r = z__9.r * z__->r - z__9.i * z__->i, z__8.i = z__9.r * z__->i +
 	    z__9.i * z__->r;
     z__3.r = z__4.r + z__8.r, z__3.i = z__4.i + z__8.i;
     z__2.r = z__3.r / pi, z__2.i = z__3.i / pi;
     z__10.r = c1 * z__->r, z__10.i = c1 * z__->i;
     z__1.r = z__2.r + z__10.r, z__1.i = z__2.i + z__10.i;
     y0p.r = z__1.r, y0p.i = z__1.i;
-    z__2.r = fj->r * y0.r - fj->i * y0.i, z__2.i = fj->r * y0.i + fj->i * 
+    z__2.r = fj->r * y0.r - fj->i * y0.i, z__2.i = fj->r * y0.i + fj->i *
 	    y0.r;
     z__1.r = j0.r + z__2.r, z__1.i = j0.i + z__2.i;
     h0->r = z__1.r, h0->i = z__1.i;
-    z__2.r = fj->r * y0p.r - fj->i * y0p.i, z__2.i = fj->r * y0p.i + fj->i * 
+    z__2.r = fj->r * y0p.r - fj->i * y0p.i, z__2.i = fj->r * y0p.i + fj->i *
 	    y0p.r;
     z__1.r = j0p.r + z__2.r, z__1.i = j0p.i + z__2.i;
     h0p->r = z__1.r, h0p->i = z__1.i;
@@ -3865,47 +3865,47 @@ L4:
     zi2.r = z__1.r, zi2.i = z__1.i;
     z__4.r = p20 * zi2.r, z__4.i = p20 * zi2.i;
     z__3.r = z__4.r - p10, z__3.i = z__4.i;
-    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i + 
+    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i +
 	    z__3.i * zi2.r;
     z__1.r = z__2.r + 1.f, z__1.i = z__2.i;
     p0z.r = z__1.r, p0z.i = z__1.i;
     z__4.r = p21 * zi2.r, z__4.i = p21 * zi2.i;
     z__3.r = p11 - z__4.r, z__3.i = -z__4.i;
-    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i + 
+    z__2.r = z__3.r * zi2.r - z__3.i * zi2.i, z__2.i = z__3.r * zi2.i +
 	    z__3.i * zi2.r;
     z__1.r = z__2.r + 1.f, z__1.i = z__2.i;
     p1z.r = z__1.r, p1z.i = z__1.i;
     z__3.r = q20 * zi2.r, z__3.i = q20 * zi2.i;
     z__2.r = z__3.r - q10, z__2.i = z__3.i;
-    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i * 
+    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i *
 	    zi.r;
     q0z.r = z__1.r, q0z.i = z__1.i;
     z__3.r = q21 * zi2.r, z__3.i = q21 * zi2.i;
     z__2.r = q11 - z__3.r, z__2.i = -z__3.i;
-    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i * 
+    z__1.r = z__2.r * zi.r - z__2.i * zi.i, z__1.i = z__2.r * zi.i + z__2.i *
 	    zi.r;
     q1z.r = z__1.r, q1z.i = z__1.i;
     z__5.r = z__->r - pof, z__5.i = z__->i;
-    z__4.r = fj->r * z__5.r - fj->i * z__5.i, z__4.i = fj->r * z__5.i + fj->i 
+    z__4.r = fj->r * z__5.r - fj->i * z__5.i, z__4.i = fj->r * z__5.i + fj->i
 	    * z__5.r;
     z_exp(&z__3, &z__4);
     z_sqrt(&z__6, &zi);
-    z__2.r = z__3.r * z__6.r - z__3.i * z__6.i, z__2.i = z__3.r * z__6.i + 
+    z__2.r = z__3.r * z__6.r - z__3.i * z__6.i, z__2.i = z__3.r * z__6.i +
 	    z__3.i * z__6.r;
     z__1.r = c3 * z__2.r, z__1.i = c3 * z__2.i;
     zk.r = z__1.r, zk.i = z__1.i;
-    z__3.r = fj->r * q0z.r - fj->i * q0z.i, z__3.i = fj->r * q0z.i + fj->i * 
+    z__3.r = fj->r * q0z.r - fj->i * q0z.i, z__3.i = fj->r * q0z.i + fj->i *
 	    q0z.r;
     z__2.r = p0z.r + z__3.r, z__2.i = p0z.i + z__3.i;
-    z__1.r = zk.r * z__2.r - zk.i * z__2.i, z__1.i = zk.r * z__2.i + zk.i * 
+    z__1.r = zk.r * z__2.r - zk.i * z__2.i, z__1.i = zk.r * z__2.i + zk.i *
 	    z__2.r;
     h0->r = z__1.r, h0->i = z__1.i;
-    z__2.r = fj->r * zk.r - fj->i * zk.i, z__2.i = fj->r * zk.i + fj->i * 
+    z__2.r = fj->r * zk.r - fj->i * zk.i, z__2.i = fj->r * zk.i + fj->i *
 	    zk.r;
-    z__4.r = fj->r * q1z.r - fj->i * q1z.i, z__4.i = fj->r * q1z.i + fj->i * 
+    z__4.r = fj->r * q1z.r - fj->i * q1z.i, z__4.i = fj->r * q1z.i + fj->i *
 	    q1z.r;
     z__3.r = p1z.r + z__4.r, z__3.i = p1z.i + z__4.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     h0p->r = z__1.r, h0p->i = z__1.i;
     if (ib == 0) {
@@ -3960,7 +3960,7 @@ L8:
 
 
 /* *********************************************************************** */
-/* Subroutine */ int lambda_(doublereal *t, doublecomplex *xlam, 
+/* Subroutine */ int lambda_(doublereal *t, doublecomplex *xlam,
 	doublecomplex *dxlam)
 {
     /* System generated locals */
@@ -3970,7 +3970,7 @@ L8:
 
 /*     COMPUTE INTEGRATION PARAMETER XLAM=LAMBDA FROM PARAMETER T. */
 
-    z__1.r = cntour_1.b.r - cntour_1.a.r, z__1.i = cntour_1.b.i - 
+    z__1.r = cntour_1.b.r - cntour_1.a.r, z__1.i = cntour_1.b.i -
 	    cntour_1.a.i;
     dxlam->r = z__1.r, dxlam->i = z__1.i;
     z__2.r = *t * dxlam->r, z__2.i = *t * dxlam->i;
@@ -4017,7 +4017,7 @@ L8:
 	    , doublereal *, doublereal *, doublereal *, doublereal *);
     static doublereal dzot;
     static integer lstep;
-    extern /* Subroutine */ int lambda_(doublereal *, doublecomplex *, 
+    extern /* Subroutine */ int lambda_(doublereal *, doublecomplex *,
 	    doublecomplex *);
 
     /* Fortran I/O blocks */
@@ -4247,8 +4247,8 @@ L17:
     /* Builtin functions */
     void z_sqrt(doublecomplex *, doublecomplex *);
     double d_imag(doublecomplex *);
-    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
-	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
+	    doublecomplex *, doublecomplex *), z_exp(doublecomplex *,
 	    doublecomplex *);
 
     /* Local variables */
@@ -4257,9 +4257,9 @@ L17:
     static doublecomplex den1, den2, dgam;
     static doublereal sign;
     static doublecomplex cgam1, cgam2;
-    extern /* Subroutine */ int lambda_(doublereal *, doublecomplex *, 
-	    doublecomplex *), hankel_(doublecomplex *, doublecomplex *, 
-	    doublecomplex *), bessel_(doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int lambda_(doublereal *, doublecomplex *,
+	    doublecomplex *), hankel_(doublecomplex *, doublecomplex *,
+	    doublecomplex *), bessel_(doublecomplex *, doublecomplex *,
 	    doublecomplex *);
 
 /* *********************************************************************** */
@@ -4310,7 +4310,7 @@ L1:
     z__3.r = xl.r + evlcom_1.ck1.r, z__3.i = xl.i + evlcom_1.ck1.i;
     z_sqrt(&z__2, &z__3);
     z_sqrt(&z__4, &com);
-    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i + 
+    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i +
 	    z__2.i * z__4.r;
     cgam1.r = z__1.r, cgam1.i = z__1.i;
     if (com.r < 0.f && d_imag(&com) >= 0.f) {
@@ -4322,7 +4322,7 @@ L1:
     z__3.r = xl.r + evlcom_1.ck2, z__3.i = xl.i;
     z_sqrt(&z__2, &z__3);
     z_sqrt(&z__4, &com);
-    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i + 
+    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i +
 	    z__2.i * z__4.r;
     cgam2.r = z__1.r, cgam2.i = z__1.i;
     if (com.r < 0.f && d_imag(&com) >= 0.f) {
@@ -4331,7 +4331,7 @@ L1:
     }
 L2:
     d_cnjg(&z__2, &xl);
-    z__1.r = xl.r * z__2.r - xl.i * z__2.i, z__1.i = xl.r * z__2.i + xl.i * 
+    z__1.r = xl.r * z__2.r - xl.i * z__2.i, z__1.i = xl.r * z__2.i + xl.i *
 	    z__2.r;
     xlr = z__1.r;
     if (xlr < evlcom_1.tsmag) {
@@ -4360,23 +4360,23 @@ L6:
     z__2.r = xl.r * xl.r - xl.i * xl.i, z__2.i = xl.r * xl.i + xl.i * xl.r;
     z_div(&z__1, &c_b245, &z__2);
     dgam.r = z__1.r, dgam.i = z__1.i;
-    z__6.r = evlcom_1.ct3.r * dgam.r - evlcom_1.ct3.i * dgam.i, z__6.i = 
+    z__6.r = evlcom_1.ct3.r * dgam.r - evlcom_1.ct3.i * dgam.i, z__6.i =
 	    evlcom_1.ct3.r * dgam.i + evlcom_1.ct3.i * dgam.r;
     z__5.r = z__6.r + evlcom_1.ct2.r, z__5.i = z__6.i + evlcom_1.ct2.i;
-    z__4.r = z__5.r * dgam.r - z__5.i * dgam.i, z__4.i = z__5.r * dgam.i + 
+    z__4.r = z__5.r * dgam.r - z__5.i * dgam.i, z__4.i = z__5.r * dgam.i +
 	    z__5.i * dgam.r;
     z__3.r = z__4.r + evlcom_1.ct1.r, z__3.i = z__4.i + evlcom_1.ct1.i;
     z__2.r = sign * z__3.r, z__2.i = sign * z__3.i;
     z_div(&z__1, &z__2, &xl);
     dgam.r = z__1.r, dgam.i = z__1.i;
 L7:
-    z__2.r = evlcom_1.cksm.r * dgam.r - evlcom_1.cksm.i * dgam.i, z__2.i = 
+    z__2.r = evlcom_1.cksm.r * dgam.r - evlcom_1.cksm.i * dgam.i, z__2.i =
 	    evlcom_1.cksm.r * dgam.i + evlcom_1.cksm.i * dgam.r;
     z__5.r = evlcom_1.ck1sq.r * cgam2.r - evlcom_1.ck1sq.i * cgam2.i, z__5.i =
 	     evlcom_1.ck1sq.r * cgam2.i + evlcom_1.ck1sq.i * cgam2.r;
     z__6.r = evlcom_1.ck2sq * cgam1.r, z__6.i = evlcom_1.ck2sq * cgam1.i;
     z__4.r = z__5.r + z__6.r, z__4.i = z__5.i + z__6.i;
-    z__3.r = cgam2.r * z__4.r - cgam2.i * z__4.i, z__3.i = cgam2.r * z__4.i + 
+    z__3.r = cgam2.r * z__4.r - cgam2.i * z__4.i, z__3.i = cgam2.r * z__4.i +
 	    cgam2.i * z__4.r;
     z_div(&z__1, &z__2, &z__3);
     den2.r = z__1.r, den2.i = z__1.i;
@@ -4385,21 +4385,21 @@ L7:
     z_div(&z__4, &evlcom_1.cksm, &cgam2);
     z__1.r = z__2.r - z__4.r, z__1.i = z__2.i - z__4.i;
     den1.r = z__1.r, den1.i = z__1.i;
-    z__2.r = dxl.r * xl.r - dxl.i * xl.i, z__2.i = dxl.r * xl.i + dxl.i * 
+    z__2.r = dxl.r * xl.r - dxl.i * xl.i, z__2.i = dxl.r * xl.i + dxl.i *
 	    xl.r;
     z__5.r = -cgam2.r, z__5.i = -cgam2.i;
     z__4.r = evlcom_1.zph * z__5.r, z__4.i = evlcom_1.zph * z__5.i;
     z_exp(&z__3, &z__4);
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     com.r = z__1.r, com.i = z__1.i;
-    z__3.r = com.r * b0.r - com.i * b0.i, z__3.i = com.r * b0.i + com.i * 
+    z__3.r = com.r * b0.r - com.i * b0.i, z__3.i = com.r * b0.i + com.i *
 	    b0.r;
-    z__2.r = z__3.r * den1.r - z__3.i * den1.i, z__2.i = z__3.r * den1.i + 
+    z__2.r = z__3.r * den1.r - z__3.i * den1.i, z__2.i = z__3.r * den1.i +
 	    z__3.i * den1.r;
     z_div(&z__1, &z__2, &evlcom_1.ck1);
     ans[6].r = z__1.r, ans[6].i = z__1.i;
-    z__1.r = com.r * den2.r - com.i * den2.i, z__1.i = com.r * den2.i + com.i 
+    z__1.r = com.r * den2.r - com.i * den2.i, z__1.i = com.r * den2.i + com.i
 	    * den2.r;
     com.r = z__1.r, com.i = z__1.i;
     if (evlcom_1.rho == 0.f) {
@@ -4408,42 +4408,42 @@ L7:
     z__1.r = b0p.r / evlcom_1.rho, z__1.i = b0p.i / evlcom_1.rho;
     b0p.r = z__1.r, b0p.i = z__1.i;
     z__3.r = -com.r, z__3.i = -com.i;
-    z__2.r = z__3.r * xl.r - z__3.i * xl.i, z__2.i = z__3.r * xl.i + z__3.i * 
+    z__2.r = z__3.r * xl.r - z__3.i * xl.i, z__2.i = z__3.r * xl.i + z__3.i *
 	    xl.r;
     z__5.r = b0.r * xl.r - b0.i * xl.i, z__5.i = b0.r * xl.i + b0.i * xl.r;
     z__4.r = b0p.r + z__5.r, z__4.i = b0p.i + z__5.i;
-    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i + 
+    z__1.r = z__2.r * z__4.r - z__2.i * z__4.i, z__1.i = z__2.r * z__4.i +
 	    z__2.i * z__4.r;
     ans[1].r = z__1.r, ans[1].i = z__1.i;
-    z__2.r = com.r * xl.r - com.i * xl.i, z__2.i = com.r * xl.i + com.i * 
+    z__2.r = com.r * xl.r - com.i * xl.i, z__2.i = com.r * xl.i + com.i *
 	    xl.r;
-    z__1.r = z__2.r * b0p.r - z__2.i * b0p.i, z__1.i = z__2.r * b0p.i + 
+    z__1.r = z__2.r * b0p.r - z__2.i * b0p.i, z__1.i = z__2.r * b0p.i +
 	    z__2.i * b0p.r;
     ans[4].r = z__1.r, ans[4].i = z__1.i;
     goto L9;
 L8:
     z__4.r = -com.r, z__4.i = -com.i;
-    z__3.r = z__4.r * xl.r - z__4.i * xl.i, z__3.i = z__4.r * xl.i + z__4.i * 
+    z__3.r = z__4.r * xl.r - z__4.i * xl.i, z__3.i = z__4.r * xl.i + z__4.i *
 	    xl.r;
-    z__2.r = z__3.r * xl.r - z__3.i * xl.i, z__2.i = z__3.r * xl.i + z__3.i * 
+    z__2.r = z__3.r * xl.r - z__3.i * xl.i, z__2.i = z__3.r * xl.i + z__3.i *
 	    xl.r;
     z__1.r = z__2.r * .5f, z__1.i = z__2.i * .5f;
     ans[1].r = z__1.r, ans[1].i = z__1.i;
     ans[4].r = ans[1].r, ans[4].i = ans[1].i;
 L9:
-    z__3.r = com.r * cgam2.r - com.i * cgam2.i, z__3.i = com.r * cgam2.i + 
+    z__3.r = com.r * cgam2.r - com.i * cgam2.i, z__3.i = com.r * cgam2.i +
 	    com.i * cgam2.r;
-    z__2.r = z__3.r * cgam2.r - z__3.i * cgam2.i, z__2.i = z__3.r * cgam2.i + 
+    z__2.r = z__3.r * cgam2.r - z__3.i * cgam2.i, z__2.i = z__3.r * cgam2.i +
 	    z__3.i * cgam2.r;
-    z__1.r = z__2.r * b0.r - z__2.i * b0.i, z__1.i = z__2.r * b0.i + z__2.i * 
+    z__1.r = z__2.r * b0.r - z__2.i * b0.i, z__1.i = z__2.r * b0.i + z__2.i *
 	    b0.r;
     ans[2].r = z__1.r, ans[2].i = z__1.i;
     z__3.r = -ans[4].r, z__3.i = -ans[4].i;
-    z__2.r = z__3.r * cgam2.r - z__3.i * cgam2.i, z__2.i = z__3.r * cgam2.i + 
+    z__2.r = z__3.r * cgam2.r - z__3.i * cgam2.i, z__2.i = z__3.r * cgam2.i +
 	    z__3.i * cgam2.r;
     z__1.r = evlcom_1.rho * z__2.r, z__1.i = evlcom_1.rho * z__2.i;
     ans[3].r = z__1.r, ans[3].i = z__1.i;
-    z__1.r = com.r * b0.r - com.i * b0.i, z__1.i = com.r * b0.i + com.i * 
+    z__1.r = com.r * b0.r - com.i * b0.i, z__1.i = com.r * b0.i + com.i *
 	    b0.r;
     ans[5].r = z__1.r, ans[5].i = z__1.i;
     return 0;
@@ -4489,7 +4489,7 @@ L9:
 /* av03      END */
 /* av03 ################## END OF SOM2D INCLUDE ########################## */
 /* *********************************************************************** */
-/* Subroutine */ int arc_(integer *itg, integer *ns, doublereal *rada, 
+/* Subroutine */ int arc_(integer *itg, integer *ns, doublereal *rada,
 	doublereal *ang1, doublereal *ang2, doublereal *rad)
 {
     /* Initialized data */
@@ -4614,7 +4614,7 @@ L3:
     return ret_val;
 } /* atgn2_ */
 
-/* Subroutine */ int blckot_0_(int n__, doublecomplex *ar, integer *nunit, 
+/* Subroutine */ int blckot_0_(int n__, doublecomplex *ar, integer *nunit,
 	integer *ix1, integer *ix2, integer *nblks, integer *neof)
 {
     /* Format strings */
@@ -4626,7 +4626,7 @@ L3:
 
     /* Builtin functions */
     integer s_wsue(cilist *), do_uio(integer *, char *, ftnlen), e_wsue(void),
-	     s_rsue(cilist *), e_rsue(void), s_wsfe(cilist *), do_fio(integer 
+	     s_rsue(cilist *), e_rsue(void), s_wsfe(cilist *), do_fio(integer
 	    *, char *, ftnlen), e_wsfe(void);
     /* Subroutine */ int s_stop(char *, ftnlen);
 
@@ -4705,13 +4705,13 @@ L3:
 
 } /* blckot_ */
 
-/* Subroutine */ int blckot_(doublecomplex *ar, integer *nunit, integer *ix1, 
+/* Subroutine */ int blckot_(doublecomplex *ar, integer *nunit, integer *ix1,
 	integer *ix2, integer *nblks, integer *neof)
 {
     return blckot_0_(0, ar, nunit, ix1, ix2, nblks, neof);
     }
 
-/* Subroutine */ int blckin_(doublecomplex *ar, integer *nunit, integer *ix1, 
+/* Subroutine */ int blckin_(doublecomplex *ar, integer *nunit, integer *ix1,
 	integer *ix2, integer *nblks, integer *neof)
 {
     return blckot_0_(1, ar, nunit, ix1, ix2, nblks, neof);
@@ -4820,7 +4820,7 @@ L3:
 	sh = data_1.si[i__ - 1] * .5f;
 	i__1 = is - 1;
 	z__2.r = ccj->r * vsorc_1.vqds[i__1].r - ccj->i * vsorc_1.vqds[i__1]
-		.i, z__2.i = ccj->r * vsorc_1.vqds[i__1].i + ccj->i * 
+		.i, z__2.i = ccj->r * vsorc_1.vqds[i__1].i + ccj->i *
 		vsorc_1.vqds[i__1].r;
 	d__1 = (log(sh * 2.f / data_1.bi[i__ - 1]) - 1.f) * (segj_1.bx[
 		segj_1.jsno - 1] * cos(tp * sh) + segj_1.cx[segj_1.jsno - 1] *
@@ -4928,31 +4928,31 @@ doublereal cang_(doublecomplex *z__)
     return ret_val;
 } /* cang_ */
 
-/* Subroutine */ int cmngf_(doublecomplex *cb, doublecomplex *cc, 
+/* Subroutine */ int cmngf_(doublecomplex *cb, doublecomplex *cc,
 	doublecomplex *cd, integer *nb, integer *nc, integer *nd, doublereal *
 	rkhx, integer *iexkx)
 {
     /* System generated locals */
-    integer cb_dim1, cb_offset, cc_dim1, cc_offset, cd_dim1, cd_offset, i__1, 
+    integer cb_dim1, cb_offset, cc_dim1, cc_offset, cd_dim1, cd_offset, i__1,
 	    i__2, i__3, i__4, i__5;
     doublereal d__1;
     doublecomplex z__1, z__2;
     alist al__1;
 
     /* Builtin functions */
-    integer f_rew(alist *), s_wsue(cilist *), do_uio(integer *, char *, 
+    integer f_rew(alist *), s_wsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_wsue(void);
 
     /* Local variables */
     integer i__, j, i1, i2, it, ir, ix, jx, im1, im2, in2, in1;
     extern /* Subroutine */ int tbf_(integer *, integer *);
     integer meq, imx, ist, isv, itx, jss, jsx, m1eq, m2eq, iblk, neqn, neqp;
-    extern /* Subroutine */ int cmss_(integer *, integer *, integer *, 
+    extern /* Subroutine */ int cmss_(integer *, integer *, integer *,
 	    integer *, doublecomplex *, integer *, integer *);
     integer neqs;
-    extern /* Subroutine */ int cmws_(integer *, integer *, integer *, 
+    extern /* Subroutine */ int cmws_(integer *, integer *, integer *,
 	    doublecomplex *, integer *, doublecomplex *, integer *, integer *)
-	    , cmsw_(integer *, integer *, integer *, integer *, doublecomplex 
+	    , cmsw_(integer *, integer *, integer *, integer *, doublecomplex
 	    *, doublecomplex *, integer *, integer *, integer *), trio_(
 	    integer *), cmww_(integer *, integer *, integer *, doublecomplex *
 	    , integer *, doublecomplex *, integer *, integer *);
@@ -5099,7 +5099,7 @@ L9:
 			c__0);
 	    }
 	    if (im1 <= im2) {
-		cmws_(&j, &im1, &im2, &cb[imx + cb_dim1], nb, &cb[cb_offset], 
+		cmws_(&j, &im1, &im2, &cb[imx + cb_dim1], nb, &cb[cb_offset],
 			nb, &c__0);
 	    }
 	    if (matpar_1.icasx > 2) {
@@ -5117,7 +5117,7 @@ L9:
 	    }
 	    ir = j - data_1.n1;
 	    i__3 = j - 1;
-	    dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i = 
+	    dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i =
 		    zload_1.zarray[i__3].i;
 	    i__3 = segj_1.jsno;
 	    for (i__ = 1; i__ <= i__3; ++i__) {
@@ -5174,7 +5174,7 @@ L15:
 			c__0);
 	    }
 	    if (im1 <= im2) {
-		cmws_(&j, &im1, &im2, &cb[imx + cb_dim1], nb, &cb[cb_offset], 
+		cmws_(&j, &im1, &im2, &cb[imx + cb_dim1], nb, &cb[cb_offset],
 			nb, &c__0);
 	    }
 /*     SOURCE IS SINGULAR COMPONENT OF PATCH CURRENT THAT IS PART OF */
@@ -5192,7 +5192,7 @@ L15:
 		goto L17;
 	    }
 	    i__2 = j - 1;
-	    dataj_1.exk.r = zload_1.zarray[i__2].r, dataj_1.exk.i = 
+	    dataj_1.exk.r = zload_1.zarray[i__2].r, dataj_1.exk.i =
 		    zload_1.zarray[i__2].i;
 	    i__2 = segj_1.jsno;
 	    for (ix = 1; ix <= i__2; ++ix) {
@@ -5230,7 +5230,7 @@ L18:
 		    goto L19;
 		}
 		if (i1 <= in2) {
-		    cmww_(&ir, &i1, &in2, &cb[cb_offset], nb, &cb[cb_offset], 
+		    cmww_(&ir, &i1, &in2, &cb[cb_offset], nb, &cb[cb_offset],
 			    nb, &c__0);
 		}
 		if (im1 <= im2) {
@@ -5246,7 +5246,7 @@ L18:
 		    goto L19;
 		}
 		i__3 = ir - 1;
-		dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i = 
+		dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i =
 			zload_1.zarray[i__3].i;
 		jss = segj_1.jco[0];
 		i__3 = jx + jss * cb_dim1;
@@ -5384,7 +5384,7 @@ L29:
 		;
 	    }
 	    if (in1 <= in2) {
-		cmww_(&j, &in1, &in2, &cd[cd_offset], nd, &cd[cd_offset], nd, 
+		cmww_(&j, &in1, &in2, &cd[cd_offset], nd, &cd[cd_offset], nd,
 			&c__1);
 	    }
 	    if (im1 <= im2) {
@@ -5399,7 +5399,7 @@ L29:
 		goto L31;
 	    }
 	    i__3 = j - 1;
-	    dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i = 
+	    dataj_1.exk.r = zload_1.zarray[i__3].r, dataj_1.exk.i =
 		    zload_1.zarray[i__3].i;
 	    i__3 = segj_1.jsno;
 	    for (i__ = 1; i__ <= i__3; ++i__) {
@@ -5457,11 +5457,11 @@ L35:
 	    }
 L36:
 	    if (in1 <= in2) {
-		cmww_(&j, &in1, &in2, &cc[cc_offset], nc, &cd[cd_offset], nd, 
+		cmww_(&j, &in1, &in2, &cc[cc_offset], nc, &cd[cd_offset], nd,
 			&itx);
 	    }
 	    if (im1 <= im2) {
-		cmws_(&j, &im1, &im2, &cc[imx * cc_dim1 + 1], nc, &cd[imx * 
+		cmws_(&j, &im1, &im2, &cc[imx * cc_dim1 + 1], nc, &cd[imx *
 			cd_dim1 + 1], nd, &itx);
 	    }
 /* L37: */
@@ -5512,7 +5512,7 @@ L41:
 		    cc[cc_offset], &c__0, nc, &c__1);
 	}
 	if (im1 <= im2) {
-	    cmss_(&c__1, &data_1.m1, &im1, &im2, &cc[data_1.n2 + imx * 
+	    cmss_(&c__1, &data_1.m1, &im1, &im2, &cc[data_1.n2 + imx *
 		    cc_dim1], nc, &c__1);
 	}
 L42:
@@ -5570,16 +5570,16 @@ L43:
     integer f_rew(alist *);
 
     /* Local variables */
-    integer i__, j, k, i1, i2, ka, ij, kk, it, im1, im2, in2, jm1, jm2, mp2, 
+    integer i__, j, k, i1, i2, ka, ij, kk, it, im1, im2, in2, jm1, jm2, mp2,
 	    neq;
     doublecomplex zaj;
     integer ipr, nop, isv, ist, jss, jst, npeq;
-    extern /* Subroutine */ int cmss_(integer *, integer *, integer *, 
+    extern /* Subroutine */ int cmss_(integer *, integer *, integer *,
 	    integer *, doublecomplex *, integer *, integer *), cmws_(integer *
-	    , integer *, integer *, doublecomplex *, integer *, doublecomplex 
-	    *, integer *, integer *), cmsw_(integer *, integer *, integer *, 
+	    , integer *, integer *, doublecomplex *, integer *, doublecomplex
+	    *, integer *, integer *), cmsw_(integer *, integer *, integer *,
 	    integer *, doublecomplex *, doublecomplex *, integer *, integer *,
-	     integer *), trio_(integer *), cmww_(integer *, integer *, 
+	     integer *), trio_(integer *), cmww_(integer *, integer *,
 	    integer *, doublecomplex *, integer *, doublecomplex *, integer *,
 	     integer *);
     integer iout;
@@ -5668,7 +5668,7 @@ L43:
 		segj_1.jco[i__ - 1] = (ij - 1) / data_1.np * mp2 + ij;
 	    }
 	    if (i1 <= in2) {
-		cmww_(&j, &i1, &in2, &cm[cm_offset], nrow, &cm[cm_offset], 
+		cmww_(&j, &i1, &in2, &cm[cm_offset], nrow, &cm[cm_offset],
 			nrow, &c__1);
 	    }
 	    if (im1 <= im2) {
@@ -5722,7 +5722,7 @@ L5:
 			cm_offset], &c__0, nrow, &c__1);
 	    }
 	    if (im1 <= im2) {
-		cmss_(&jm1, &jm2, &im1, &im2, &cm[jst + ist * cm_dim1], nrow, 
+		cmss_(&jm1, &jm2, &im1, &im2, &cm[jst + ist * cm_dim1], nrow,
 			&c__1);
 	    }
 /* L6: */
@@ -5745,7 +5745,7 @@ L7:
 /* L8: */
 		    i__3 = k - 1;
 		    i__6 = ka + i__ * cm_dim1;
-		    scratm_1.d__[i__3].r = cm[i__6].r, scratm_1.d__[i__3].i = 
+		    scratm_1.d__[i__3].r = cm[i__6].r, scratm_1.d__[i__3].i =
 			    cm[i__6].i;
 		}
 		deter.r = scratm_1.d__[0].r, deter.i = scratm_1.d__[0].i;
@@ -5753,7 +5753,7 @@ L7:
 		for (kk = 2; kk <= i__3; ++kk) {
 /* L9: */
 		    i__6 = kk - 1;
-		    z__1.r = deter.r + scratm_1.d__[i__6].r, z__1.i = deter.i 
+		    z__1.r = deter.r + scratm_1.d__[i__6].r, z__1.i = deter.i
 			    + scratm_1.d__[i__6].i;
 		    deter.r = z__1.r, deter.i = z__1.i;
 		}
@@ -5768,8 +5768,8 @@ L7:
 /* L10: */
 			i__5 = kk - 1;
 			i__7 = k + (kk << 4) - 17;
-			z__2.r = scratm_1.d__[i__5].r * smat_1.ssx[i__7].r - 
-				scratm_1.d__[i__5].i * smat_1.ssx[i__7].i, 
+			z__2.r = scratm_1.d__[i__5].r * smat_1.ssx[i__7].r -
+				scratm_1.d__[i__5].i * smat_1.ssx[i__7].i,
 				z__2.i = scratm_1.d__[i__5].r * smat_1.ssx[
 				i__7].i + scratm_1.d__[i__5].i * smat_1.ssx[
 				i__7].r;
@@ -5828,7 +5828,7 @@ L13:
 #define t2zj ((doublereal *)&dataj_1 + 28)
     doublereal t1yi, t1zi, t2xi, t2yi, t2zi;
     integer icomp;
-    extern /* Subroutine */ int hintg_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int hintg_(doublereal *, doublereal *, doublereal
 	    *);
 
 /* *** */
@@ -5984,7 +5984,7 @@ L5:
 
 
 /* Subroutine */ int cmsw_(integer *j1, integer *j2, integer *i1, integer *i2,
-	 doublecomplex *cm, doublecomplex *cw, integer *ncw, integer *nrow, 
+	 doublecomplex *cm, doublecomplex *cw, integer *ncw, integer *nrow,
 	integer *itrp)
 {
     /* Initialized data */
@@ -5992,7 +5992,7 @@ L5:
     static doublereal pi = 3.141592654;
 
     /* System generated locals */
-    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4, 
+    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4,
 	    i__5;
     doublereal d__1;
     doublecomplex z__1, z__2, z__3, z__4, z__5, z__6;
@@ -6025,8 +6025,8 @@ L5:
     integer icgo, ipch, neqs;
     extern /* Subroutine */ int trio_(integer *);
     doublereal fsign, salpi;
-    extern /* Subroutine */ int pcint_(doublereal *, doublereal *, doublereal 
-	    *, doublereal *, doublereal *, doublereal *, doublecomplex *), 
+    extern /* Subroutine */ int pcint_(doublereal *, doublereal *, doublereal
+	    *, doublereal *, doublereal *, doublereal *, doublecomplex *),
 	    unere_(doublereal *, doublereal *, doublereal *);
 
 /* *** */
@@ -6180,7 +6180,7 @@ L9:
 		z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 		z__5.r = sabi * dataj_1.eyk.r, z__5.i = sabi * dataj_1.eyk.i;
 		z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-		z__6.r = salpi * dataj_1.ezk.r, z__6.i = salpi * 
+		z__6.r = salpi * dataj_1.ezk.r, z__6.i = salpi *
 			dataj_1.ezk.i;
 		z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 		cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6190,7 +6190,7 @@ L9:
 		z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 		z__5.r = sabi * dataj_1.eys.r, z__5.i = sabi * dataj_1.eys.i;
 		z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-		z__6.r = salpi * dataj_1.ezs.r, z__6.i = salpi * 
+		z__6.r = salpi * dataj_1.ezs.r, z__6.i = salpi *
 			dataj_1.ezs.i;
 		z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 		cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6203,7 +6203,7 @@ L10:
 		z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 		z__5.r = sabi * dataj_1.eyk.r, z__5.i = sabi * dataj_1.eyk.i;
 		z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-		z__6.r = salpi * dataj_1.ezk.r, z__6.i = salpi * 
+		z__6.r = salpi * dataj_1.ezk.r, z__6.i = salpi *
 			dataj_1.ezk.i;
 		z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 		cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6213,7 +6213,7 @@ L10:
 		z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 		z__5.r = sabi * dataj_1.eys.r, z__5.i = sabi * dataj_1.eys.i;
 		z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-		z__6.r = salpi * dataj_1.ezs.r, z__6.i = salpi * 
+		z__6.r = salpi * dataj_1.ezs.r, z__6.i = salpi *
 			dataj_1.ezs.i;
 		z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 		cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6276,7 +6276,7 @@ L15:
     k = *j1 - *i1 + 1;
     i__3 = k + il * cw_dim1;
     i__2 = k + il * cw_dim1;
-    d__1 = segj_1.ax[segj_1.jsno - 1] + segj_1.bx[segj_1.jsno - 1] * px + 
+    d__1 = segj_1.ax[segj_1.jsno - 1] + segj_1.bx[segj_1.jsno - 1] * px +
 	    segj_1.cx[segj_1.jsno - 1] * py;
     z__2.r = d__1 * dataj_1.exc.r, z__2.i = d__1 * dataj_1.exc.i;
     z__1.r = cw[i__2].r + z__2.r, z__1.i = cw[i__2].i + z__2.i;
@@ -6301,12 +6301,12 @@ L16:
 #undef t1x
 
 
-/* Subroutine */ int cmws_(integer *j, integer *i1, integer *i2, 
-	doublecomplex *cm, integer *nr, doublecomplex *cw, integer *nw, 
+/* Subroutine */ int cmws_(integer *j, integer *i1, integer *i2,
+	doublecomplex *cm, integer *nr, doublecomplex *cw, integer *nw,
 	integer *itrp)
 {
     /* System generated locals */
-    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4, 
+    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4,
 	    i__5, i__6, i__7;
     doublecomplex z__1, z__2, z__3, z__4, z__5, z__6, z__7;
 
@@ -6328,7 +6328,7 @@ L16:
     doublecomplex etk;
     integer ipr;
     doublecomplex ets;
-    extern /* Subroutine */ int hsfld_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int hsfld_(doublereal *, doublereal *, doublereal
 	    *, doublereal *);
     integer ipatch;
 
@@ -6398,7 +6398,7 @@ L2:
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
 	z__2.r = -z__3.r, z__2.i = -z__3.i;
 	i__2 = js - 1;
-	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] * 
+	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] *
 		z__2.i;
 	etk.r = z__1.r, etk.i = z__1.i;
 	z__5.r = tx * dataj_1.exs.r, z__5.i = tx * dataj_1.exs.i;
@@ -6408,7 +6408,7 @@ L2:
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
 	z__2.r = -z__3.r, z__2.i = -z__3.i;
 	i__2 = js - 1;
-	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] * 
+	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] *
 		z__2.i;
 	ets.r = z__1.r, ets.i = z__1.i;
 	z__5.r = tx * dataj_1.exc.r, z__5.i = tx * dataj_1.exc.i;
@@ -6418,7 +6418,7 @@ L2:
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
 	z__2.r = -z__3.r, z__2.i = -z__3.i;
 	i__2 = js - 1;
-	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] * 
+	z__1.r = angl_1.salp[i__2] * z__2.r, z__1.i = angl_1.salp[i__2] *
 		z__2.i;
 	etc.r = z__1.r, etc.i = z__1.i;
 
@@ -6436,15 +6436,15 @@ L2:
 	    i__3 = ipr + jx * cm_dim1;
 	    i__4 = ipr + jx * cm_dim1;
 	    i__5 = ij - 1;
-	    z__4.r = segj_1.ax[i__5] * etk.r, z__4.i = segj_1.ax[i__5] * 
+	    z__4.r = segj_1.ax[i__5] * etk.r, z__4.i = segj_1.ax[i__5] *
 		    etk.i;
 	    z__3.r = cm[i__4].r + z__4.r, z__3.i = cm[i__4].i + z__4.i;
 	    i__6 = ij - 1;
-	    z__5.r = segj_1.bx[i__6] * ets.r, z__5.i = segj_1.bx[i__6] * 
+	    z__5.r = segj_1.bx[i__6] * ets.r, z__5.i = segj_1.bx[i__6] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__7 = ij - 1;
-	    z__6.r = segj_1.cx[i__7] * etc.r, z__6.i = segj_1.cx[i__7] * 
+	    z__6.r = segj_1.cx[i__7] * etc.r, z__6.i = segj_1.cx[i__7] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__3].r = z__1.r, cm[i__3].i = z__1.i;
@@ -6462,15 +6462,15 @@ L4:
 	    i__4 = jx + ipr * cm_dim1;
 	    i__5 = jx + ipr * cm_dim1;
 	    i__6 = ij - 1;
-	    z__4.r = segj_1.ax[i__6] * etk.r, z__4.i = segj_1.ax[i__6] * 
+	    z__4.r = segj_1.ax[i__6] * etk.r, z__4.i = segj_1.ax[i__6] *
 		    etk.i;
 	    z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 	    i__7 = ij - 1;
-	    z__5.r = segj_1.bx[i__7] * ets.r, z__5.i = segj_1.bx[i__7] * 
+	    z__5.r = segj_1.bx[i__7] * ets.r, z__5.i = segj_1.bx[i__7] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__2 = ij - 1;
-	    z__6.r = segj_1.cx[i__2] * etc.r, z__6.i = segj_1.cx[i__2] * 
+	    z__6.r = segj_1.cx[i__2] * etc.r, z__6.i = segj_1.cx[i__2] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6487,15 +6487,15 @@ L6:
 	    i__5 = jx + ipr * cm_dim1;
 	    i__6 = jx + ipr * cm_dim1;
 	    i__7 = ij - 1;
-	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] * 
+	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] *
 		    etk.i;
 	    z__3.r = cm[i__6].r + z__4.r, z__3.i = cm[i__6].i + z__4.i;
 	    i__2 = ij - 1;
-	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] * 
+	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__3 = ij - 1;
-	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] * 
+	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__5].r = z__1.r, cm[i__5].i = z__1.i;
@@ -6505,15 +6505,15 @@ L7:
 	    i__5 = jx + ipr * cw_dim1;
 	    i__6 = jx + ipr * cw_dim1;
 	    i__7 = ij - 1;
-	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] * 
+	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] *
 		    etk.i;
 	    z__3.r = cw[i__6].r + z__4.r, z__3.i = cw[i__6].i + z__4.i;
 	    i__2 = ij - 1;
-	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] * 
+	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__3 = ij - 1;
-	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] * 
+	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cw[i__5].r = z__1.r, cw[i__5].i = z__1.i;
@@ -6536,12 +6536,12 @@ L9:
 #undef t1x
 
 
-/* Subroutine */ int cmww_(integer *j, integer *i1, integer *i2, 
-	doublecomplex *cm, integer *nr, doublecomplex *cw, integer *nw, 
+/* Subroutine */ int cmww_(integer *j, integer *i1, integer *i2,
+	doublecomplex *cm, integer *nr, doublecomplex *cw, integer *nw,
 	integer *itrp)
 {
     /* System generated locals */
-    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4, 
+    integer cm_dim1, cm_offset, cw_dim1, cw_offset, i__1, i__2, i__3, i__4,
 	    i__5, i__6, i__7;
     doublereal d__1;
     doublecomplex z__1, z__2, z__3, z__4, z__5, z__6;
@@ -6623,7 +6623,7 @@ L3:
 	goto L7;
     }
 L4:
-    xi = (d__1 = dataj_1.cabj * cab[ipr - 1] + dataj_1.sabj * sab[ipr - 1] + 
+    xi = (d__1 = dataj_1.cabj * cab[ipr - 1] + dataj_1.sabj * sab[ipr - 1] +
 	    dataj_1.salpj * angl_1.salp[ipr - 1], abs(d__1));
     if (xi < .999999) {
 	goto L7;
@@ -6667,7 +6667,7 @@ L11:
 	goto L15;
     }
 L12:
-    xi = (d__1 = dataj_1.cabj * cab[ipr - 1] + dataj_1.sabj * sab[ipr - 1] + 
+    xi = (d__1 = dataj_1.cabj * cab[ipr - 1] + dataj_1.sabj * sab[ipr - 1] +
 	    dataj_1.salpj * angl_1.salp[ipr - 1], abs(d__1));
     if (xi < .999999) {
 	goto L15;
@@ -6733,15 +6733,15 @@ L16:
 	    i__3 = ipr + jx * cm_dim1;
 	    i__4 = ipr + jx * cm_dim1;
 	    i__5 = ij - 1;
-	    z__4.r = segj_1.ax[i__5] * etk.r, z__4.i = segj_1.ax[i__5] * 
+	    z__4.r = segj_1.ax[i__5] * etk.r, z__4.i = segj_1.ax[i__5] *
 		    etk.i;
 	    z__3.r = cm[i__4].r + z__4.r, z__3.i = cm[i__4].i + z__4.i;
 	    i__6 = ij - 1;
-	    z__5.r = segj_1.bx[i__6] * ets.r, z__5.i = segj_1.bx[i__6] * 
+	    z__5.r = segj_1.bx[i__6] * ets.r, z__5.i = segj_1.bx[i__6] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__7 = ij - 1;
-	    z__6.r = segj_1.cx[i__7] * etc.r, z__6.i = segj_1.cx[i__7] * 
+	    z__6.r = segj_1.cx[i__7] * etc.r, z__6.i = segj_1.cx[i__7] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__3].r = z__1.r, cm[i__3].i = z__1.i;
@@ -6759,15 +6759,15 @@ L18:
 	    i__4 = jx + ipr * cm_dim1;
 	    i__5 = jx + ipr * cm_dim1;
 	    i__6 = ij - 1;
-	    z__4.r = segj_1.ax[i__6] * etk.r, z__4.i = segj_1.ax[i__6] * 
+	    z__4.r = segj_1.ax[i__6] * etk.r, z__4.i = segj_1.ax[i__6] *
 		    etk.i;
 	    z__3.r = cm[i__5].r + z__4.r, z__3.i = cm[i__5].i + z__4.i;
 	    i__7 = ij - 1;
-	    z__5.r = segj_1.bx[i__7] * ets.r, z__5.i = segj_1.bx[i__7] * 
+	    z__5.r = segj_1.bx[i__7] * ets.r, z__5.i = segj_1.bx[i__7] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__2 = ij - 1;
-	    z__6.r = segj_1.cx[i__2] * etc.r, z__6.i = segj_1.cx[i__2] * 
+	    z__6.r = segj_1.cx[i__2] * etc.r, z__6.i = segj_1.cx[i__2] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__4].r = z__1.r, cm[i__4].i = z__1.i;
@@ -6784,15 +6784,15 @@ L20:
 	    i__5 = jx + ipr * cm_dim1;
 	    i__6 = jx + ipr * cm_dim1;
 	    i__7 = ij - 1;
-	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] * 
+	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] *
 		    etk.i;
 	    z__3.r = cm[i__6].r + z__4.r, z__3.i = cm[i__6].i + z__4.i;
 	    i__2 = ij - 1;
-	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] * 
+	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__3 = ij - 1;
-	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] * 
+	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cm[i__5].r = z__1.r, cm[i__5].i = z__1.i;
@@ -6802,15 +6802,15 @@ L21:
 	    i__5 = jx + ipr * cw_dim1;
 	    i__6 = jx + ipr * cw_dim1;
 	    i__7 = ij - 1;
-	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] * 
+	    z__4.r = segj_1.ax[i__7] * etk.r, z__4.i = segj_1.ax[i__7] *
 		    etk.i;
 	    z__3.r = cw[i__6].r + z__4.r, z__3.i = cw[i__6].i + z__4.i;
 	    i__2 = ij - 1;
-	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] * 
+	    z__5.r = segj_1.bx[i__2] * ets.r, z__5.i = segj_1.bx[i__2] *
 		    ets.i;
 	    z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
 	    i__3 = ij - 1;
-	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] * 
+	    z__6.r = segj_1.cx[i__3] * etc.r, z__6.i = segj_1.cx[i__3] *
 		    etc.i;
 	    z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	    cw[i__5].r = z__1.r, cw[i__5].i = z__1.i;
@@ -6884,9 +6884,9 @@ L23:
     integer iend, jend, iseg;
     doublereal slen;
     integer nsflg;
-    extern /* Subroutine */ int subph_(integer *, integer *, doublereal *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int subph_(integer *, integer *, doublereal *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, doublereal *);
 
     /* Fortran I/O blocks */
@@ -6998,7 +6998,7 @@ L5:
 	    if (ic > data_1.n) {
 		ic = 1;
 	    }
-	    sep = (d__1 = xi1 - data_1.x[ic - 1], abs(d__1)) + (d__2 = yi1 - 
+	    sep = (d__1 = xi1 - data_1.x[ic - 1], abs(d__1)) + (d__2 = yi1 -
 		    data_1.y[ic - 1], abs(d__2)) + (d__3 = zi1 - data_1.z__[
 		    ic - 1], abs(d__3));
 	    if (sep > slen) {
@@ -7007,7 +7007,7 @@ L5:
 	    data_1.icon1[i__ - 1] = -ic;
 	    goto L8;
 L6:
-	    sep = (d__1 = xi1 - x2[ic - 1], abs(d__1)) + (d__2 = yi1 - y2[ic 
+	    sep = (d__1 = xi1 - x2[ic - 1], abs(d__1)) + (d__2 = yi1 - y2[ic
 		    - 1], abs(d__2)) + (d__3 = zi1 - z2[ic - 1], abs(d__3));
 	    if (sep > slen) {
 		goto L7;
@@ -7059,7 +7059,7 @@ L12:
 	    if (ic > data_1.n) {
 		ic = 1;
 	    }
-	    sep = (d__1 = xi2 - data_1.x[ic - 1], abs(d__1)) + (d__2 = yi2 - 
+	    sep = (d__1 = xi2 - data_1.x[ic - 1], abs(d__1)) + (d__2 = yi2 -
 		    data_1.y[ic - 1], abs(d__2)) + (d__3 = zi2 - data_1.z__[
 		    ic - 1], abs(d__3));
 	    if (sep > slen) {
@@ -7068,7 +7068,7 @@ L12:
 	    data_1.icon2[i__ - 1] = ic;
 	    goto L15;
 L13:
-	    sep = (d__1 = xi2 - x2[ic - 1], abs(d__1)) + (d__2 = yi2 - y2[ic 
+	    sep = (d__1 = xi2 - x2[ic - 1], abs(d__1)) + (d__2 = yi2 - y2[ic
 		    - 1], abs(d__2)) + (d__3 = zi2 - z2[ic - 1], abs(d__3));
 	    if (sep > slen) {
 		goto L14;
@@ -7107,7 +7107,7 @@ L16:
 	xi2 = x2[iseg - 1];
 	yi2 = y2[iseg - 1];
 	zi2 = z2[iseg - 1];
-	slen = ((d__1 = xi2 - xi1, abs(d__1)) + (d__2 = yi2 - yi1, abs(d__2)) 
+	slen = ((d__1 = xi2 - xi1, abs(d__1)) + (d__2 = yi2 - yi1, abs(d__2))
 		+ (d__3 = zi2 - zi1, abs(d__3))) * smin;
 /*     FOR FIRST END OF SEGMENT */
 	sep = (d__1 = xi1 - xs, abs(d__1)) + (d__2 = yi1 - ys, abs(d__2)) + (
@@ -7161,7 +7161,7 @@ L21:
 	xi2 = x2[iseg - 1];
 	yi2 = y2[iseg - 1];
 	zi2 = z2[iseg - 1];
-	slen = ((d__1 = xi2 - xi1, abs(d__1)) + (d__2 = yi2 - yi1, abs(d__2)) 
+	slen = ((d__1 = xi2 - xi1, abs(d__1)) + (d__2 = yi2 - yi1, abs(d__2))
 		+ (d__3 = zi2 - zi1, abs(d__3))) * smin;
 	sep = (d__1 = xi1 - xs, abs(d__1)) + (d__2 = yi1 - ys, abs(d__2)) + (
 		d__3 = zi1 - zs, abs(d__3));
@@ -7565,11 +7565,11 @@ L1:
 	    y22.r = yparm_1.y11a[i__3].r, y22.i = yparm_1.y11a[i__3].i;
 	    i__3 = j1 - 1;
 	    i__4 = j2 - 1;
-	    z__2.r = yparm_1.y12a[i__3].r + yparm_1.y12a[i__4].r, z__2.i = 
+	    z__2.r = yparm_1.y12a[i__3].r + yparm_1.y12a[i__4].r, z__2.i =
 		    yparm_1.y12a[i__3].i + yparm_1.y12a[i__4].i;
 	    z__1.r = z__2.r * .5f, z__1.i = z__2.i * .5f;
 	    y12.r = z__1.r, y12.i = z__1.i;
-	    z__1.r = y12.r * y12.r - y12.i * y12.i, z__1.i = y12.r * y12.i + 
+	    z__1.r = y12.r * y12.r - y12.i * y12.i, z__1.i = y12.r * y12.i +
 		    y12.i * y12.r;
 	    yin.r = z__1.r, yin.i = z__1.i;
 	    dbc = z_abs(&yin);
@@ -7640,7 +7640,7 @@ L5:
 {
     /* Initialized data */
 
-    static char atst[2*13] = "GW" "GX" "GR" "GS" "GE" "GM" "SP" "SM" "GF" 
+    static char atst[2*13] = "GW" "GX" "GR" "GS" "GE" "GM" "SP" "SM" "GF"
 	    "GA" "SC" "GC" "GH";
     static struct {
 	char e_1[8];
@@ -7742,7 +7742,7 @@ L5:
     /* Subroutine */ int s_stop(char *, ftnlen);
     double pow_dd(doublereal *, doublereal *), sqrt(doublereal), asin(
 	    doublereal);
-    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen),
 	    e_wsle(void);
 
     /* Local variables */
@@ -7765,28 +7765,28 @@ L5:
     doublereal xw2, yw2, zw2, ys1, zs1, xs2, ys2, zs2;
 #define sab ((doublereal *)&data_1 + 9000)
     doublereal rad;
-    extern /* Subroutine */ int arc_(integer *, integer *, doublereal *, 
+    extern /* Subroutine */ int arc_(integer *, integer *, doublereal *,
 	    doublereal *, doublereal *, doublereal *);
     integer itg;
     extern /* Subroutine */ int gfil_(integer *);
     integer iphd, isct;
     extern /* Subroutine */ int wire_(doublereal *, doublereal *, doublereal *
-	    , doublereal *, doublereal *, doublereal *, doublereal *, 
+	    , doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, integer *, integer *), move_(
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
+	    doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, integer *, integer *, integer *);
     extern doublereal atgn2_(doublereal *, doublereal *);
-    extern /* Subroutine */ int reflc_(integer *, integer *, integer *, 
-	    integer *, integer *), patch_(integer *, integer *, doublereal *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
-	    doublereal *, doublereal *, doublereal *), helix_(doublereal *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int reflc_(integer *, integer *, integer *,
+	    integer *, integer *), patch_(integer *, integer *, doublereal *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
+	    doublereal *, doublereal *, doublereal *), helix_(doublereal *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, integer *, integer *);
     integer ipsav, nwire, npsav, mpsav;
     doublereal dummy;
-    extern /* Subroutine */ int readgm_(integer *, char *, integer *, integer 
-	    *, doublereal *, doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int readgm_(integer *, char *, integer *, integer
+	    *, doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, doublereal *, ftnlen), conect_(
 	    integer *);
 
@@ -8140,7 +8140,7 @@ L15:
 	goto L17;
     }
 L16:
-    patch_(&itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &x3, &y3, &z3, &x4, 
+    patch_(&itg, &ns, &xw1, &yw1, &zw1, &xw2, &yw2, &zw2, &x3, &y3, &z3, &x4,
 	    &y4, &z4);
     goto L1;
 L17:
@@ -8380,11 +8380,11 @@ L33:
     i__1 = data_1.m;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	--j;
-	xw1 = (t1y[j - 1] * t2z[j - 1] - t1z[j - 1] * t2y[j - 1]) * 
+	xw1 = (t1y[j - 1] * t2z[j - 1] - t1z[j - 1] * t2y[j - 1]) *
 		angl_1.salp[j - 1];
-	yw1 = (t1z[j - 1] * t2x[j - 1] - t1x[j - 1] * t2z[j - 1]) * 
+	yw1 = (t1z[j - 1] * t2x[j - 1] - t1x[j - 1] * t2z[j - 1]) *
 		angl_1.salp[j - 1];
-	zw1 = (t1x[j - 1] * t2y[j - 1] - t1y[j - 1] * t2x[j - 1]) * 
+	zw1 = (t1x[j - 1] * t2y[j - 1] - t1y[j - 1] * t2x[j - 1]) *
 		angl_1.salp[j - 1];
 	s_wsfe(&io___752);
 	do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
@@ -8496,7 +8496,7 @@ doublereal db20_(doublereal *x)
     return db10_0_(1, x);
     }
 
-/* Subroutine */ int efld_(doublereal *xi, doublereal *yi, doublereal *zi, 
+/* Subroutine */ int efld_(doublereal *xi, doublereal *yi, doublereal *zi,
 	doublereal *ai, integer *ij)
 {
     /* Initialized data */
@@ -8515,7 +8515,7 @@ doublereal db20_(doublereal *x)
     double sqrt(doublereal), sin(doublereal), cos(doublereal), log(doublereal)
 	    ;
     void z_div(doublecomplex *, doublecomplex *, doublecomplex *), z_sqrt(
-	    doublecomplex *, doublecomplex *), d_cnjg(doublecomplex *, 
+	    doublecomplex *, doublecomplex *), d_cnjg(doublecomplex *,
 	    doublecomplex *);
 
     /* Local variables */
@@ -8534,12 +8534,12 @@ doublereal db20_(doublereal *x)
 #define txs (equiv_8 + 3)
 #define tys (equiv_8 + 4)
 #define tzs (equiv_8 + 5)
-    extern /* Subroutine */ int rom2_(doublereal *, doublereal *, 
+    extern /* Subroutine */ int rom2_(doublereal *, doublereal *,
 	    doublecomplex *, doublereal *);
 #define egnd (equiv_8)
     doublereal shaf;
     extern /* Subroutine */ int eksc_(doublereal *, doublereal *, doublereal *
-	    , doublereal *, integer *, doublecomplex *, doublecomplex *, 
+	    , doublereal *, integer *, doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, doublecomplex *, doublecomplex *
 	    );
     doublereal rmag, dmin__;
@@ -8547,8 +8547,8 @@ doublereal db20_(doublereal *x)
     doublereal rhox, rhoy, rhoz;
     doublecomplex tezs;
     extern /* Subroutine */ int sflds_(doublereal *, doublecomplex *), ekscx_(
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
-	    doublereal *, integer *, integer *, integer *, doublecomplex *, 
+	    doublereal *, doublereal *, doublereal *, doublereal *,
+	    doublereal *, integer *, integer *, integer *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, doublecomplex *, doublecomplex *
 	    , doublecomplex *);
     doublecomplex refps;
@@ -8612,7 +8612,7 @@ L2:
 	z__3.r = d__1 * txk->r, z__3.i = d__1 * txk->i;
 	d__2 = -1. / rmag;
 	z__4.r = 1., z__4.i = d__2;
-	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i 
+	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i
 		+ z__3.i * z__4.r;
 	z__1.r = z__2.r / py, z__1.i = z__2.i / py;
 	tyk->r = z__1.r, tyk->i = z__1.i;
@@ -8620,7 +8620,7 @@ L2:
 	z__3.r = d__1 * txk->r, z__3.i = d__1 * txk->i;
 	d__2 = rmag - 1. / rmag;
 	z__4.r = 1., z__4.i = d__2;
-	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i 
+	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i
 		+ z__3.i * z__4.r;
 	d__3 = py * 2.f;
 	z__1.r = z__2.r / d__3, z__1.i = z__2.i / d__3;
@@ -8722,7 +8722,7 @@ L6:
 	d__1 = log(rhospc / gnd_1.t2);
 	z__1.r = d__1 * z__2.r, z__1.i = d__1 * z__2.i;
 	zscrn.r = z__1.r, zscrn.i = z__1.i;
-	z__2.r = zscrn.r * gnd_1.zrati.r - zscrn.i * gnd_1.zrati.i, z__2.i = 
+	z__2.r = zscrn.r * gnd_1.zrati.r - zscrn.i * gnd_1.zrati.i, z__2.i =
 		zscrn.r * gnd_1.zrati.i + zscrn.i * gnd_1.zrati.r;
 	z__4.r = eta * gnd_1.zrati.r, z__4.i = eta * gnd_1.zrati.i;
 	z__3.r = z__4.r + zscrn.r, z__3.i = z__4.i + zscrn.i;
@@ -8744,7 +8744,7 @@ L8:
 	px = -yij / xymag;
 	py = xij / xymag;
 	cth = zij / rmag;
-	z__4.r = zratx.r * zratx.r - zratx.i * zratx.i, z__4.i = zratx.r * 
+	z__4.r = zratx.r * zratx.r - zratx.i * zratx.i, z__4.i = zratx.r *
 		zratx.i + zratx.i * zratx.r;
 	d__1 = 1.f - cth * cth;
 	z__3.r = d__1 * z__4.r, z__3.i = d__1 * z__4.i;
@@ -8752,10 +8752,10 @@ L8:
 	z_sqrt(&z__1, &z__2);
 	zrsin.r = z__1.r, zrsin.i = z__1.i;
 L9:
-	z__3.r = zratx.r * zrsin.r - zratx.i * zrsin.i, z__3.i = zratx.r * 
+	z__3.r = zratx.r * zrsin.r - zratx.i * zrsin.i, z__3.i = zratx.r *
 		zrsin.i + zratx.i * zrsin.r;
 	z__2.r = cth - z__3.r, z__2.i = -z__3.i;
-	z__5.r = zratx.r * zrsin.r - zratx.i * zrsin.i, z__5.i = zratx.r * 
+	z__5.r = zratx.r * zrsin.r - zratx.i * zrsin.i, z__5.i = zratx.r *
 		zrsin.i + zratx.i * zrsin.r;
 	z__4.r = cth + z__5.r, z__4.i = z__5.i;
 	z_div(&z__1, &z__2, &z__4);
@@ -8777,19 +8777,19 @@ L9:
 	epx.r = z__1.r, epx.i = z__1.i;
 	z__1.r = py * epy.r, z__1.i = py * epy.i;
 	epy.r = z__1.r, epy.i = z__1.i;
-	z__2.r = refs.r * txk->r - refs.i * txk->i, z__2.i = refs.r * txk->i 
+	z__2.r = refs.r * txk->r - refs.i * txk->i, z__2.i = refs.r * txk->i
 		+ refs.i * txk->r;
-	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i 
+	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i
 		+ refps.i * epx.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	txk->r = z__1.r, txk->i = z__1.i;
-	z__2.r = refs.r * tyk->r - refs.i * tyk->i, z__2.i = refs.r * tyk->i 
+	z__2.r = refs.r * tyk->r - refs.i * tyk->i, z__2.i = refs.r * tyk->i
 		+ refs.i * tyk->r;
-	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i 
+	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i
 		+ refps.i * epy.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	tyk->r = z__1.r, tyk->i = z__1.i;
-	z__1.r = refs.r * tzk->r - refs.i * tzk->i, z__1.i = refs.r * tzk->i 
+	z__1.r = refs.r * tzk->r - refs.i * tzk->i, z__1.i = refs.r * tzk->i
 		+ refs.i * tzk->r;
 	tzk->r = z__1.r, tzk->i = z__1.i;
 	z__2.r = px * txs->r, z__2.i = px * txs->i;
@@ -8800,19 +8800,19 @@ L9:
 	epx.r = z__1.r, epx.i = z__1.i;
 	z__1.r = py * epy.r, z__1.i = py * epy.i;
 	epy.r = z__1.r, epy.i = z__1.i;
-	z__2.r = refs.r * txs->r - refs.i * txs->i, z__2.i = refs.r * txs->i 
+	z__2.r = refs.r * txs->r - refs.i * txs->i, z__2.i = refs.r * txs->i
 		+ refs.i * txs->r;
-	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i 
+	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i
 		+ refps.i * epx.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	txs->r = z__1.r, txs->i = z__1.i;
-	z__2.r = refs.r * tys->r - refs.i * tys->i, z__2.i = refs.r * tys->i 
+	z__2.r = refs.r * tys->r - refs.i * tys->i, z__2.i = refs.r * tys->i
 		+ refs.i * tys->r;
-	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i 
+	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i
 		+ refps.i * epy.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	tys->r = z__1.r, tys->i = z__1.i;
-	z__1.r = refs.r * tzs->r - refs.i * tzs->i, z__1.i = refs.r * tzs->i 
+	z__1.r = refs.r * tzs->r - refs.i * tzs->i, z__1.i = refs.r * tzs->i
 		+ refs.i * tzs->r;
 	tzs->r = z__1.r, tzs->i = z__1.i;
 	z__2.r = px * txc->r, z__2.i = px * txc->i;
@@ -8823,55 +8823,55 @@ L9:
 	epx.r = z__1.r, epx.i = z__1.i;
 	z__1.r = py * epy.r, z__1.i = py * epy.i;
 	epy.r = z__1.r, epy.i = z__1.i;
-	z__2.r = refs.r * txc->r - refs.i * txc->i, z__2.i = refs.r * txc->i 
+	z__2.r = refs.r * txc->r - refs.i * txc->i, z__2.i = refs.r * txc->i
 		+ refs.i * txc->r;
-	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i 
+	z__3.r = refps.r * epx.r - refps.i * epx.i, z__3.i = refps.r * epx.i
 		+ refps.i * epx.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	txc->r = z__1.r, txc->i = z__1.i;
-	z__2.r = refs.r * tyc->r - refs.i * tyc->i, z__2.i = refs.r * tyc->i 
+	z__2.r = refs.r * tyc->r - refs.i * tyc->i, z__2.i = refs.r * tyc->i
 		+ refs.i * tyc->r;
-	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i 
+	z__3.r = refps.r * epy.r - refps.i * epy.i, z__3.i = refps.r * epy.i
 		+ refps.i * epy.r;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	tyc->r = z__1.r, tyc->i = z__1.i;
-	z__1.r = refs.r * tzc->r - refs.i * tzc->i, z__1.i = refs.r * tzc->i 
+	z__1.r = refs.r * tzc->r - refs.i * tzc->i, z__1.i = refs.r * tzc->i
 		+ refs.i * tzc->r;
 	tzc->r = z__1.r, tzc->i = z__1.i;
 L10:
-	z__2.r = txk->r * gnd_1.frati.r - txk->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = txk->r * gnd_1.frati.r - txk->i * gnd_1.frati.i, z__2.i =
 		txk->r * gnd_1.frati.i + txk->i * gnd_1.frati.r;
 	z__1.r = dataj_1.exk.r - z__2.r, z__1.i = dataj_1.exk.i - z__2.i;
 	dataj_1.exk.r = z__1.r, dataj_1.exk.i = z__1.i;
-	z__2.r = tyk->r * gnd_1.frati.r - tyk->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tyk->r * gnd_1.frati.r - tyk->i * gnd_1.frati.i, z__2.i =
 		tyk->r * gnd_1.frati.i + tyk->i * gnd_1.frati.r;
 	z__1.r = dataj_1.eyk.r - z__2.r, z__1.i = dataj_1.eyk.i - z__2.i;
 	dataj_1.eyk.r = z__1.r, dataj_1.eyk.i = z__1.i;
-	z__2.r = tzk->r * gnd_1.frati.r - tzk->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tzk->r * gnd_1.frati.r - tzk->i * gnd_1.frati.i, z__2.i =
 		tzk->r * gnd_1.frati.i + tzk->i * gnd_1.frati.r;
 	z__1.r = dataj_1.ezk.r - z__2.r, z__1.i = dataj_1.ezk.i - z__2.i;
 	dataj_1.ezk.r = z__1.r, dataj_1.ezk.i = z__1.i;
-	z__2.r = txs->r * gnd_1.frati.r - txs->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = txs->r * gnd_1.frati.r - txs->i * gnd_1.frati.i, z__2.i =
 		txs->r * gnd_1.frati.i + txs->i * gnd_1.frati.r;
 	z__1.r = dataj_1.exs.r - z__2.r, z__1.i = dataj_1.exs.i - z__2.i;
 	dataj_1.exs.r = z__1.r, dataj_1.exs.i = z__1.i;
-	z__2.r = tys->r * gnd_1.frati.r - tys->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tys->r * gnd_1.frati.r - tys->i * gnd_1.frati.i, z__2.i =
 		tys->r * gnd_1.frati.i + tys->i * gnd_1.frati.r;
 	z__1.r = dataj_1.eys.r - z__2.r, z__1.i = dataj_1.eys.i - z__2.i;
 	dataj_1.eys.r = z__1.r, dataj_1.eys.i = z__1.i;
-	z__2.r = tzs->r * gnd_1.frati.r - tzs->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tzs->r * gnd_1.frati.r - tzs->i * gnd_1.frati.i, z__2.i =
 		tzs->r * gnd_1.frati.i + tzs->i * gnd_1.frati.r;
 	z__1.r = dataj_1.ezs.r - z__2.r, z__1.i = dataj_1.ezs.i - z__2.i;
 	dataj_1.ezs.r = z__1.r, dataj_1.ezs.i = z__1.i;
-	z__2.r = txc->r * gnd_1.frati.r - txc->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = txc->r * gnd_1.frati.r - txc->i * gnd_1.frati.i, z__2.i =
 		txc->r * gnd_1.frati.i + txc->i * gnd_1.frati.r;
 	z__1.r = dataj_1.exc.r - z__2.r, z__1.i = dataj_1.exc.i - z__2.i;
 	dataj_1.exc.r = z__1.r, dataj_1.exc.i = z__1.i;
-	z__2.r = tyc->r * gnd_1.frati.r - tyc->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tyc->r * gnd_1.frati.r - tyc->i * gnd_1.frati.i, z__2.i =
 		tyc->r * gnd_1.frati.i + tyc->i * gnd_1.frati.r;
 	z__1.r = dataj_1.eyc.r - z__2.r, z__1.i = dataj_1.eyc.i - z__2.i;
 	dataj_1.eyc.r = z__1.r, dataj_1.eyc.i = z__1.i;
-	z__2.r = tzc->r * gnd_1.frati.r - tzc->i * gnd_1.frati.i, z__2.i = 
+	z__2.r = tzc->r * gnd_1.frati.r - tzc->i * gnd_1.frati.i, z__2.i =
 		tzc->r * gnd_1.frati.i + tzc->i * gnd_1.frati.r;
 	z__1.r = dataj_1.ezc.r - z__2.r, z__1.i = dataj_1.ezc.i - z__2.i;
 	dataj_1.ezc.r = z__1.r, dataj_1.ezc.i = z__1.i;
@@ -8897,7 +8897,7 @@ L12:
 /*     FIELD DUE TO GROUND USING SOMMERFELD/NORTON */
 
 L13:
-    incom_1.sn = sqrt(dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * 
+    incom_1.sn = sqrt(dataj_1.cabj * dataj_1.cabj + dataj_1.sabj *
 	    dataj_1.sabj);
     if (incom_1.sn < 1e-5) {
 	goto L14;
@@ -8944,14 +8944,14 @@ L17:
 
     incom_1.isnor = 1;
     d_cnjg(&z__4, &dataj_1.exk);
-    z__3.r = dataj_1.exk.r * z__4.r - dataj_1.exk.i * z__4.i, z__3.i = 
+    z__3.r = dataj_1.exk.r * z__4.r - dataj_1.exk.i * z__4.i, z__3.i =
 	    dataj_1.exk.r * z__4.i + dataj_1.exk.i * z__4.r;
     d_cnjg(&z__6, &dataj_1.eyk);
-    z__5.r = dataj_1.eyk.r * z__6.r - dataj_1.eyk.i * z__6.i, z__5.i = 
+    z__5.r = dataj_1.eyk.r * z__6.r - dataj_1.eyk.i * z__6.i, z__5.i =
 	    dataj_1.eyk.r * z__6.i + dataj_1.eyk.i * z__6.r;
     z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
     d_cnjg(&z__8, &dataj_1.ezk);
-    z__7.r = dataj_1.ezk.r * z__8.r - dataj_1.ezk.i * z__8.i, z__7.i = 
+    z__7.r = dataj_1.ezk.r * z__8.r - dataj_1.ezk.i * z__8.i, z__7.i =
 	    dataj_1.ezk.r * z__8.i + dataj_1.ezk.i * z__8.r;
     z__1.r = z__2.r + z__7.r, z__1.i = z__2.i + z__7.i;
     dmin__ = z__1.r;
@@ -9073,9 +9073,9 @@ L22:
 #undef txc
 
 
-/* Subroutine */ int eksc_(doublereal *s, doublereal *z__, doublereal *rh, 
-	doublereal *xk, integer *ij, doublecomplex *ezs, doublecomplex *ers, 
-	doublecomplex *ezc, doublecomplex *erc, doublecomplex *ezk, 
+/* Subroutine */ int eksc_(doublereal *s, doublereal *z__, doublereal *rh,
+	doublereal *xk, integer *ij, doublecomplex *ezs, doublecomplex *ers,
+	doublecomplex *ezc, doublecomplex *erc, doublecomplex *ezk,
 	doublecomplex *erk)
 {
     /* Initialized data */
@@ -9095,7 +9095,7 @@ L22:
 
     /* Local variables */
     doublereal z1, z2, cs, sh;
-    extern /* Subroutine */ int gx_(doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int gx_(doublereal *, doublereal *, doublereal *,
 	    doublecomplex *, doublecomplex *);
     doublereal ss;
     doublecomplex gp1, gp2, gz1, gz2;
@@ -9136,7 +9136,7 @@ L22:
     z__7.r = gzp2.r + gzp1.r, z__7.i = gzp2.i + gzp1.i;
     z__6.r = ss * z__7.r, z__6.i = ss * z__7.i;
     z__2.r = z__3.r - z__6.r, z__2.i = z__3.i - z__6.i;
-    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i + 
+    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i +
 	    con->i * z__2.r;
     ezs->r = z__1.r, ezs->i = z__1.i;
     z__2.r = -con->r, z__2.i = -con->i;
@@ -9146,11 +9146,11 @@ L22:
     z__8.r = gzp2.r - gzp1.r, z__8.i = gzp2.i - gzp1.i;
     z__7.r = cs * z__8.r, z__7.i = cs * z__8.i;
     z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     ezc->r = z__1.r, ezc->i = z__1.i;
     z__3.r = gp2.r - gp1.r, z__3.i = gp2.i - gp1.i;
-    z__2.r = con->r * z__3.r - con->i * z__3.i, z__2.i = con->r * z__3.i + 
+    z__2.r = con->r * z__3.r - con->i * z__3.i, z__2.i = con->r * z__3.i +
 	    con->i * z__3.r;
     z__1.r = *rh * z__2.r, z__1.i = *rh * z__2.i;
     erk->r = z__1.r, erk->i = z__1.i;
@@ -9163,7 +9163,7 @@ L22:
     z__6.r = cint, z__6.i = d__2;
     z__5.r = d__1 * z__6.r, z__5.i = d__1 * z__6.i;
     z__3.r = z__4.r + z__5.r, z__3.i = z__4.i + z__5.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     ezk->r = z__1.r, ezk->i = z__1.i;
     z__1.r = z1 * gzp1.r, z__1.i = z1 * gzp1.i;
@@ -9184,7 +9184,7 @@ L22:
     z__10.r = cs * z__11.r, z__10.i = cs * z__11.i;
     z__9.r = *xk * z__10.r, z__9.i = *xk * z__10.i;
     z__4.r = z__5.r - z__9.r, z__4.i = z__5.i - z__9.i;
-    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i + 
+    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i +
 	    z__3.i * z__4.r;
     z__1.r = z__2.r / *rh, z__1.i = z__2.i / *rh;
     ers->r = z__1.r, ers->i = z__1.i;
@@ -9199,7 +9199,7 @@ L22:
     z__10.r = ss * z__11.r, z__10.i = ss * z__11.i;
     z__9.r = *xk * z__10.r, z__9.i = *xk * z__10.i;
     z__4.r = z__5.r + z__9.r, z__4.i = z__5.i + z__9.i;
-    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i + 
+    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i +
 	    z__3.i * z__4.r;
     z__1.r = z__2.r / *rh, z__1.i = z__2.i / *rh;
     erc->r = z__1.r, erc->i = z__1.i;
@@ -9214,9 +9214,9 @@ L1:
 #undef con
 
 
-/* Subroutine */ int ekscx_(doublereal *bx, doublereal *s, doublereal *z__, 
+/* Subroutine */ int ekscx_(doublereal *bx, doublereal *s, doublereal *z__,
 	doublereal *rhx, doublereal *xk, integer *ij, integer *inx1, integer *
-	inx2, doublecomplex *ezs, doublecomplex *ers, doublecomplex *ezc, 
+	inx2, doublecomplex *ezs, doublecomplex *ers, doublecomplex *ezc,
 	doublecomplex *erc, doublecomplex *ezk, doublecomplex *erk)
 {
     /* Initialized data */
@@ -9236,7 +9236,7 @@ L1:
 
     /* Local variables */
     doublereal b, a2, z1, z2, bk, cs, rh, sh;
-    extern /* Subroutine */ int gx_(doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int gx_(doublereal *, doublereal *, doublereal *,
 	    doublecomplex *, doublecomplex *);
     doublereal ss, bk2;
     doublecomplex gr1, gr2, gz1, gz2;
@@ -9244,7 +9244,7 @@ L1:
 #define con ((doublecomplex *)&equiv_0)
     doublereal rhk, shk;
     extern /* Subroutine */ int gxx_(doublereal *, doublereal *, doublereal *,
-	     doublereal *, doublereal *, integer *, doublecomplex *, 
+	     doublereal *, doublereal *, integer *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, doublecomplex *, doublecomplex *
 	    , doublecomplex *);
     doublecomplex grk1, grk2, grp1, grp2, gzp1, gzp2, gzz1, gzz2;
@@ -9323,7 +9323,7 @@ L6:
     z__7.r = gzp2.r + gzp1.r, z__7.i = gzp2.i + gzp1.i;
     z__6.r = ss * z__7.r, z__6.i = ss * z__7.i;
     z__2.r = z__3.r - z__6.r, z__2.i = z__3.i - z__6.i;
-    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i + 
+    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i +
 	    con->i * z__2.r;
     ezs->r = z__1.r, ezs->i = z__1.i;
     z__2.r = -con->r, z__2.i = -con->i;
@@ -9333,7 +9333,7 @@ L6:
     z__8.r = gzp2.r - gzp1.r, z__8.i = gzp2.i - gzp1.i;
     z__7.r = cs * z__8.r, z__7.i = cs * z__8.i;
     z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     ezc->r = z__1.r, ezc->i = z__1.i;
     z__2.r = -con->r, z__2.i = -con->i;
@@ -9349,7 +9349,7 @@ L6:
     z__11.r = cs * z__12.r, z__11.i = cs * z__12.i;
     z__10.r = *xk * z__11.r, z__10.i = *xk * z__11.i;
     z__3.r = z__4.r - z__10.r, z__3.i = z__4.i - z__10.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     ers->r = z__1.r, ers->i = z__1.i;
     z__2.r = -con->r, z__2.i = -con->i;
@@ -9365,11 +9365,11 @@ L6:
     z__11.r = ss * z__12.r, z__11.i = ss * z__12.i;
     z__10.r = *xk * z__11.r, z__10.i = *xk * z__11.i;
     z__3.r = z__4.r + z__10.r, z__3.i = z__4.i + z__10.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     erc->r = z__1.r, erc->i = z__1.i;
     z__2.r = grk2.r - grk1.r, z__2.i = grk2.i - grk1.i;
-    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i + 
+    z__1.r = con->r * z__2.r - con->i * z__2.i, z__1.i = con->r * z__2.i +
 	    con->i * z__2.r;
     erk->r = z__1.r, erk->i = z__1.i;
     d__1 = -shk;
@@ -9386,7 +9386,7 @@ L6:
     z__9.r = gzz2.r - gzz1.r, z__9.i = gzz2.i - gzz1.i;
     z__8.r = bk2 * z__9.r, z__8.i = bk2 * z__9.i;
     z__3.r = z__4.r - z__8.r, z__3.i = z__4.i - z__8.i;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     ezk->r = z__1.r, ezk->i = z__1.i;
     return 0;
@@ -9411,8 +9411,8 @@ L6:
 /* 1     FORMAT(//,'  ****  ERROR  ****   ',//,5X,A,//) */
 /* av03 RETURN */
 /* av03 END */
-/* Subroutine */ int etmns_(doublereal *p1, doublereal *p2, doublereal *p3, 
-	doublereal *p4, doublereal *p5, doublereal *p6, integer *ipr, 
+/* Subroutine */ int etmns_(doublereal *p1, doublereal *p2, doublereal *p3,
+	doublereal *p4, doublereal *p5, doublereal *p6, integer *ipr,
 	doublecomplex *e)
 {
     /* Initialized data */
@@ -9427,7 +9427,7 @@ L6:
 
     /* Builtin functions */
     double cos(doublereal), sin(doublereal);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
     double sqrt(doublereal);
 
@@ -9457,7 +9457,7 @@ L6:
     doublereal sph, sth, set;
     integer npm;
     doublecomplex rrv;
-    extern /* Subroutine */ int qdsrc_(integer *, doublecomplex *, 
+    extern /* Subroutine */ int qdsrc_(integer *, doublecomplex *,
 	    doublecomplex *);
 
 /* *** */
@@ -9548,8 +9548,8 @@ L5:
     if (gnd_1.iperf == 1) {
 	goto L6;
     }
-    z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * gnd_1.zrati.i, 
-	    z__5.i = gnd_1.zrati.r * gnd_1.zrati.i + gnd_1.zrati.i * 
+    z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * gnd_1.zrati.i,
+	    z__5.i = gnd_1.zrati.r * gnd_1.zrati.i + gnd_1.zrati.i *
 	    gnd_1.zrati.r;
     z__4.r = sth * z__5.r, z__4.i = sth * z__5.i;
     z__3.r = sth * z__4.r, z__3.i = sth * z__4.i;
@@ -9562,7 +9562,7 @@ L5:
     z__3.r = rrh.r + rrv.r, z__3.i = rrh.i + rrv.i;
     z_div(&z__1, &z__2, &z__3);
     rrh.r = z__1.r, rrh.i = z__1.i;
-    z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i = 
+    z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i =
 	    gnd_1.zrati.r * rrv.i + gnd_1.zrati.i * rrv.r;
     rrv.r = z__1.r, rrv.i = z__1.i;
     z__3.r = cth - rrv.r, z__3.i = -rrv.i;
@@ -9583,11 +9583,11 @@ L7:
     }
     i__1 = data_1.n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz *
 		data_1.z__[i__ - 1]);
 /* L8: */
 	i__3 = i__;
-	d__1 = -(px * cab[i__ - 1] + py * sab[i__ - 1] + pz * angl_1.salp[i__ 
+	d__1 = -(px * cab[i__ - 1] + py * sab[i__ - 1] + pz * angl_1.salp[i__
 		- 1]);
 	d__2 = cos(arg);
 	d__3 = sin(arg);
@@ -9615,7 +9615,7 @@ L7:
     cz.r = z__1.r, cz.i = z__1.i;
     i__3 = data_1.n;
     for (i__ = 1; i__ <= i__3; ++i__) {
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz *
 		data_1.z__[i__ - 1]);
 /* L9: */
 	i__1 = i__;
@@ -9631,7 +9631,7 @@ L7:
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__8.r = d__1, z__8.i = d__2;
-	z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i 
+	z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i
 		+ z__3.i * z__8.r;
 	z__1.r = e[i__2].r - z__2.r, z__1.i = e[i__2].i - z__2.i;
 	e[i__1].r = z__1.r, e[i__1].i = z__1.i;
@@ -9647,13 +9647,13 @@ L10:
 	--i__;
 	i1 += 2;
 	i2 = i1 + 1;
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz *
 		data_1.z__[i__ - 1]);
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__3.r = d__1, z__3.i = d__2;
 	i__2 = i__ - 1;
-	z__2.r = angl_1.salp[i__2] * z__3.r, z__2.i = angl_1.salp[i__2] * 
+	z__2.r = angl_1.salp[i__2] * z__3.r, z__2.i = angl_1.salp[i__2] *
 		z__3.i;
 	z__1.r = reta * z__2.r, z__1.i = reta * z__2.i;
 	tt1.r = z__1.r, tt1.i = z__1.i;
@@ -9693,13 +9693,13 @@ L10:
 	--i__;
 	i1 += 2;
 	i2 = i1 + 1;
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz *
 		data_1.z__[i__ - 1]);
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__3.r = d__1, z__3.i = d__2;
 	i__1 = i__ - 1;
-	z__2.r = angl_1.salp[i__1] * z__3.r, z__2.i = angl_1.salp[i__1] * 
+	z__2.r = angl_1.salp[i__1] * z__3.r, z__2.i = angl_1.salp[i__1] *
 		z__3.i;
 	z__1.r = reta * z__2.r, z__1.i = reta * z__2.i;
 	tt1.r = z__1.r, tt1.i = z__1.i;
@@ -9713,7 +9713,7 @@ L10:
 	i__3 = i__ - 1;
 	z__7.r = t1z[i__3] * cz.r, z__7.i = t1z[i__3] * cz.i;
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i + 
+	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i +
 		z__3.i * tt1.r;
 	z__1.r = e[i__4].r + z__2.r, z__1.i = e[i__4].i + z__2.i;
 	e[i__1].r = z__1.r, e[i__1].i = z__1.i;
@@ -9728,7 +9728,7 @@ L10:
 	i__3 = i__ - 1;
 	z__7.r = t2z[i__3] * cz.r, z__7.i = t2z[i__3] * cz.i;
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i + 
+	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i +
 		z__3.i * tt1.r;
 	z__1.r = e[i__4].r + z__2.r, z__1.i = e[i__4].i + z__2.i;
 	e[i__1].r = z__1.r, e[i__1].i = z__1.i;
@@ -9758,7 +9758,7 @@ L13:
     cz.r = z__1.r, cz.i = z__1.i;
     i__1 = data_1.n;
     for (i__ = 1; i__ <= i__1; ++i__) {
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz *
 		data_1.z__[i__ - 1]);
 /* L14: */
 	i__4 = i__;
@@ -9774,7 +9774,7 @@ L13:
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__8.r = d__1, z__8.i = d__2;
-	z__1.r = z__2.r * z__8.r - z__2.i * z__8.i, z__1.i = z__2.r * z__8.i 
+	z__1.r = z__2.r * z__8.r - z__2.i * z__8.i, z__1.i = z__2.r * z__8.i
 		+ z__2.i * z__8.r;
 	e[i__4].r = z__1.r, e[i__4].i = z__1.i;
     }
@@ -9785,26 +9785,26 @@ L13:
     z__4.r = sph * cx.r, z__4.i = sph * cx.i;
     z__2.r = z__3.r - z__4.r, z__2.i = z__3.i - z__4.i;
     z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i + 
+    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i +
 	    z__2.i * z__5.r;
     tt2.r = z__1.r, tt2.i = z__1.i;
-    z__2.r = rrv.r * cx.r - rrv.i * cx.i, z__2.i = rrv.r * cx.i + rrv.i * 
+    z__2.r = rrv.r * cx.r - rrv.i * cx.i, z__2.i = rrv.r * cx.i + rrv.i *
 	    cx.r;
     z__3.r = sph * tt2.r, z__3.i = sph * tt2.i;
     z__1.r = z__2.r - z__3.r, z__1.i = z__2.i - z__3.i;
     cx.r = z__1.r, cx.i = z__1.i;
-    z__2.r = rrv.r * cy.r - rrv.i * cy.i, z__2.i = rrv.r * cy.i + rrv.i * 
+    z__2.r = rrv.r * cy.r - rrv.i * cy.i, z__2.i = rrv.r * cy.i + rrv.i *
 	    cy.r;
     z__3.r = cph * tt2.r, z__3.i = cph * tt2.i;
     z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
     cy.r = z__1.r, cy.i = z__1.i;
     z__2.r = -rrv.r, z__2.i = -rrv.i;
-    z__1.r = z__2.r * cz.r - z__2.i * cz.i, z__1.i = z__2.r * cz.i + z__2.i * 
+    z__1.r = z__2.r * cz.r - z__2.i * cz.i, z__1.i = z__2.r * cz.i + z__2.i *
 	    cz.r;
     cz.r = z__1.r, cz.i = z__1.i;
     i__4 = data_1.n;
     for (i__ = 1; i__ <= i__4; ++i__) {
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz *
 		data_1.z__[i__ - 1]);
 /* L15: */
 	i__5 = i__;
@@ -9820,7 +9820,7 @@ L13:
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__8.r = d__1, z__8.i = d__2;
-	z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i 
+	z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i
 		+ z__3.i * z__8.r;
 	z__1.r = e[i__6].r - z__2.r, z__1.i = e[i__6].i - z__2.i;
 	e[i__5].r = z__1.r, e[i__5].i = z__1.i;
@@ -9845,13 +9845,13 @@ L16:
 	--i__;
 	i1 += 2;
 	i2 = i1 + 1;
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] + wz *
 		data_1.z__[i__ - 1]);
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__3.r = d__1, z__3.i = d__2;
 	i__6 = i__ - 1;
-	z__2.r = angl_1.salp[i__6] * z__3.r, z__2.i = angl_1.salp[i__6] * 
+	z__2.r = angl_1.salp[i__6] * z__3.r, z__2.i = angl_1.salp[i__6] *
 		z__3.i;
 	z__1.r = reta * z__2.r, z__1.i = reta * z__2.i;
 	tt2.r = z__1.r, tt2.i = z__1.i;
@@ -9864,7 +9864,7 @@ L16:
 	i__2 = i__ - 1;
 	z__6.r = t1z[i__2] * cz.r, z__6.i = t1z[i__2] * cz.i;
 	z__2.r = z__3.r + z__6.r, z__2.i = z__3.i + z__6.i;
-	z__1.r = z__2.r * tt2.r - z__2.i * tt2.i, z__1.i = z__2.r * tt2.i + 
+	z__1.r = z__2.r * tt2.r - z__2.i * tt2.i, z__1.i = z__2.r * tt2.i +
 		z__2.i * tt2.r;
 	e[i__6].r = z__1.r, e[i__6].i = z__1.i;
 /* L17: */
@@ -9877,7 +9877,7 @@ L16:
 	i__2 = i__ - 1;
 	z__6.r = t2z[i__2] * cz.r, z__6.i = t2z[i__2] * cz.i;
 	z__2.r = z__3.r + z__6.r, z__2.i = z__3.i + z__6.i;
-	z__1.r = z__2.r * tt2.r - z__2.i * tt2.i, z__1.i = z__2.r * tt2.i + 
+	z__1.r = z__2.r * tt2.r - z__2.i * tt2.i, z__1.i = z__2.r * tt2.i +
 		z__2.i * tt2.r;
 	e[i__6].r = z__1.r, e[i__6].i = z__1.i;
     }
@@ -9888,22 +9888,22 @@ L16:
     z__4.r = sph * cx.r, z__4.i = sph * cx.i;
     z__2.r = z__3.r - z__4.r, z__2.i = z__3.i - z__4.i;
     z__5.r = rrv.r - rrh.r, z__5.i = rrv.i - rrh.i;
-    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i + 
+    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i +
 	    z__2.i * z__5.r;
     tt1.r = z__1.r, tt1.i = z__1.i;
-    z__3.r = rrh.r * cx.r - rrh.i * cx.i, z__3.i = rrh.r * cx.i + rrh.i * 
+    z__3.r = rrh.r * cx.r - rrh.i * cx.i, z__3.i = rrh.r * cx.i + rrh.i *
 	    cx.r;
     z__4.r = sph * tt1.r, z__4.i = sph * tt1.i;
     z__2.r = z__3.r - z__4.r, z__2.i = z__3.i - z__4.i;
     z__1.r = -z__2.r, z__1.i = -z__2.i;
     cx.r = z__1.r, cx.i = z__1.i;
-    z__3.r = rrh.r * cy.r - rrh.i * cy.i, z__3.i = rrh.r * cy.i + rrh.i * 
+    z__3.r = rrh.r * cy.r - rrh.i * cy.i, z__3.i = rrh.r * cy.i + rrh.i *
 	    cy.r;
     z__4.r = cph * tt1.r, z__4.i = cph * tt1.i;
     z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
     z__1.r = -z__2.r, z__1.i = -z__2.i;
     cy.r = z__1.r, cy.i = z__1.i;
-    z__1.r = rrh.r * cz.r - rrh.i * cz.i, z__1.i = rrh.r * cz.i + rrh.i * 
+    z__1.r = rrh.r * cz.r - rrh.i * cz.i, z__1.i = rrh.r * cz.i + rrh.i *
 	    cz.r;
     cz.r = z__1.r, cz.i = z__1.i;
     i__ = data_1.ld + 1;
@@ -9913,13 +9913,13 @@ L16:
 	--i__;
 	i1 += 2;
 	i2 = i1 + 1;
-	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz * 
+	arg = -tp * (wx * data_1.x[i__ - 1] + wy * data_1.y[i__ - 1] - wz *
 		data_1.z__[i__ - 1]);
 	d__1 = cos(arg);
 	d__2 = sin(arg);
 	z__3.r = d__1, z__3.i = d__2;
 	i__3 = i__ - 1;
-	z__2.r = angl_1.salp[i__3] * z__3.r, z__2.i = angl_1.salp[i__3] * 
+	z__2.r = angl_1.salp[i__3] * z__3.r, z__2.i = angl_1.salp[i__3] *
 		z__3.i;
 	z__1.r = reta * z__2.r, z__1.i = reta * z__2.i;
 	tt1.r = z__1.r, tt1.i = z__1.i;
@@ -9933,7 +9933,7 @@ L16:
 	i__4 = i__ - 1;
 	z__7.r = t1z[i__4] * cz.r, z__7.i = t1z[i__4] * cz.i;
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i + 
+	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i +
 		z__3.i * tt1.r;
 	z__1.r = e[i__1].r + z__2.r, z__1.i = e[i__1].i + z__2.i;
 	e[i__3].r = z__1.r, e[i__3].i = z__1.i;
@@ -9948,7 +9948,7 @@ L16:
 	i__4 = i__ - 1;
 	z__7.r = t2z[i__4] * cz.r, z__7.i = t2z[i__4] * cz.i;
 	z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i + 
+	z__2.r = z__3.r * tt1.r - z__3.i * tt1.i, z__2.i = z__3.r * tt1.i +
 		z__3.i * tt1.r;
 	z__1.r = e[i__1].r + z__2.r, z__1.i = e[i__1].i + z__2.i;
 	e[i__3].r = z__1.r, e[i__3].i = z__1.i;
@@ -10020,7 +10020,7 @@ L22:
 	z__1.r = z__2.r / rs, z__1.i = z__2.i / rs;
 	tt2.r = z__1.r, tt2.i = z__1.i;
 	z__3.r = ds * tt1.r, z__3.i = ds * tt1.i;
-	z__2.r = z__3.r * tt2.r - z__3.i * tt2.i, z__2.i = z__3.r * tt2.i + 
+	z__2.r = z__3.r * tt2.r - z__3.i * tt2.i, z__2.i = z__3.r * tt2.i +
 		z__3.i * tt2.r;
 	z__1.r = cth * z__2.r, z__1.i = cth * z__2.i;
 	er.r = z__1.r, er.i = z__1.i;
@@ -10029,7 +10029,7 @@ L22:
 	z__6.r = tp * 0.f, z__6.i = tp * 1.f;
 	z__5.r = z__6.r / r__, z__5.i = z__6.i / r__;
 	z__4.r = z__5.r + tt2.r, z__4.i = z__5.i + tt2.i;
-	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i 
+	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i
 		+ z__3.i * z__4.r;
 	z__1.r = sth * z__2.r, z__1.i = sth * z__2.i;
 	et.r = z__1.r, et.i = z__1.i;
@@ -10072,12 +10072,12 @@ L23:
 	z__5.r = dsh * tt1.r, z__5.i = dsh * tt1.i;
 	d__1 = 1.f / r__;
 	z__6.r = d__1, z__6.i = tp;
-	z__4.r = z__5.r * z__6.r - z__5.i * z__6.i, z__4.i = z__5.r * z__6.i 
+	z__4.r = z__5.r * z__6.r - z__5.i * z__6.i, z__4.i = z__5.r * z__6.i
 		+ z__5.i * z__6.r;
 	z__3.r = z__4.r / r__, z__3.i = z__4.i / r__;
 	z__2.r = sth * z__3.r, z__2.i = sth * z__3.i;
 	i__1 = ii - 1;
-	z__1.r = angl_1.salp[i__1] * z__2.r, z__1.i = angl_1.salp[i__1] * 
+	z__1.r = angl_1.salp[i__1] * z__2.r, z__1.i = angl_1.salp[i__1] *
 		z__2.i;
 	tt2.r = z__1.r, tt2.i = z__1.i;
 	z__1.r = px * tt2.r, z__1.i = px * tt2.i;
@@ -10122,26 +10122,26 @@ L24:
 #undef t1x
 
 
-/* Subroutine */ int facgf_(doublecomplex *a, doublecomplex *b, doublecomplex 
+/* Subroutine */ int facgf_(doublecomplex *a, doublecomplex *b, doublecomplex
 	*c__, doublecomplex *d__, doublecomplex *bx, integer *ip, integer *ix,
-	 integer *np, integer *n1, integer *mp, integer *m1, integer *n1c, 
+	 integer *np, integer *n1, integer *mp, integer *m1, integer *n1c,
 	integer *n2c)
 {
     /* System generated locals */
-    integer b_dim1, b_offset, c_dim1, c_offset, d_dim1, d_offset, bx_dim1, 
+    integer b_dim1, b_offset, c_dim1, c_offset, d_dim1, d_offset, bx_dim1,
 	    bx_offset, i__1, i__2, i__3, i__4, i__5, i__6, i__7;
     doublecomplex z__1, z__2;
     alist al__1;
 
     /* Builtin functions */
-    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *, 
+    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_rsue(void), s_wsue(cilist *), e_wsue(void);
 
     /* Local variables */
     integer i__, j, k, ib, ic, ii, nic, npb, npc;
     doublecomplex sum;
     integer n1cp, ibfl;
-    extern /* Subroutine */ int facio_(doublecomplex *, integer *, integer *, 
+    extern /* Subroutine */ int facio_(doublecomplex *, integer *, integer *,
 	    integer *, integer *, integer *, integer *, integer *), reblk_(
 	    doublecomplex *, doublecomplex *, integer *, integer *, integer *)
 	    , factr_(integer *, doublecomplex *, integer *, integer *);
@@ -10149,8 +10149,8 @@ L24:
     extern /* Subroutine */ int lunscr_(doublecomplex *, integer *, integer *,
 	     integer *, integer *, integer *, integer *, integer *);
     integer nblsys;
-    extern /* Subroutine */ int solves_(doublecomplex *, integer *, 
-	    doublecomplex *, integer *, integer *, integer *, integer *, 
+    extern /* Subroutine */ int solves_(doublecomplex *, integer *,
+	    doublecomplex *, integer *, integer *, integer *, integer *,
 	    integer *, integer *, integer *, integer *);
 
     /* Fortran I/O blocks */
@@ -10333,7 +10333,7 @@ L4:
 /* L6: */
 		    i__6 = ii + j * d_dim1;
 		    i__7 = ii + j * d_dim1;
-		    z__1.r = d__[i__7].r - sum.r, z__1.i = d__[i__7].i - 
+		    z__1.r = d__[i__7].r - sum.r, z__1.i = d__[i__7].i -
 			    sum.i;
 		    d__[i__6].r = z__1.r, d__[i__6].i = z__1.i;
 		}
@@ -10436,7 +10436,7 @@ L13:
     return 0;
 } /* facgf_ */
 
-/* Subroutine */ int facio_(doublecomplex *a, integer *nrow, integer *nop, 
+/* Subroutine */ int facio_(doublecomplex *a, integer *nrow, integer *nop,
 	integer *ip, integer *iu1, integer *iu2, integer *iu3, integer *iu4)
 {
     /* Format strings */
@@ -10448,7 +10448,7 @@ L13:
     alist al__1;
 
     /* Builtin functions */
-    integer f_rew(alist *), s_wsfe(cilist *), do_fio(integer *, char *, 
+    integer f_rew(alist *), s_wsfe(cilist *), do_fio(integer *, char *,
 	    ftnlen), e_wsfe(void);
 
     /* Local variables */
@@ -10459,8 +10459,8 @@ L13:
     integer ixbp, ifile3, ifile4, ixblk1, ixblk2;
     extern /* Subroutine */ int blckin_(doublecomplex *, integer *, integer *,
 	     integer *, integer *, integer *), second_(doublereal *), lfactr_(
-	    doublecomplex *, integer *, integer *, integer *, integer *), 
-	    blckot_(doublecomplex *, integer *, integer *, integer *, integer 
+	    doublecomplex *, integer *, integer *, integer *, integer *),
+	    blckot_(doublecomplex *, integer *, integer *, integer *, integer
 	    *, integer *);
 
     /* Fortran I/O blocks */
@@ -10556,7 +10556,7 @@ L2:
 
 } /* facio_ */
 
-/* Subroutine */ int factr_(integer *n, doublecomplex *a, integer *ip, 
+/* Subroutine */ int factr_(integer *n, doublecomplex *a, integer *ip,
 	integer *ndim)
 {
     /* Format strings */
@@ -10568,7 +10568,7 @@ L2:
     doublecomplex z__1, z__2;
 
     /* Builtin functions */
-    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
     integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
@@ -10653,7 +10653,7 @@ L2:
 	    a[i__3].r = arj.r, a[i__3].i = arj.i;
 	    i__3 = pj - 1;
 	    i__4 = j - 1;
-	    scratm_1.d__[i__3].r = scratm_1.d__[i__4].r, scratm_1.d__[i__3].i 
+	    scratm_1.d__[i__3].r = scratm_1.d__[i__4].r, scratm_1.d__[i__3].i
 		    = scratm_1.d__[i__4].i;
 	    jp1 = j + 1;
 	    i__3 = *n;
@@ -10676,7 +10676,7 @@ L4:
 
 	i__2 = r__ - 1;
 	d_cnjg(&z__2, &scratm_1.d__[r__ - 1]);
-	z__1.r = scratm_1.d__[i__2].r * z__2.r - scratm_1.d__[i__2].i * 
+	z__1.r = scratm_1.d__[i__2].r * z__2.r - scratm_1.d__[i__2].i *
 		z__2.i, z__1.i = scratm_1.d__[i__2].r * z__2.i + scratm_1.d__[
 		i__2].i * z__2.r;
 	dmax__ = z__1.r;
@@ -10689,8 +10689,8 @@ L4:
 	for (i__ = rp1; i__ <= i__2; ++i__) {
 	    i__3 = i__ - 1;
 	    d_cnjg(&z__2, &scratm_1.d__[i__ - 1]);
-	    z__1.r = scratm_1.d__[i__3].r * z__2.r - scratm_1.d__[i__3].i * 
-		    z__2.i, z__1.i = scratm_1.d__[i__3].r * z__2.i + 
+	    z__1.r = scratm_1.d__[i__3].r * z__2.r - scratm_1.d__[i__3].i *
+		    z__2.i, z__1.i = scratm_1.d__[i__3].r * z__2.i +
 		    scratm_1.d__[i__3].i * z__2.r;
 	    elmag = z__1.r;
 	    if (elmag < dmax__) {
@@ -10711,7 +10711,7 @@ L6:
 	a[i__2].r = scratm_1.d__[i__3].r, a[i__2].i = scratm_1.d__[i__3].i;
 	i__2 = pr - 1;
 	i__3 = r__ - 1;
-	scratm_1.d__[i__2].r = scratm_1.d__[i__3].r, scratm_1.d__[i__2].i = 
+	scratm_1.d__[i__2].r = scratm_1.d__[i__3].r, scratm_1.d__[i__2].i =
 		scratm_1.d__[i__3].i;
 
 /*     STEP 5 */
@@ -10725,8 +10725,8 @@ L6:
 	for (i__ = rp1; i__ <= i__2; ++i__) {
 	    i__3 = i__ + r__ * a_dim1;
 	    i__4 = i__ - 1;
-	    z__1.r = scratm_1.d__[i__4].r * arj.r - scratm_1.d__[i__4].i * 
-		    arj.i, z__1.i = scratm_1.d__[i__4].r * arj.i + 
+	    z__1.r = scratm_1.d__[i__4].r * arj.r - scratm_1.d__[i__4].i *
+		    arj.i, z__1.i = scratm_1.d__[i__4].r * arj.i +
 		    scratm_1.d__[i__4].i * arj.r;
 	    a[i__3].r = z__1.r, a[i__3].i = z__1.i;
 /* L7: */
@@ -10747,8 +10747,8 @@ L9:
 
 } /* factr_ */
 
-/* Subroutine */ int factrs_(integer *np, integer *nrow, doublecomplex *a, 
-	integer *ip, integer *ix, integer *iu1, integer *iu2, integer *iu3, 
+/* Subroutine */ int factrs_(integer *np, integer *nrow, doublecomplex *a,
+	integer *ip, integer *ix, integer *iu1, integer *iu2, integer *iu3,
 	integer *iu4)
 {
     /* System generated locals */
@@ -10756,17 +10756,17 @@ L9:
     alist al__1;
 
     /* Builtin functions */
-    integer f_rew(alist *), s_wsue(cilist *), do_uio(integer *, char *, 
+    integer f_rew(alist *), s_wsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_wsue(void), s_rsue(cilist *), e_rsue(void);
 
     /* Local variables */
     integer i__, j, k, l, i2, j2, ka, kk, ir1, ir2, nop, irr1, irr2;
-    extern /* Subroutine */ int facio_(doublecomplex *, integer *, integer *, 
+    extern /* Subroutine */ int facio_(doublecomplex *, integer *, integer *,
 	    integer *, integer *, integer *, integer *, integer *), factr_(
 	    integer *, doublecomplex *, integer *, integer *);
     integer icols;
     extern /* Subroutine */ int blckin_(doublecomplex *, integer *, integer *,
-	     integer *, integer *, integer *), blckot_(doublecomplex *, 
+	     integer *, integer *, integer *), blckot_(doublecomplex *,
 	    integer *, integer *, integer *, integer *, integer *);
     integer icoldx;
     extern /* Subroutine */ int lunscr_(doublecomplex *, integer *, integer *,
@@ -10967,8 +10967,8 @@ L8:
     /* Builtin functions */
     void z_sqrt(doublecomplex *, doublecomplex *);
     double z_abs(doublecomplex *);
-    void d_cnjg(doublecomplex *, doublecomplex *), z_exp(doublecomplex *, 
-	    doublecomplex *), z_div(doublecomplex *, doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_exp(doublecomplex *,
+	    doublecomplex *), z_div(doublecomplex *, doublecomplex *,
 	    doublecomplex *);
 
     /* Local variables */
@@ -10989,7 +10989,7 @@ L8:
 /*     FBAR IS SOMMERFELD ATTENUATION FUNCTION FOR NUMERICAL DISTANCE P */
 
     z_sqrt(&z__2, p);
-    z__1.r = fj->r * z__2.r - fj->i * z__2.i, z__1.i = fj->r * z__2.i + fj->i 
+    z__1.r = fj->r * z__2.r - fj->i * z__2.i, z__1.i = fj->r * z__2.i + fj->i
 	    * z__2.r;
     z__.r = z__1.r, z__.i = z__1.i;
     if (z_abs(&z__) > 3.f) {
@@ -10998,14 +10998,14 @@ L8:
 
 /*     SERIES EXPANSION */
 
-    z__1.r = z__.r * z__.r - z__.i * z__.i, z__1.i = z__.r * z__.i + z__.i * 
+    z__1.r = z__.r * z__.r - z__.i * z__.i, z__1.i = z__.r * z__.i + z__.i *
 	    z__.r;
     zs.r = z__1.r, zs.i = z__1.i;
     sum.r = z__.r, sum.i = z__.i;
     pow.r = z__.r, pow.i = z__.i;
     for (i__ = 1; i__ <= 100; ++i__) {
 	z__3.r = -pow.r, z__3.i = -pow.i;
-	z__2.r = z__3.r * zs.r - z__3.i * zs.i, z__2.i = z__3.r * zs.i + 
+	z__2.r = z__3.r * zs.r - z__3.i * zs.i, z__2.i = z__3.r * zs.i +
 		z__3.i * zs.r;
 	d__1 = (doublereal) i__;
 	z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
@@ -11016,11 +11016,11 @@ L8:
 	z__1.r = sum.r + term.r, z__1.i = sum.i + term.i;
 	sum.r = z__1.r, sum.i = z__1.i;
 	d_cnjg(&z__2, &term);
-	z__1.r = term.r * z__2.r - term.i * z__2.i, z__1.i = term.r * z__2.i 
+	z__1.r = term.r * z__2.r - term.i * z__2.i, z__1.i = term.r * z__2.i
 		+ term.i * z__2.r;
 	tms = z__1.r;
 	d_cnjg(&z__2, &sum);
-	z__1.r = sum.r * z__2.r - sum.i * z__2.i, z__1.i = sum.r * z__2.i + 
+	z__1.r = sum.r * z__2.r - sum.i * z__2.i, z__1.i = sum.r * z__2.i +
 		sum.i * z__2.r;
 	sms = z__1.r;
 	if (tms / sms < accs) {
@@ -11031,10 +11031,10 @@ L8:
 L2:
     z__6.r = tosp * sum.r, z__6.i = tosp * sum.i;
     z__5.r = 1.f - z__6.r, z__5.i = -z__6.i;
-    z__4.r = z__5.r * z__.r - z__5.i * z__.i, z__4.i = z__5.r * z__.i + 
+    z__4.r = z__5.r * z__.r - z__5.i * z__.i, z__4.i = z__5.r * z__.i +
 	    z__5.i * z__.r;
     z_exp(&z__7, &zs);
-    z__3.r = z__4.r * z__7.r - z__4.i * z__7.i, z__3.i = z__4.r * z__7.i + 
+    z__3.r = z__4.r * z__7.r - z__4.i * z__7.i, z__3.i = z__4.r * z__7.i +
 	    z__4.i * z__7.r;
     z__2.r = sp * z__3.r, z__2.i = sp * z__3.i;
     z__1.r = 1.f - z__2.r, z__1.i = -z__2.i;
@@ -11054,7 +11054,7 @@ L3:
 L4:
     minus = 0;
 L5:
-    z__2.r = z__.r * z__.r - z__.i * z__.i, z__2.i = z__.r * z__.i + z__.i * 
+    z__2.r = z__.r * z__.r - z__.i * z__.i, z__2.i = z__.r * z__.i + z__.i *
 	    z__.r;
     z_div(&z__1, &c_b1440, &z__2);
     zs.r = z__1.r, zs.i = z__1.i;
@@ -11064,7 +11064,7 @@ L5:
 	z__3.r = -term.r, z__3.i = -term.i;
 	r__1 = i__ * 2.f - 1.f;
 	z__2.r = r__1 * z__3.r, z__2.i = r__1 * z__3.i;
-	z__1.r = z__2.r * zs.r - z__2.i * zs.i, z__1.i = z__2.r * zs.i + 
+	z__1.r = z__2.r * zs.r - z__2.i * zs.i, z__1.i = z__2.r * zs.i +
 		z__2.i * zs.r;
 	term.r = z__1.r, term.i = z__1.i;
 /* L6: */
@@ -11074,10 +11074,10 @@ L5:
     if (minus == 1) {
 	d__1 = sp * 2.f;
 	z__3.r = d__1 * z__.r, z__3.i = d__1 * z__.i;
-	z__5.r = z__.r * z__.r - z__.i * z__.i, z__5.i = z__.r * z__.i + 
+	z__5.r = z__.r * z__.r - z__.i * z__.i, z__5.i = z__.r * z__.i +
 		z__.i * z__.r;
 	z_exp(&z__4, &z__5);
-	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i 
+	z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i
 		+ z__3.i * z__4.r;
 	z__1.r = sum.r - z__2.r, z__1.i = sum.i - z__2.i;
 	sum.r = z__1.r, sum.i = z__1.i;
@@ -11091,7 +11091,7 @@ L5:
 #undef fj
 
 
-/* Subroutine */ int fblock_(integer *nrow, integer *ncol, integer *imax, 
+/* Subroutine */ int fblock_(integer *nrow, integer *ncol, integer *imax,
 	integer *irngf, integer *ipsym)
 {
     /* Format strings */
@@ -11251,7 +11251,7 @@ L5:
 /* L6: */
 	    i__3 = j + (i__ << 4) - 17;
 	    i__4 = i__ + (j << 4) - 17;
-	    smat_1.ssx[i__3].r = smat_1.ssx[i__4].r, smat_1.ssx[i__3].i = 
+	    smat_1.ssx[i__3].r = smat_1.ssx[i__4].r, smat_1.ssx[i__3].i =
 		    smat_1.ssx[i__4].i;
 	}
     }
@@ -11310,7 +11310,7 @@ L13:
     return 0;
 } /* fblock_ */
 
-/* Subroutine */ int fbngf_(integer *neq, integer *neq2, integer *iresrv, 
+/* Subroutine */ int fbngf_(integer *neq, integer *neq2, integer *iresrv,
 	integer *ib11, integer *ic11, integer *id11, integer *ix11)
 {
     /* Format strings */
@@ -11473,7 +11473,7 @@ L6:
 
     /* Builtin functions */
     double sin(doublereal), cos(doublereal);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
     double tan(doublereal), sqrt(doublereal), log(doublereal);
 
@@ -11495,8 +11495,8 @@ L6:
     doublereal roz, rox, roy, boo, arg, rfl, rrz;
     doublecomplex rrh1, rrh2, rrv1, rrv2;
     doublereal darg, sill, rozs, omega;
-    extern /* Subroutine */ int fflds_(doublereal *, doublereal *, doublereal 
-	    *, doublecomplex *, doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int fflds_(doublereal *, doublereal *, doublereal
+	    *, doublecomplex *, doublecomplex *, doublecomplex *,
 	    doublecomplex *);
 #define const__ ((doublecomplex *)&equiv_2)
     doublereal tthet;
@@ -11552,19 +11552,19 @@ L6:
 /*     FOR INFINITE PLANAR GROUND */
 
 L1:
-	z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * 
-		gnd_1.zrati.i, z__5.i = gnd_1.zrati.r * gnd_1.zrati.i + 
+	z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i *
+		gnd_1.zrati.i, z__5.i = gnd_1.zrati.r * gnd_1.zrati.i +
 		gnd_1.zrati.i * gnd_1.zrati.r;
 	z__4.r = thz * z__5.r, z__4.i = thz * z__5.i;
 	z__3.r = thz * z__4.r, z__3.i = thz * z__4.i;
 	z__2.r = 1.f - z__3.r, z__2.i = -z__3.i;
 	z_sqrt(&z__1, &z__2);
 	zrsin.r = z__1.r, zrsin.i = z__1.i;
-	z__4.r = gnd_1.zrati.r * zrsin.r - gnd_1.zrati.i * zrsin.i, z__4.i = 
+	z__4.r = gnd_1.zrati.r * zrsin.r - gnd_1.zrati.i * zrsin.i, z__4.i =
 		gnd_1.zrati.r * zrsin.i + gnd_1.zrati.i * zrsin.r;
 	z__3.r = roz - z__4.r, z__3.i = -z__4.i;
 	z__2.r = -z__3.r, z__2.i = -z__3.i;
-	z__6.r = gnd_1.zrati.r * zrsin.r - gnd_1.zrati.i * zrsin.i, z__6.i = 
+	z__6.r = gnd_1.zrati.r * zrsin.r - gnd_1.zrati.i * zrsin.i, z__6.i =
 		gnd_1.zrati.r * zrsin.i + gnd_1.zrati.i * zrsin.r;
 	z__5.r = roz + z__6.r, z__5.i = z__6.i;
 	z_div(&z__1, &z__2, &z__5);
@@ -11588,8 +11588,8 @@ L2:
 	if (gnd_1.ifar == 4) {
 	    goto L3;
 	}
-	z__5.r = gnd_1.zrati2.r * gnd_1.zrati2.r - gnd_1.zrati2.i * 
-		gnd_1.zrati2.i, z__5.i = gnd_1.zrati2.r * gnd_1.zrati2.i + 
+	z__5.r = gnd_1.zrati2.r * gnd_1.zrati2.r - gnd_1.zrati2.i *
+		gnd_1.zrati2.i, z__5.i = gnd_1.zrati2.r * gnd_1.zrati2.i +
 		gnd_1.zrati2.i * gnd_1.zrati2.r;
 	z__4.r = thz * z__5.r, z__4.i = thz * z__5.i;
 	z__3.r = thz * z__4.r, z__3.i = thz * z__4.i;
@@ -11626,7 +11626,7 @@ L4:
 
 	i__2 = data_1.n;
 	for (i__ = 1; i__ <= i__2; ++i__) {
-	    omega = -(rox * cab[i__ - 1] + roy * sab[i__ - 1] + roz * 
+	    omega = -(rox * cab[i__ - 1] + roy * sab[i__ - 1] + roz *
 		    angl_1.salp[i__ - 1]);
 	    el = pi * data_1.si[i__ - 1];
 	    sill = omega * el;
@@ -11658,11 +11658,11 @@ L9:
 L10:
 	    b = el * (boo - too);
 	    c__ = el * (boo + too);
-	    rr = a * crnt_1.air[i__ - 1] + b * crnt_1.bii[i__ - 1] + c__ * 
+	    rr = a * crnt_1.air[i__ - 1] + b * crnt_1.bii[i__ - 1] + c__ *
 		    crnt_1.cir[i__ - 1];
-	    ri = a * crnt_1.aii[i__ - 1] - b * crnt_1.bir[i__ - 1] + c__ * 
+	    ri = a * crnt_1.aii[i__ - 1] - b * crnt_1.bir[i__ - 1] + c__ *
 		    crnt_1.cii[i__ - 1];
-	    arg = tp * (data_1.x[i__ - 1] * rox + data_1.y[i__ - 1] * roy + 
+	    arg = tp * (data_1.x[i__ - 1] * rox + data_1.y[i__ - 1] * roy +
 		    data_1.z__[i__ - 1] * roz);
 	    if (k == 2 && gnd_1.ifar >= 2) {
 		goto L11;
@@ -11671,7 +11671,7 @@ L10:
 	    d__2 = sin(arg);
 	    z__2.r = d__1, z__2.i = d__2;
 	    z__3.r = rr, z__3.i = ri;
-	    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * 
+	    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r *
 		    z__3.i + z__2.i * z__3.r;
 	    exa.r = z__1.r, exa.i = z__1.i;
 
@@ -11686,7 +11686,7 @@ L10:
 	    z__1.r = ciy.r + z__2.r, z__1.i = ciy.i + z__2.i;
 	    ciy.r = z__1.r, ciy.i = z__1.i;
 	    i__3 = i__ - 1;
-	    z__2.r = angl_1.salp[i__3] * exa.r, z__2.i = angl_1.salp[i__3] * 
+	    z__2.r = angl_1.salp[i__3] * exa.r, z__2.i = angl_1.salp[i__3] *
 		    exa.i;
 	    z__1.r = ciz.r + z__2.r, z__1.i = ciz.i + z__2.i;
 	    ciz.r = z__1.r, ciz.i = z__1.i;
@@ -11721,8 +11721,8 @@ L11:
 	    d__1 = log(d__ / gnd_1.t2);
 	    z__1.r = d__1 * z__2.r, z__1.i = d__1 * z__2.i;
 	    zscrn.r = z__1.r, zscrn.i = z__1.i;
-	    z__2.r = zscrn.r * gnd_1.zrati.r - zscrn.i * gnd_1.zrati.i, 
-		    z__2.i = zscrn.r * gnd_1.zrati.i + zscrn.i * 
+	    z__2.r = zscrn.r * gnd_1.zrati.r - zscrn.i * gnd_1.zrati.i,
+		    z__2.i = zscrn.r * gnd_1.zrati.i + zscrn.i *
 		    gnd_1.zrati.r;
 	    z__4.r = eta * gnd_1.zrati.r, z__4.i = eta * gnd_1.zrati.i;
 	    z__3.r = z__4.r + zscrn.r, z__3.i = z__4.i + zscrn.i;
@@ -11775,7 +11775,7 @@ L16:
 	    d__2 = sin(arg);
 	    z__2.r = d__1, z__2.i = d__2;
 	    z__3.r = rr, z__3.i = ri;
-	    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * 
+	    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r *
 		    z__3.i + z__2.i * z__3.r;
 	    exa.r = z__1.r, exa.i = z__1.i;
 
@@ -11789,29 +11789,29 @@ L16:
 	    z__1.r = sab[i__3] * exa.r, z__1.i = sab[i__3] * exa.i;
 	    tiy.r = z__1.r, tiy.i = z__1.i;
 	    i__3 = i__ - 1;
-	    z__1.r = angl_1.salp[i__3] * exa.r, z__1.i = angl_1.salp[i__3] * 
+	    z__1.r = angl_1.salp[i__3] * exa.r, z__1.i = angl_1.salp[i__3] *
 		    exa.i;
 	    tiz.r = z__1.r, tiz.i = z__1.i;
 	    z__3.r = phx * tix.r, z__3.i = phx * tix.i;
 	    z__4.r = phy * tiy.r, z__4.i = phy * tiy.i;
 	    z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
 	    z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-	    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * 
+	    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r *
 		    z__5.i + z__2.i * z__5.r;
 	    cdp.r = z__1.r, cdp.i = z__1.i;
-	    z__3.r = tix.r * rrv.r - tix.i * rrv.i, z__3.i = tix.r * rrv.i + 
+	    z__3.r = tix.r * rrv.r - tix.i * rrv.i, z__3.i = tix.r * rrv.i +
 		    tix.i * rrv.r;
 	    z__2.r = cix.r + z__3.r, z__2.i = cix.i + z__3.i;
 	    z__4.r = phx * cdp.r, z__4.i = phx * cdp.i;
 	    z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	    cix.r = z__1.r, cix.i = z__1.i;
-	    z__3.r = tiy.r * rrv.r - tiy.i * rrv.i, z__3.i = tiy.r * rrv.i + 
+	    z__3.r = tiy.r * rrv.r - tiy.i * rrv.i, z__3.i = tiy.r * rrv.i +
 		    tiy.i * rrv.r;
 	    z__2.r = ciy.r + z__3.r, z__2.i = ciy.i + z__3.i;
 	    z__4.r = phy * cdp.r, z__4.i = phy * cdp.i;
 	    z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	    ciy.r = z__1.r, ciy.i = z__1.i;
-	    z__2.r = tiz.r * rrv.r - tiz.i * rrv.i, z__2.i = tiz.r * rrv.i + 
+	    z__2.r = tiz.r * rrv.r - tiz.i * rrv.i, z__2.i = tiz.r * rrv.i +
 		    tiz.i * rrv.r;
 	    z__1.r = ciz.r - z__2.r, z__1.i = ciz.i - z__2.i;
 	    ciz.r = z__1.r, ciz.i = z__1.i;
@@ -11831,22 +11831,22 @@ L17:
 	z__4.r = phy * ciy.r, z__4.i = phy * ciy.i;
 	z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
 	z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i 
+	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i
 		+ z__2.i * z__5.r;
 	cdp.r = z__1.r, cdp.i = z__1.i;
-	z__3.r = cix.r * rrv.r - cix.i * rrv.i, z__3.i = cix.r * rrv.i + 
+	z__3.r = cix.r * rrv.r - cix.i * rrv.i, z__3.i = cix.r * rrv.i +
 		cix.i * rrv.r;
 	z__2.r = ccx.r + z__3.r, z__2.i = ccx.i + z__3.i;
 	z__4.r = phx * cdp.r, z__4.i = phx * cdp.i;
 	z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	cix.r = z__1.r, cix.i = z__1.i;
-	z__3.r = ciy.r * rrv.r - ciy.i * rrv.i, z__3.i = ciy.r * rrv.i + 
+	z__3.r = ciy.r * rrv.r - ciy.i * rrv.i, z__3.i = ciy.r * rrv.i +
 		ciy.i * rrv.r;
 	z__2.r = ccy.r + z__3.r, z__2.i = ccy.i + z__3.i;
 	z__4.r = phy * cdp.r, z__4.i = phy * cdp.i;
 	z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	ciy.r = z__1.r, ciy.i = z__1.i;
-	z__2.r = ciz.r * rrv.r - ciz.i * rrv.i, z__2.i = ciz.r * rrv.i + 
+	z__2.r = ciz.r * rrv.r - ciz.i * rrv.i, z__2.i = ciz.r * rrv.i +
 		ciz.i * rrv.r;
 	z__1.r = ccz.r - z__2.r, z__1.i = ccz.i - z__2.i;
 	ciz.r = z__1.r, ciz.i = z__1.i;
@@ -11869,13 +11869,13 @@ L19:
     z__3.r = z__4.r + z__5.r, z__3.i = z__4.i + z__5.i;
     z__6.r = thz * ciz.r, z__6.i = thz * ciz.i;
     z__2.r = z__3.r + z__6.r, z__2.i = z__3.i + z__6.i;
-    z__1.r = z__2.r * const__->r - z__2.i * const__->i, z__1.i = z__2.r * 
+    z__1.r = z__2.r * const__->r - z__2.i * const__->i, z__1.i = z__2.r *
 	    const__->i + z__2.i * const__->r;
     eth->r = z__1.r, eth->i = z__1.i;
     z__3.r = phx * cix.r, z__3.i = phx * cix.i;
     z__4.r = phy * ciy.r, z__4.i = phy * ciy.i;
     z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
-    z__1.r = z__2.r * const__->r - z__2.i * const__->i, z__1.i = z__2.r * 
+    z__1.r = z__2.r * const__->r - z__2.i * const__->i, z__1.i = z__2.r *
 	    const__->i + z__2.i * const__->r;
     eph->r = z__1.r, eph->i = z__1.i;
     return 0;
@@ -11913,8 +11913,8 @@ L22:
 	gz.r = z__1.r, gz.i = z__1.i;
 	goto L24;
 L23:
-	z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * 
-		gnd_1.zrati.i, z__5.i = gnd_1.zrati.r * gnd_1.zrati.i + 
+	z__5.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i *
+		gnd_1.zrati.i, z__5.i = gnd_1.zrati.r * gnd_1.zrati.i +
 		gnd_1.zrati.i * gnd_1.zrati.r;
 	z__4.r = thz * z__5.r, z__4.i = thz * z__5.i;
 	z__3.r = thz * z__4.r, z__3.i = thz * z__4.i;
@@ -11927,7 +11927,7 @@ L23:
 	z__3.r = rrh.r + rrv.r, z__3.i = rrh.i + rrv.i;
 	z_div(&z__1, &z__2, &z__3);
 	rrh.r = z__1.r, rrh.i = z__1.i;
-	z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i = 
+	z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i =
 		gnd_1.zrati.r * rrv.i + gnd_1.zrati.i * rrv.r;
 	rrv.r = z__1.r, rrv.i = z__1.i;
 	z__3.r = roz - rrv.r, z__3.i = -rrv.i;
@@ -11939,20 +11939,20 @@ L23:
 	z__4.r = phy * gy.r, z__4.i = phy * gy.i;
 	z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
 	z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i 
+	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i
 		+ z__2.i * z__5.r;
 	eth->r = z__1.r, eth->i = z__1.i;
-	z__2.r = gx.r * rrv.r - gx.i * rrv.i, z__2.i = gx.r * rrv.i + gx.i * 
+	z__2.r = gx.r * rrv.r - gx.i * rrv.i, z__2.i = gx.r * rrv.i + gx.i *
 		rrv.r;
 	z__3.r = phx * eth->r, z__3.i = phx * eth->i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	gx.r = z__1.r, gx.i = z__1.i;
-	z__2.r = gy.r * rrv.r - gy.i * rrv.i, z__2.i = gy.r * rrv.i + gy.i * 
+	z__2.r = gy.r * rrv.r - gy.i * rrv.i, z__2.i = gy.r * rrv.i + gy.i *
 		rrv.r;
 	z__3.r = phy * eth->r, z__3.i = phy * eth->i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	gy.r = z__1.r, gy.i = z__1.i;
-	z__1.r = gz.r * rrv.r - gz.i * rrv.i, z__1.i = gz.r * rrv.i + gz.i * 
+	z__1.r = gz.r * rrv.r - gz.i * rrv.i, z__1.i = gz.r * rrv.i + gz.i *
 		rrv.r;
 	gz.r = z__1.r, gz.i = z__1.i;
 L24:
@@ -11965,15 +11965,15 @@ L24:
 L25:
 	;
     }
-    z__2.r = cix.r * const__->r - cix.i * const__->i, z__2.i = cix.r * 
+    z__2.r = cix.r * const__->r - cix.i * const__->i, z__2.i = cix.r *
 	    const__->i + cix.i * const__->r;
     z__1.r = ex.r + z__2.r, z__1.i = ex.i + z__2.i;
     ex.r = z__1.r, ex.i = z__1.i;
-    z__2.r = ciy.r * const__->r - ciy.i * const__->i, z__2.i = ciy.r * 
+    z__2.r = ciy.r * const__->r - ciy.i * const__->i, z__2.i = ciy.r *
 	    const__->i + ciy.i * const__->r;
     z__1.r = ey.r + z__2.r, z__1.i = ey.i + z__2.i;
     ey.r = z__1.r, ey.i = z__1.i;
-    z__2.r = ciz.r * const__->r - ciz.i * const__->i, z__2.i = ciz.r * 
+    z__2.r = ciz.r * const__->r - ciz.i * const__->i, z__2.i = ciz.r *
 	    const__->i + ciz.i * const__->r;
     z__1.r = ez.r + z__2.r, z__1.i = ez.i + z__2.i;
     ez.r = z__1.r, ez.i = z__1.i;
@@ -11997,7 +11997,7 @@ L25:
 
 
 /* Subroutine */ int fflds_(doublereal *rox, doublereal *roy, doublereal *roz,
-	 doublecomplex *scur, doublecomplex *ex, doublecomplex *ey, 
+	 doublecomplex *scur, doublecomplex *ex, doublecomplex *ey,
 	doublecomplex *ez)
 {
     /* Initialized data */
@@ -12049,7 +12049,7 @@ L25:
     i__1 = data_1.m;
     for (j = 1; j <= i__1; ++j) {
 	--i__;
-	arg = tpi * (*rox * xs[i__ - 1] + *roy * ys[i__ - 1] + *roz * zs[i__ 
+	arg = tpi * (*rox * xs[i__ - 1] + *roy * ys[i__ - 1] + *roz * zs[i__
 		- 1]);
 	d__1 = cos(arg) * s[i__ - 1];
 	d__2 = sin(arg) * s[i__ - 1];
@@ -12081,17 +12081,17 @@ L25:
     ct.r = z__1.r, ct.i = z__1.i;
     z__3.r = *rox * ct.r, z__3.i = *rox * ct.i;
     z__2.r = z__3.r - ex->r, z__2.i = z__3.i - ex->i;
-    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i + 
+    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i +
 	    cons->i * z__2.r;
     ex->r = z__1.r, ex->i = z__1.i;
     z__3.r = *roy * ct.r, z__3.i = *roy * ct.i;
     z__2.r = z__3.r - ey->r, z__2.i = z__3.i - ey->i;
-    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i + 
+    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i +
 	    cons->i * z__2.r;
     ey->r = z__1.r, ey->i = z__1.i;
     z__3.r = *roz * ct.r, z__3.i = *roz * ct.i;
     z__2.r = z__3.r - ez->r, z__2.i = z__3.i - ez->i;
-    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i + 
+    z__1.r = cons->r * z__2.r - cons->i * z__2.i, z__1.i = cons->r * z__2.i +
 	    cons->i * z__2.r;
     ez->r = z__1.r, ez->i = z__1.i;
     return 0;
@@ -12187,8 +12187,8 @@ L3:
     alist al__1;
 
     /* Builtin functions */
-    integer f_open(olist *), f_rew(alist *), s_rsue(cilist *), do_uio(integer 
-	    *, char *, ftnlen), e_rsue(void), s_wsue(cilist *), e_wsue(void), 
+    integer f_open(olist *), f_rew(alist *), s_rsue(cilist *), do_uio(integer
+	    *, char *, ftnlen), e_rsue(void), s_wsue(cilist *), e_wsue(void),
 	    s_wsfe(cilist *), e_wsfe(void), do_fio(integer *, char *, ftnlen);
 
     /* Local variables */
@@ -12199,7 +12199,7 @@ L3:
 #define t2z ((doublereal *)&data_1 + 13501)
     integer neq, iop, nop, nbl2, npeq, iout;
     extern /* Subroutine */ int blckin_(doublecomplex *, integer *, integer *,
-	     integer *, integer *, integer *), blckot_(doublecomplex *, 
+	     integer *, integer *, integer *), blckot_(doublecomplex *,
 	    integer *, integer *, integer *, integer *, integer *);
 
     /* Fortran I/O blocks */
@@ -12690,8 +12690,8 @@ L11:
 #undef t2x
 
 
-/* Subroutine */ int gfld_(doublereal *rho, doublereal *phi, doublereal *rz, 
-	doublecomplex *eth, doublecomplex *epi, doublecomplex *erd, 
+/* Subroutine */ int gfld_(doublereal *rho, doublereal *phi, doublereal *rz,
+	doublecomplex *eth, doublecomplex *epi, doublecomplex *erd,
 	doublecomplex *ux, integer *ksymp)
 {
     /* Initialized data */
@@ -12720,12 +12720,12 @@ L11:
     doublecomplex eph, exa, erh, cix, ciy, ciz, ezh, erv;
     doublereal phx, phy, rix;
     doublecomplex ezv;
-    doublereal riy, rhs, rhp, rhx, rhy, cph, sph, rfl, riz, rnx, rny, rnz, 
+    doublereal riy, rhs, rhp, rhx, rhy, cph, sph, rfl, riz, rnx, rny, rnz,
 	    top, bot, too, boo, thx, thy, thz;
-    extern /* Subroutine */ int ffld_(doublereal *, doublereal *, 
+    extern /* Subroutine */ int ffld_(doublereal *, doublereal *,
 	    doublecomplex *, doublecomplex *);
     doublereal cbet, calp, sbet, sill, thet, rxyz, omega;
-    extern /* Subroutine */ int gwave_(doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int gwave_(doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, doublecomplex *);
 
 /* *** */
@@ -12770,10 +12770,10 @@ L3:
     z__2.r = d__1, z__2.i = d__2;
     z__1.r = z__2.r / r__, z__1.i = z__2.i / r__;
     exa.r = z__1.r, exa.i = z__1.i;
-    z__1.r = eth->r * exa.r - eth->i * exa.i, z__1.i = eth->r * exa.i + 
+    z__1.r = eth->r * exa.r - eth->i * exa.i, z__1.i = eth->r * exa.i +
 	    eth->i * exa.r;
     eth->r = z__1.r, eth->i = z__1.i;
-    z__1.r = epi->r * exa.r - epi->i * exa.i, z__1.i = epi->r * exa.i + 
+    z__1.r = epi->r * exa.r - epi->i * exa.i, z__1.i = epi->r * exa.i +
 	    epi->i * exa.r;
     epi->r = z__1.r, epi->i = z__1.i;
     erd->r = 0.f, erd->i = 0.f;
@@ -12783,7 +12783,7 @@ L3:
 
 L4:
     gwav_1.u.r = ux->r, gwav_1.u.i = ux->i;
-    z__1.r = gwav_1.u.r * gwav_1.u.r - gwav_1.u.i * gwav_1.u.i, z__1.i = 
+    z__1.r = gwav_1.u.r * gwav_1.u.r - gwav_1.u.i * gwav_1.u.i, z__1.i =
 	    gwav_1.u.r * gwav_1.u.i + gwav_1.u.i * gwav_1.u.r;
     gwav_1.u2.r = z__1.r, gwav_1.u2.i = z__1.i;
     phx = -sin(*phi);
@@ -12872,17 +12872,17 @@ L13:
 L14:
 	    b = el * (boo - too);
 	    c__ = el * (boo + too);
-	    rr = a * crnt_1.air[i__ - 1] + b * crnt_1.bii[i__ - 1] + c__ * 
+	    rr = a * crnt_1.air[i__ - 1] + b * crnt_1.bii[i__ - 1] + c__ *
 		    crnt_1.cir[i__ - 1];
-	    ri = a * crnt_1.aii[i__ - 1] - b * crnt_1.bir[i__ - 1] + c__ * 
+	    ri = a * crnt_1.aii[i__ - 1] - b * crnt_1.bir[i__ - 1] + c__ *
 		    crnt_1.cii[i__ - 1];
-	    arg = tp * (data_1.x[i__ - 1] * rnx + data_1.y[i__ - 1] * rny + 
+	    arg = tp * (data_1.x[i__ - 1] * rnx + data_1.y[i__ - 1] * rny +
 		    data_1.z__[i__ - 1] * rnz * rfl);
 	    d__1 = cos(arg);
 	    d__2 = sin(arg);
 	    z__3.r = d__1, z__3.i = d__2;
 	    z__4.r = rr, z__4.i = ri;
-	    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * 
+	    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r *
 		    z__4.i + z__3.i * z__4.r;
 	    z__1.r = z__2.r / tp, z__1.i = z__2.i / tp;
 	    exa.r = z__1.r, exa.i = z__1.i;
@@ -12939,13 +12939,13 @@ L16:
     d__2 = sin(arg);
     z__1.r = d__1, z__1.i = d__2;
     exa.r = z__1.r, exa.i = z__1.i;
-    z__1.r = cix.r * exa.r - cix.i * exa.i, z__1.i = cix.r * exa.i + cix.i * 
+    z__1.r = cix.r * exa.r - cix.i * exa.i, z__1.i = cix.r * exa.i + cix.i *
 	    exa.r;
     cix.r = z__1.r, cix.i = z__1.i;
-    z__1.r = ciy.r * exa.r - ciy.i * exa.i, z__1.i = ciy.r * exa.i + ciy.i * 
+    z__1.r = ciy.r * exa.r - ciy.i * exa.i, z__1.i = ciy.r * exa.i + ciy.i *
 	    exa.r;
     ciy.r = z__1.r, ciy.i = z__1.i;
-    z__1.r = ciz.r * exa.r - ciz.i * exa.i, z__1.i = ciz.r * exa.i + ciz.i * 
+    z__1.r = ciz.r * exa.r - ciz.i * exa.i, z__1.i = ciz.r * exa.i + ciz.i *
 	    exa.r;
     ciz.r = z__1.r, ciz.i = z__1.i;
     rnx = rx / r__;
@@ -12994,9 +12994,9 @@ L16:
     alist al__1;
 
     /* Builtin functions */
-    integer f_open(olist *), s_wsue(cilist *), do_uio(integer *, char *, 
+    integer f_open(olist *), s_wsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_wsue(void), f_rew(alist *), s_rsue(cilist *), e_rsue(
-	    void), s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), 
+	    void), s_wsfe(cilist *), do_fio(integer *, char *, ftnlen),
 	    e_wsfe(void);
 
     /* Local variables */
@@ -13006,7 +13006,7 @@ L16:
 #define t2z ((doublereal *)&data_1 + 13501)
     integer neq, iop, nop, npeq, iout;
     extern /* Subroutine */ int blckin_(doublecomplex *, integer *, integer *,
-	     integer *, integer *, integer *), blckot_(doublecomplex *, 
+	     integer *, integer *, integer *), blckot_(doublecomplex *,
 	    integer *, integer *, integer *, integer *, integer *);
 
     /* Fortran I/O blocks */
@@ -13416,7 +13416,7 @@ L12:
     return 0;
 } /* gh_ */
 
-/* Subroutine */ int gwave_(doublecomplex *erv, doublecomplex *ezv, 
+/* Subroutine */ int gwave_(doublecomplex *erv, doublecomplex *ezv,
 	doublecomplex *erh, doublecomplex *ezh, doublecomplex *eph)
 {
     /* Initialized data */
@@ -13441,11 +13441,11 @@ L12:
 
     /* Builtin functions */
     double sqrt(doublereal);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
     /* Local variables */
-    doublecomplex f, g, v, w, p1, q1, t1, t2, t3, t4, x1, x2, x3, x4, x5, x6, 
+    doublecomplex f, g, v, w, p1, q1, t1, t2, t3, t4, x1, x2, x3, x4, x5, x6,
 	    x7;
 #define fj ((doublecomplex *)&equiv_0)
     doublecomplex rh, rv, rk1, rk2, xr1, xr2;
@@ -13504,17 +13504,17 @@ L12:
     z__2.r = 1.f - z__3.r, z__2.i = -z__3.i;
     z_div(&z__1, &z__2, &rk2);
     t4.r = z__1.r, t4.i = z__1.i;
-    z__3.r = rk2.r * gwav_1.u2.r - rk2.i * gwav_1.u2.i, z__3.i = rk2.r * 
+    z__3.r = rk2.r * gwav_1.u2.r - rk2.i * gwav_1.u2.i, z__3.i = rk2.r *
 	    gwav_1.u2.i + rk2.i * gwav_1.u2.r;
-    z__2.r = z__3.r * t1.r - z__3.i * t1.i, z__2.i = z__3.r * t1.i + z__3.i * 
+    z__2.r = z__3.r * t1.r - z__3.i * t1.i, z__2.i = z__3.r * t1.i + z__3.i *
 	    t1.r;
     d__1 = cpp2 * 2.f;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
     p1.r = z__1.r, p1.i = z__1.i;
-    z__3.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__3.i = gwav_1.u.r * 
+    z__3.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__3.i = gwav_1.u.r *
 	    t2.i + gwav_1.u.i * t2.r;
     z__2.r = spp - z__3.r, z__2.i = -z__3.i;
-    z__5.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__5.i = gwav_1.u.r * 
+    z__5.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__5.i = gwav_1.u.r *
 	    t2.i + gwav_1.u.i * t2.r;
     z__4.r = spp + z__5.r, z__4.i = z__5.i;
     z_div(&z__1, &z__2, &z__4);
@@ -13524,14 +13524,14 @@ L12:
     z_div(&z__1, &c_b245, &omr);
     w.r = z__1.r, w.i = z__1.i;
     z__3.r = p1.r * 4.f - p1.i * 0.f, z__3.i = p1.r * 0.f + p1.i * 4.f;
-    z__2.r = z__3.r * w.r - z__3.i * w.i, z__2.i = z__3.r * w.i + z__3.i * 
+    z__2.r = z__3.r * w.r - z__3.i * w.i, z__2.i = z__3.r * w.i + z__3.i *
 	    w.r;
-    z__1.r = z__2.r * w.r - z__2.i * w.i, z__1.i = z__2.r * w.i + z__2.i * 
+    z__1.r = z__2.r * w.r - z__2.i * w.i, z__1.i = z__2.r * w.i + z__2.i *
 	    w.r;
     w.r = z__1.r, w.i = z__1.i;
     fbar_(&z__1, &w);
     f.r = z__1.r, f.i = z__1.i;
-    z__2.r = rk2.r * t1.r - rk2.i * t1.i, z__2.i = rk2.r * t1.i + rk2.i * 
+    z__2.r = rk2.r * t1.r - rk2.i * t1.i, z__2.i = rk2.r * t1.i + rk2.i *
 	    t1.r;
     z__4.r = gwav_1.u2.r * 2.f, z__4.i = gwav_1.u2.i * 2.f;
     z__3.r = cpp2 * z__4.r, z__3.i = cpp2 * z__4.i;
@@ -13547,9 +13547,9 @@ L12:
     z_div(&z__1, &c_b245, &z__2);
     v.r = z__1.r, v.i = z__1.i;
     z__3.r = q1.r * 4.f - q1.i * 0.f, z__3.i = q1.r * 0.f + q1.i * 4.f;
-    z__2.r = z__3.r * v.r - z__3.i * v.i, z__2.i = z__3.r * v.i + z__3.i * 
+    z__2.r = z__3.r * v.r - z__3.i * v.i, z__2.i = z__3.r * v.i + z__3.i *
 	    v.r;
-    z__1.r = z__2.r * v.r - z__2.i * v.i, z__1.i = z__2.r * v.i + z__2.i * 
+    z__1.r = z__2.r * v.r - z__2.i * v.i, z__1.i = z__2.r * v.i + z__2.i *
 	    v.r;
     v.r = z__1.r, v.i = z__1.i;
     fbar_(&z__1, &v);
@@ -13561,29 +13561,29 @@ L12:
     z__1.r = cppp2 * xr1.r, z__1.i = cppp2 * xr1.i;
     x1.r = z__1.r, x1.i = z__1.i;
     z__2.r = cpp2 * rv.r, z__2.i = cpp2 * rv.i;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x2.r = z__1.r, x2.i = z__1.i;
     z__3.r = cpp2 * omr.r, z__3.i = cpp2 * omr.i;
-    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i * 
+    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i *
 	    f.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x3.r = z__1.r, x3.i = z__1.i;
-    z__5.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__5.i = gwav_1.u.r * 
+    z__5.r = gwav_1.u.r * t2.r - gwav_1.u.i * t2.i, z__5.i = gwav_1.u.r *
 	    t2.i + gwav_1.u.i * t2.r;
     z__4.r = spp * z__5.r, z__4.i = spp * z__5.i;
     z__3.r = z__4.r * 2.f, z__3.i = z__4.i * 2.f;
-    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i + 
+    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i +
 	    z__3.i * xr2.r;
     z_div(&z__1, &z__2, &rk2);
     x4.r = z__1.r, x4.i = z__1.i;
-    z__2.r = xr1.r * t3.r - xr1.i * t3.i, z__2.i = xr1.r * t3.i + xr1.i * 
+    z__2.r = xr1.r * t3.r - xr1.i * t3.i, z__2.i = xr1.r * t3.i + xr1.i *
 	    t3.r;
     d__1 = 1.f - sppp2 * 3.f;
     z__1.r = d__1 * z__2.r, z__1.i = d__1 * z__2.i;
     x5.r = z__1.r, x5.i = z__1.i;
-    z__2.r = xr2.r * t4.r - xr2.i * t4.i, z__2.i = xr2.r * t4.i + xr2.i * 
+    z__2.r = xr2.r * t4.r - xr2.i * t4.i, z__2.i = xr2.r * t4.i + xr2.i *
 	    t4.r;
     d__1 = 1.f - spp2 * 3.f;
     z__1.r = d__1 * z__2.r, z__1.i = d__1 * z__2.i;
@@ -13593,7 +13593,7 @@ L12:
     z__4.r = z__5.r - x4.r, z__4.i = z__5.i - x4.i;
     z__3.r = z__4.r - x5.r, z__3.i = z__4.i - x5.i;
     z__2.r = z__3.r - x6.r, z__2.i = z__3.i - x6.i;
-    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i + 
+    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i +
 	    z__2.i * econ->r;
     ezv->r = z__1.r, ezv->i = z__1.i;
     d__1 = sppp * cppp;
@@ -13601,43 +13601,43 @@ L12:
     x1.r = z__1.r, x1.i = z__1.i;
     z__3.r = spp * rv.r, z__3.i = spp * rv.i;
     z__2.r = cpp * z__3.r, z__2.i = cpp * z__3.i;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x2.r = z__1.r, x2.i = z__1.i;
     z__5.r = cpp * omr.r, z__5.i = cpp * omr.i;
-    z__4.r = z__5.r * gwav_1.u.r - z__5.i * gwav_1.u.i, z__4.i = z__5.r * 
+    z__4.r = z__5.r * gwav_1.u.r - z__5.i * gwav_1.u.i, z__4.i = z__5.r *
 	    gwav_1.u.i + z__5.i * gwav_1.u.r;
-    z__3.r = z__4.r * t2.r - z__4.i * t2.i, z__3.i = z__4.r * t2.i + z__4.i * 
+    z__3.r = z__4.r * t2.r - z__4.i * t2.i, z__3.i = z__4.r * t2.i + z__4.i *
 	    t2.r;
-    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i * 
+    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i *
 	    f.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x3.r = z__1.r, x3.i = z__1.i;
     d__1 = spp * cpp;
     z__3.r = d__1 * omr.r, z__3.i = d__1 * omr.i;
-    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i + 
+    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i +
 	    z__3.i * xr2.r;
     z_div(&z__1, &z__2, &rk2);
     x4.r = z__1.r, x4.i = z__1.i;
     d__1 = sppp * 3.f * cppp;
     z__2.r = d__1 * t3.r, z__2.i = d__1 * t3.i;
-    z__1.r = z__2.r * xr1.r - z__2.i * xr1.i, z__1.i = z__2.r * xr1.i + 
+    z__1.r = z__2.r * xr1.r - z__2.i * xr1.i, z__1.i = z__2.r * xr1.i +
 	    z__2.i * xr1.r;
     x5.r = z__1.r, x5.i = z__1.i;
     z__6.r = cpp * gwav_1.u.r, z__6.i = cpp * gwav_1.u.i;
-    z__5.r = z__6.r * t2.r - z__6.i * t2.i, z__5.i = z__6.r * t2.i + z__6.i * 
+    z__5.r = z__6.r * t2.r - z__6.i * t2.i, z__5.i = z__6.r * t2.i + z__6.i *
 	    t2.r;
-    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i + 
+    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i +
 	    z__5.i * omr.r;
-    z__3.r = z__4.r * xr2.r - z__4.i * xr2.i, z__3.i = z__4.r * xr2.i + 
+    z__3.r = z__4.r * xr2.r - z__4.i * xr2.i, z__3.i = z__4.r * xr2.i +
 	    z__4.i * xr2.r;
     z_div(&z__2, &z__3, &rk2);
     z__1.r = z__2.r * .5f, z__1.i = z__2.i * .5f;
     x6.r = z__1.r, x6.i = z__1.i;
     d__1 = spp * 3.f * cpp;
     z__2.r = d__1 * t4.r, z__2.i = d__1 * t4.i;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x7.r = z__1.r, x7.i = z__1.i;
     z__8.r = x1.r + x2.r, z__8.i = x1.i + x2.i;
@@ -13647,7 +13647,7 @@ L12:
     z__4.r = z__5.r + x6.r, z__4.i = z__5.i + x6.i;
     z__3.r = z__4.r - x7.r, z__3.i = z__4.i - x7.i;
     z__2.r = -z__3.r, z__2.i = -z__3.i;
-    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i + 
+    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i +
 	    z__2.i * econ->r;
     erv->r = z__1.r, erv->i = z__1.i;
     z__8.r = x1.r - x2.r, z__8.i = x1.i - x2.i;
@@ -13657,64 +13657,64 @@ L12:
     z__4.r = z__5.r - x6.r, z__4.i = z__5.i - x6.i;
     z__3.r = z__4.r + x7.r, z__3.i = z__4.i + x7.i;
     z__2.r = -z__3.r, z__2.i = -z__3.i;
-    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i + 
+    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i +
 	    z__2.i * econ->r;
     ezh->r = z__1.r, ezh->i = z__1.i;
     z__1.r = sppp2 * xr1.r, z__1.i = sppp2 * xr1.i;
     x1.r = z__1.r, x1.i = z__1.i;
     z__2.r = spp2 * rv.r, z__2.i = spp2 * rv.i;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x2.r = z__1.r, x2.i = z__1.i;
-    z__4.r = gwav_1.u2.r * t1.r - gwav_1.u2.i * t1.i, z__4.i = gwav_1.u2.r * 
+    z__4.r = gwav_1.u2.r * t1.r - gwav_1.u2.i * t1.i, z__4.i = gwav_1.u2.r *
 	    t1.i + gwav_1.u2.i * t1.r;
-    z__3.r = z__4.r * omr.r - z__4.i * omr.i, z__3.i = z__4.r * omr.i + 
+    z__3.r = z__4.r * omr.r - z__4.i * omr.i, z__3.i = z__4.r * omr.i +
 	    z__4.i * omr.r;
-    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i * 
+    z__2.r = z__3.r * f.r - z__3.i * f.i, z__2.i = z__3.r * f.i + z__3.i *
 	    f.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x4.r = z__1.r, x4.i = z__1.i;
     d__1 = 1.f - cppp2 * 3.f;
     z__2.r = d__1 * t3.r, z__2.i = d__1 * t3.i;
-    z__1.r = z__2.r * xr1.r - z__2.i * xr1.i, z__1.i = z__2.r * xr1.i + 
+    z__1.r = z__2.r * xr1.r - z__2.i * xr1.i, z__1.i = z__2.r * xr1.i +
 	    z__2.i * xr1.r;
     x5.r = z__1.r, x5.i = z__1.i;
     d__1 = 1.f - cpp2 * 3.f;
     z__3.r = d__1 * t4.r, z__3.i = d__1 * t4.i;
     z__7.r = rv.r + 1.f, z__7.i = rv.i;
-    z__6.r = gwav_1.u2.r * z__7.r - gwav_1.u2.i * z__7.i, z__6.i = 
+    z__6.r = gwav_1.u2.r * z__7.r - gwav_1.u2.i * z__7.i, z__6.i =
 	    gwav_1.u2.r * z__7.i + gwav_1.u2.i * z__7.r;
     z__5.r = 1.f - z__6.r, z__5.i = -z__6.i;
     z__9.r = gwav_1.u2.r * omr.r - gwav_1.u2.i * omr.i, z__9.i = gwav_1.u2.r *
 	     omr.i + gwav_1.u2.i * omr.r;
-    z__8.r = z__9.r * f.r - z__9.i * f.i, z__8.i = z__9.r * f.i + z__9.i * 
+    z__8.r = z__9.r * f.r - z__9.i * f.i, z__8.i = z__9.r * f.i + z__9.i *
 	    f.r;
     z__4.r = z__5.r - z__8.r, z__4.i = z__5.i - z__8.i;
-    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i + 
+    z__2.r = z__3.r * z__4.r - z__3.i * z__4.i, z__2.i = z__3.r * z__4.i +
 	    z__3.i * z__4.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x6.r = z__1.r, x6.i = z__1.i;
     z__5.r = cpp2 * gwav_1.u2.r, z__5.i = cpp2 * gwav_1.u2.i;
-    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i + 
+    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i +
 	    z__5.i * omr.r;
     z_div(&z__7, &c_b245, &rk2);
     z__6.r = 1.f - z__7.r, z__6.i = -z__7.i;
-    z__3.r = z__4.r * z__6.r - z__4.i * z__6.i, z__3.i = z__4.r * z__6.i + 
+    z__3.r = z__4.r * z__6.r - z__4.i * z__6.i, z__3.i = z__4.r * z__6.i +
 	    z__4.i * z__6.r;
     z__12.r = gwav_1.u2.r * t1.r - gwav_1.u2.i * t1.i, z__12.i = gwav_1.u2.r *
 	     t1.i + gwav_1.u2.i * t1.r;
     z__11.r = z__12.r - spp2, z__11.i = z__12.i;
     z_div(&z__13, &c_b245, &rk2);
     z__10.r = z__11.r - z__13.r, z__10.i = z__11.i - z__13.i;
-    z__9.r = f.r * z__10.r - f.i * z__10.i, z__9.i = f.r * z__10.i + f.i * 
+    z__9.r = f.r * z__10.r - f.i * z__10.i, z__9.i = f.r * z__10.i + f.i *
 	    z__10.r;
     z_div(&z__14, &c_b245, &rk2);
     z__8.r = z__9.r + z__14.r, z__8.i = z__9.i + z__14.i;
-    z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i + 
+    z__2.r = z__3.r * z__8.r - z__3.i * z__8.i, z__2.i = z__3.r * z__8.i +
 	    z__3.i * z__8.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x7.r = z__1.r, x7.i = z__1.i;
     z__6.r = x1.r - x2.r, z__6.i = x1.i - x2.i;
@@ -13722,51 +13722,51 @@ L12:
     z__4.r = z__5.r - x5.r, z__4.i = z__5.i - x5.i;
     z__3.r = z__4.r + x6.r, z__3.i = z__4.i + x6.i;
     z__2.r = z__3.r + x7.r, z__2.i = z__3.i + x7.i;
-    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i + 
+    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i +
 	    z__2.i * econ->r;
     erh->r = z__1.r, erh->i = z__1.i;
     x1.r = xr1.r, x1.i = xr1.i;
-    z__1.r = rh.r * xr2.r - rh.i * xr2.i, z__1.i = rh.r * xr2.i + rh.i * 
+    z__1.r = rh.r * xr2.r - rh.i * xr2.i, z__1.i = rh.r * xr2.i + rh.i *
 	    xr2.r;
     x2.r = z__1.r, x2.i = z__1.i;
     z__3.r = rh.r + 1.f, z__3.i = rh.i;
-    z__2.r = z__3.r * g.r - z__3.i * g.i, z__2.i = z__3.r * g.i + z__3.i * 
+    z__2.r = z__3.r * g.r - z__3.i * g.i, z__2.i = z__3.r * g.i + z__3.i *
 	    g.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x3.r = z__1.r, x3.i = z__1.i;
-    z__1.r = t3.r * xr1.r - t3.i * xr1.i, z__1.i = t3.r * xr1.i + t3.i * 
+    z__1.r = t3.r * xr1.r - t3.i * xr1.i, z__1.i = t3.r * xr1.i + t3.i *
 	    xr1.r;
     x4.r = z__1.r, x4.i = z__1.i;
     z__6.r = rv.r + 1.f, z__6.i = rv.i;
-    z__5.r = gwav_1.u2.r * z__6.r - gwav_1.u2.i * z__6.i, z__5.i = 
+    z__5.r = gwav_1.u2.r * z__6.r - gwav_1.u2.i * z__6.i, z__5.i =
 	    gwav_1.u2.r * z__6.i + gwav_1.u2.i * z__6.r;
     z__4.r = 1.f - z__5.r, z__4.i = -z__5.i;
     z__8.r = gwav_1.u2.r * omr.r - gwav_1.u2.i * omr.i, z__8.i = gwav_1.u2.r *
 	     omr.i + gwav_1.u2.i * omr.r;
-    z__7.r = z__8.r * f.r - z__8.i * f.i, z__7.i = z__8.r * f.i + z__8.i * 
+    z__7.r = z__8.r * f.r - z__8.i * f.i, z__7.i = z__8.r * f.i + z__8.i *
 	    f.r;
     z__3.r = z__4.r - z__7.r, z__3.i = z__4.i - z__7.i;
-    z__2.r = t4.r * z__3.r - t4.i * z__3.i, z__2.i = t4.r * z__3.i + t4.i * 
+    z__2.r = t4.r * z__3.r - t4.i * z__3.i, z__2.i = t4.r * z__3.i + t4.i *
 	    z__3.r;
-    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i + 
+    z__1.r = z__2.r * xr2.r - z__2.i * xr2.i, z__1.i = z__2.r * xr2.i +
 	    z__2.i * xr2.r;
     x5.r = z__1.r, x5.i = z__1.i;
     z__5.r = gwav_1.u2.r * .5f, z__5.i = gwav_1.u2.i * .5f;
-    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i + 
+    z__4.r = z__5.r * omr.r - z__5.i * omr.i, z__4.i = z__5.r * omr.i +
 	    z__5.i * omr.r;
     z__10.r = gwav_1.u2.r * t1.r - gwav_1.u2.i * t1.i, z__10.i = gwav_1.u2.r *
 	     t1.i + gwav_1.u2.i * t1.r;
     z__9.r = z__10.r - spp2, z__9.i = z__10.i;
     z_div(&z__11, &c_b245, &rk2);
     z__8.r = z__9.r - z__11.r, z__8.i = z__9.i - z__11.i;
-    z__7.r = f.r * z__8.r - f.i * z__8.i, z__7.i = f.r * z__8.i + f.i * 
+    z__7.r = f.r * z__8.r - f.i * z__8.i, z__7.i = f.r * z__8.i + f.i *
 	    z__8.r;
     z_div(&z__12, &c_b245, &rk2);
     z__6.r = z__7.r + z__12.r, z__6.i = z__7.i + z__12.i;
-    z__3.r = z__4.r * z__6.r - z__4.i * z__6.i, z__3.i = z__4.r * z__6.i + 
+    z__3.r = z__4.r * z__6.r - z__4.i * z__6.i, z__3.i = z__4.r * z__6.i +
 	    z__4.i * z__6.r;
-    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i + 
+    z__2.r = z__3.r * xr2.r - z__3.i * xr2.i, z__2.i = z__3.r * xr2.i +
 	    z__3.i * xr2.r;
     z_div(&z__1, &z__2, &rk2);
     x6.r = z__1.r, x6.i = z__1.i;
@@ -13776,7 +13776,7 @@ L12:
     z__4.r = z__5.r + x5.r, z__4.i = z__5.i + x5.i;
     z__3.r = z__4.r + x6.r, z__3.i = z__4.i + x6.i;
     z__2.r = -z__3.r, z__2.i = -z__3.i;
-    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i + 
+    z__1.r = z__2.r * econ->r - z__2.i * econ->i, z__1.i = z__2.r * econ->i +
 	    z__2.i * econ->r;
     eph->r = z__1.r, eph->i = z__1.i;
     return 0;
@@ -13790,7 +13790,7 @@ L12:
 #undef fj
 
 
-/* Subroutine */ int gx_(doublereal *zz, doublereal *rh, doublereal *xk, 
+/* Subroutine */ int gx_(doublereal *zz, doublereal *rh, doublereal *xk,
 	doublecomplex *gz, doublecomplex *gzp)
 {
     /* System generated locals */
@@ -13818,16 +13818,16 @@ L12:
     gz->r = z__1.r, gz->i = z__1.i;
     z__4.r = 1., z__4.i = rk;
     z__3.r = -z__4.r, z__3.i = -z__4.i;
-    z__2.r = z__3.r * gz->r - z__3.i * gz->i, z__2.i = z__3.r * gz->i + 
+    z__2.r = z__3.r * gz->r - z__3.i * gz->i, z__2.i = z__3.r * gz->i +
 	    z__3.i * gz->r;
     z__1.r = z__2.r / r2, z__1.i = z__2.i / r2;
     gzp->r = z__1.r, gzp->i = z__1.i;
     return 0;
 } /* gx_ */
 
-/* Subroutine */ int gxx_(doublereal *zz, doublereal *rh, doublereal *a, 
-	doublereal *a2, doublereal *xk, integer *ira, doublecomplex *g1, 
-	doublecomplex *g1p, doublecomplex *g2, doublecomplex *g2p, 
+/* Subroutine */ int gxx_(doublereal *zz, doublereal *rh, doublereal *a,
+	doublereal *a2, doublereal *xk, integer *ira, doublecomplex *g1,
+	doublecomplex *g1p, doublecomplex *g2, doublecomplex *g2p,
 	doublecomplex *g3, doublecomplex *gzp)
 {
     /* System generated locals */
@@ -13874,11 +13874,11 @@ L12:
     gz.r = z__1.r, gz.i = z__1.i;
     z__3.r = t1 * c2.r, z__3.i = t1 * c2.i;
     z__2.r = z__3.r + 1.f, z__2.i = z__3.i;
-    z__1.r = gz.r * z__2.r - gz.i * z__2.i, z__1.i = gz.r * z__2.i + gz.i * 
+    z__1.r = gz.r * z__2.r - gz.i * z__2.i, z__1.i = gz.r * z__2.i + gz.i *
 	    z__2.r;
     g2->r = z__1.r, g2->i = z__1.i;
     z__3.r = t2 * c1.r, z__3.i = t2 * c1.i;
-    z__2.r = z__3.r * gz.r - z__3.i * gz.i, z__2.i = z__3.r * gz.i + z__3.i * 
+    z__2.r = z__3.r * gz.r - z__3.i * gz.i, z__2.i = z__3.r * gz.i + z__3.i *
 	    gz.r;
     z__1.r = g2->r - z__2.r, z__1.i = g2->i - z__2.i;
     g1->r = z__1.r, g1->i = z__1.i;
@@ -13886,11 +13886,11 @@ L12:
     gz.r = z__1.r, gz.i = z__1.i;
     z__3.r = t1 * c3.r, z__3.i = t1 * c3.i;
     z__2.r = z__3.r - c1.r, z__2.i = z__3.i - c1.i;
-    z__1.r = gz.r * z__2.r - gz.i * z__2.i, z__1.i = gz.r * z__2.i + gz.i * 
+    z__1.r = gz.r * z__2.r - gz.i * z__2.i, z__1.i = gz.r * z__2.i + gz.i *
 	    z__2.r;
     g2p->r = z__1.r, g2p->i = z__1.i;
     z__2.r = t2 * c2.r, z__2.i = t2 * c2.i;
-    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i * 
+    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i *
 	    gz.r;
     gzp->r = z__1.r, gzp->i = z__1.i;
     z__1.r = g2p->r + gzp->r, z__1.i = g2p->i + gzp->i;
@@ -13905,7 +13905,7 @@ L12:
     g3->r = z__1.r, g3->i = z__1.i;
     d__1 = -(*zz);
     z__2.r = d__1 * c1.r, z__2.i = d__1 * c1.i;
-    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i * 
+    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i *
 	    gz.r;
     gzp->r = z__1.r, gzp->i = z__1.i;
     if (*rh > 1e-10) {
@@ -13925,17 +13925,17 @@ L2:
     t2 = *a * .5f;
     d__1 = -t2;
     z__2.r = d__1 * c1.r, z__2.i = d__1 * c1.i;
-    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i * 
+    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i *
 	    gz.r;
     g2->r = z__1.r, g2->i = z__1.i;
     z__3.r = t2 * gz.r, z__3.i = t2 * gz.i;
-    z__2.r = z__3.r * c2.r - z__3.i * c2.i, z__2.i = z__3.r * c2.i + z__3.i * 
+    z__2.r = z__3.r * c2.r - z__3.i * c2.i, z__2.i = z__3.r * c2.i + z__3.i *
 	    c2.r;
     z__1.r = z__2.r / r2, z__1.i = z__2.i / r2;
     g2p->r = z__1.r, g2p->i = z__1.i;
     z__2.r = rh2 * g2p->r, z__2.i = rh2 * g2p->i;
     z__4.r = *a * gz.r, z__4.i = *a * gz.i;
-    z__3.r = z__4.r * c1.r - z__4.i * c1.i, z__3.i = z__4.r * c1.i + z__4.i * 
+    z__3.r = z__4.r * c1.r - z__4.i * c1.i, z__3.i = z__4.r * c1.i + z__4.i *
 	    c1.r;
     z__1.r = z__2.r - z__3.r, z__1.i = z__2.i - z__3.i;
     g3->r = z__1.r, g3->i = z__1.i;
@@ -13943,14 +13943,14 @@ L2:
     g2p->r = z__1.r, g2p->i = z__1.i;
     d__1 = -(*zz);
     z__2.r = d__1 * c1.r, z__2.i = d__1 * c1.i;
-    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i * 
+    z__1.r = z__2.r * gz.r - z__2.i * gz.i, z__1.i = z__2.r * gz.i + z__2.i *
 	    gz.r;
     gzp->r = z__1.r, gzp->i = z__1.i;
     return 0;
 } /* gxx_ */
 
-/* Subroutine */ int helix_(doublereal *s, doublereal *hl, doublereal *a1, 
-	doublereal *b1, doublereal *a2, doublereal *b2, doublereal *rad, 
+/* Subroutine */ int helix_(doublereal *s, doublereal *hl, doublereal *a1,
+	doublereal *b1, doublereal *a2, doublereal *b2, doublereal *rad,
 	integer *ns, integer *itg)
 {
     /* Initialized data */
@@ -14034,9 +14034,9 @@ L10:
 		hl)) * cos(pi * 2.f * data_1.z__[i__ - 1] / *s);
 	data_1.y[i__ - 1] = (*b1 + (*b2 - *b1) * data_1.z__[i__ - 1] / abs(*
 		hl)) * sin(pi * 2.f * data_1.z__[i__ - 1] / *s);
-	x2[i__ - 1] = (*a1 + (*a2 - *a1) * z2[i__ - 1] / abs(*hl)) * cos(pi * 
+	x2[i__ - 1] = (*a1 + (*a2 - *a1) * z2[i__ - 1] / abs(*hl)) * cos(pi *
 		2.f * z2[i__ - 1] / *s);
-	y2[i__ - 1] = (*b1 + (*b2 - *b1) * z2[i__ - 1] / abs(*hl)) * sin(pi * 
+	y2[i__ - 1] = (*b1 + (*b2 - *b1) * z2[i__ - 1] / abs(*hl)) * sin(pi *
 		2.f * z2[i__ - 1] / *s);
 L20:
 	if (*hl > 0.) {
@@ -14100,7 +14100,7 @@ L40:
 #undef x2
 
 
-/* Subroutine */ int hfk_(doublereal *el1, doublereal *el2, doublereal *rhk, 
+/* Subroutine */ int hfk_(doublereal *el1, doublereal *el2, doublereal *rhk,
 	doublereal *zpkx, doublereal *sgr, doublereal *sgi)
 {
     /* Initialized data */
@@ -14121,8 +14121,8 @@ L40:
     extern /* Subroutine */ int gh_(doublereal *, doublereal *, doublereal *);
     doublereal ep, dz, ze;
     integer ns, nt;
-    doublereal zp, g1i, g3i, g5i, g2i, g4i, g1r, g2r, g3r, g4r, g5r, t00i, 
-	    t01i, t10i, t02i, t11i, t20i, t00r, t01r, t10r, t02r, t11r, t20r, 
+    doublereal zp, g1i, g3i, g5i, g2i, g4i, g1r, g2r, g3r, g4r, g5r, t00i,
+	    t01i, t10i, t02i, t11i, t20i, t00r, t01r, t10r, t02r, t11r, t20r,
 	    te1i, te2i, te1r, te2r, zend;
     extern /* Subroutine */ int test_(doublereal *, doublereal *, doublereal *
 	    , doublereal *, doublereal *, doublereal *, doublereal *);
@@ -14289,7 +14289,7 @@ L17:
 
     /* Builtin functions */
     double sqrt(doublereal), cos(doublereal), sin(doublereal);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
     /* Local variables */
@@ -14410,8 +14410,8 @@ L2:
 	px = -ry / xymag;
 	py = rx / xymag;
 	cth = rz / r__;
-	z__4.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * 
-		gnd_1.zrati.i, z__4.i = gnd_1.zrati.r * gnd_1.zrati.i + 
+	z__4.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i *
+		gnd_1.zrati.i, z__4.i = gnd_1.zrati.r * gnd_1.zrati.i +
 		gnd_1.zrati.i * gnd_1.zrati.r;
 	d__1 = 1.f - cth * cth;
 	z__3.r = d__1 * z__4.r, z__3.i = d__1 * z__4.i;
@@ -14425,7 +14425,7 @@ L3:
 	z__3.r = rrh.r + rrv.r, z__3.i = rrh.i + rrv.i;
 	z_div(&z__1, &z__2, &z__3);
 	rrh.r = z__1.r, rrh.i = z__1.i;
-	z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i = 
+	z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i =
 		gnd_1.zrati.r * rrv.i + gnd_1.zrati.i * rrv.r;
 	rrv.r = z__1.r, rrv.i = z__1.i;
 	z__3.r = cth - rrv.r, z__3.i = -rrv.i;
@@ -14437,40 +14437,40 @@ L3:
 	z__4.r = py * f1y.r, z__4.i = py * f1y.i;
 	z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
 	z__5.r = rrv.r - rrh.r, z__5.i = rrv.i - rrh.i;
-	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i 
+	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i
 		+ z__2.i * z__5.r;
 	gam.r = z__1.r, gam.i = z__1.i;
-	z__2.r = f1x.r * rrh.r - f1x.i * rrh.i, z__2.i = f1x.r * rrh.i + 
+	z__2.r = f1x.r * rrh.r - f1x.i * rrh.i, z__2.i = f1x.r * rrh.i +
 		f1x.i * rrh.r;
 	z__3.r = px * gam.r, z__3.i = px * gam.i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	f1x.r = z__1.r, f1x.i = z__1.i;
-	z__2.r = f1y.r * rrh.r - f1y.i * rrh.i, z__2.i = f1y.r * rrh.i + 
+	z__2.r = f1y.r * rrh.r - f1y.i * rrh.i, z__2.i = f1y.r * rrh.i +
 		f1y.i * rrh.r;
 	z__3.r = py * gam.r, z__3.i = py * gam.i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	f1y.r = z__1.r, f1y.i = z__1.i;
-	z__1.r = f1z.r * rrh.r - f1z.i * rrh.i, z__1.i = f1z.r * rrh.i + 
+	z__1.r = f1z.r * rrh.r - f1z.i * rrh.i, z__1.i = f1z.r * rrh.i +
 		f1z.i * rrh.r;
 	f1z.r = z__1.r, f1z.i = z__1.i;
 	z__3.r = px * f2x.r, z__3.i = px * f2x.i;
 	z__4.r = py * f2y.r, z__4.i = py * f2y.i;
 	z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
 	z__5.r = rrv.r - rrh.r, z__5.i = rrv.i - rrh.i;
-	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i 
+	z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i
 		+ z__2.i * z__5.r;
 	gam.r = z__1.r, gam.i = z__1.i;
-	z__2.r = f2x.r * rrh.r - f2x.i * rrh.i, z__2.i = f2x.r * rrh.i + 
+	z__2.r = f2x.r * rrh.r - f2x.i * rrh.i, z__2.i = f2x.r * rrh.i +
 		f2x.i * rrh.r;
 	z__3.r = px * gam.r, z__3.i = px * gam.i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	f2x.r = z__1.r, f2x.i = z__1.i;
-	z__2.r = f2y.r * rrh.r - f2y.i * rrh.i, z__2.i = f2y.r * rrh.i + 
+	z__2.r = f2y.r * rrh.r - f2y.i * rrh.i, z__2.i = f2y.r * rrh.i +
 		f2y.i * rrh.r;
 	z__3.r = py * gam.r, z__3.i = py * gam.i;
 	z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
 	f2y.r = z__1.r, f2y.i = z__1.i;
-	z__1.r = f2z.r * rrh.r - f2z.i * rrh.i, z__1.i = f2z.r * rrh.i + 
+	z__1.r = f2z.r * rrh.r - f2z.i * rrh.i, z__1.i = f2z.r * rrh.i +
 		f2z.i * rrh.r;
 	f2z.r = z__1.r, f2z.i = z__1.i;
 L4:
@@ -14500,7 +14500,7 @@ L5:
 #undef t1xj
 
 
-/* Subroutine */ int hsfld_(doublereal *xi, doublereal *yi, doublereal *zi, 
+/* Subroutine */ int hsfld_(doublereal *xi, doublereal *yi, doublereal *zi,
 	doublereal *ai)
 {
     /* Initialized data */
@@ -14530,7 +14530,7 @@ L5:
     doublereal xij, yij, zij, phx, phy, phz;
     doublecomplex rrv;
     doublereal rmag, rhox, rhoy, rhoz, salpr, xspec, yspec;
-    extern /* Subroutine */ int hsflx_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int hsflx_(doublereal *, doublereal *, doublereal
 	    *, doublecomplex *, doublecomplex *, doublecomplex *);
     doublereal xymag;
     doublecomplex zratx;
@@ -14601,7 +14601,7 @@ L1:
 	d__1 = log(rhospc / gnd_1.t2);
 	z__1.r = d__1 * z__2.r, z__1.i = d__1 * z__2.i;
 	rrv.r = z__1.r, rrv.i = z__1.i;
-	z__2.r = rrv.r * gnd_1.zrati.r - rrv.i * gnd_1.zrati.i, z__2.i = 
+	z__2.r = rrv.r * gnd_1.zrati.r - rrv.i * gnd_1.zrati.i, z__2.i =
 		rrv.r * gnd_1.zrati.i + rrv.i * gnd_1.zrati.r;
 	z__4.r = eta * gnd_1.zrati.r, z__4.i = eta * gnd_1.zrati.i;
 	z__3.r = z__4.r + rrv.r, z__3.i = z__4.i + rrv.i;
@@ -14623,7 +14623,7 @@ L3:
 	px = -yij / xymag;
 	py = xij / xymag;
 	cth = zij / rmag;
-	z__4.r = zratx.r * zratx.r - zratx.i * zratx.i, z__4.i = zratx.r * 
+	z__4.r = zratx.r * zratx.r - zratx.i * zratx.i, z__4.i = zratx.r *
 		zratx.i + zratx.i * zratx.r;
 	d__1 = 1.f - cth * cth;
 	z__3.r = d__1 * z__4.r, z__3.i = d__1 * z__4.i;
@@ -14638,7 +14638,7 @@ L4:
 	z__4.r = rrh.r + rrv.r, z__4.i = rrh.i + rrv.i;
 	z_div(&z__1, &z__2, &z__4);
 	rrh.r = z__1.r, rrh.i = z__1.i;
-	z__1.r = zratx.r * rrv.r - zratx.i * rrv.i, z__1.i = zratx.r * rrv.i 
+	z__1.r = zratx.r * rrv.r - zratx.i * rrv.i, z__1.i = zratx.r * rrv.i
 		+ zratx.i * rrv.r;
 	rrv.r = z__1.r, rrv.i = z__1.i;
 	z__2.r = cth - rrv.r, z__2.i = -rrv.i;
@@ -14659,39 +14659,39 @@ L4:
 	qy.r = z__1.r, qy.i = z__1.i;
 	z__1.r = phz * rrh.r, z__1.i = phz * rrh.i;
 	qz.r = z__1.r, qz.i = z__1.i;
-	z__2.r = hpk.r * qx.r - hpk.i * qx.i, z__2.i = hpk.r * qx.i + hpk.i * 
+	z__2.r = hpk.r * qx.r - hpk.i * qx.i, z__2.i = hpk.r * qx.i + hpk.i *
 		qx.r;
 	z__1.r = dataj_1.exk.r - z__2.r, z__1.i = dataj_1.exk.i - z__2.i;
 	dataj_1.exk.r = z__1.r, dataj_1.exk.i = z__1.i;
-	z__2.r = hpk.r * qy.r - hpk.i * qy.i, z__2.i = hpk.r * qy.i + hpk.i * 
+	z__2.r = hpk.r * qy.r - hpk.i * qy.i, z__2.i = hpk.r * qy.i + hpk.i *
 		qy.r;
 	z__1.r = dataj_1.eyk.r - z__2.r, z__1.i = dataj_1.eyk.i - z__2.i;
 	dataj_1.eyk.r = z__1.r, dataj_1.eyk.i = z__1.i;
-	z__2.r = hpk.r * qz.r - hpk.i * qz.i, z__2.i = hpk.r * qz.i + hpk.i * 
+	z__2.r = hpk.r * qz.r - hpk.i * qz.i, z__2.i = hpk.r * qz.i + hpk.i *
 		qz.r;
 	z__1.r = dataj_1.ezk.r - z__2.r, z__1.i = dataj_1.ezk.i - z__2.i;
 	dataj_1.ezk.r = z__1.r, dataj_1.ezk.i = z__1.i;
-	z__2.r = hps.r * qx.r - hps.i * qx.i, z__2.i = hps.r * qx.i + hps.i * 
+	z__2.r = hps.r * qx.r - hps.i * qx.i, z__2.i = hps.r * qx.i + hps.i *
 		qx.r;
 	z__1.r = dataj_1.exs.r - z__2.r, z__1.i = dataj_1.exs.i - z__2.i;
 	dataj_1.exs.r = z__1.r, dataj_1.exs.i = z__1.i;
-	z__2.r = hps.r * qy.r - hps.i * qy.i, z__2.i = hps.r * qy.i + hps.i * 
+	z__2.r = hps.r * qy.r - hps.i * qy.i, z__2.i = hps.r * qy.i + hps.i *
 		qy.r;
 	z__1.r = dataj_1.eys.r - z__2.r, z__1.i = dataj_1.eys.i - z__2.i;
 	dataj_1.eys.r = z__1.r, dataj_1.eys.i = z__1.i;
-	z__2.r = hps.r * qz.r - hps.i * qz.i, z__2.i = hps.r * qz.i + hps.i * 
+	z__2.r = hps.r * qz.r - hps.i * qz.i, z__2.i = hps.r * qz.i + hps.i *
 		qz.r;
 	z__1.r = dataj_1.ezs.r - z__2.r, z__1.i = dataj_1.ezs.i - z__2.i;
 	dataj_1.ezs.r = z__1.r, dataj_1.ezs.i = z__1.i;
-	z__2.r = hpc.r * qx.r - hpc.i * qx.i, z__2.i = hpc.r * qx.i + hpc.i * 
+	z__2.r = hpc.r * qx.r - hpc.i * qx.i, z__2.i = hpc.r * qx.i + hpc.i *
 		qx.r;
 	z__1.r = dataj_1.exc.r - z__2.r, z__1.i = dataj_1.exc.i - z__2.i;
 	dataj_1.exc.r = z__1.r, dataj_1.exc.i = z__1.i;
-	z__2.r = hpc.r * qy.r - hpc.i * qy.i, z__2.i = hpc.r * qy.i + hpc.i * 
+	z__2.r = hpc.r * qy.r - hpc.i * qy.i, z__2.i = hpc.r * qy.i + hpc.i *
 		qy.r;
 	z__1.r = dataj_1.eyc.r - z__2.r, z__1.i = dataj_1.eyc.i - z__2.i;
 	dataj_1.eyc.r = z__1.r, dataj_1.eyc.i = z__1.i;
-	z__2.r = hpc.r * qz.r - hpc.i * qz.i, z__2.i = hpc.r * qz.i + hpc.i * 
+	z__2.r = hpc.r * qz.r - hpc.i * qz.i, z__2.i = hpc.r * qz.i + hpc.i *
 		qz.r;
 	z__1.r = dataj_1.ezc.r - z__2.r, z__1.i = dataj_1.ezc.i - z__2.i;
 	dataj_1.ezc.r = z__1.r, dataj_1.ezc.i = z__1.i;
@@ -14750,7 +14750,7 @@ L7:
     return 0;
 } /* hsfld_ */
 
-/* Subroutine */ int hsflx_(doublereal *s, doublereal *rh, doublereal *zpx, 
+/* Subroutine */ int hsflx_(doublereal *s, doublereal *rh, doublereal *zpx,
 	doublecomplex *hpk, doublecomplex *hps, doublecomplex *hpc)
 {
     /* Initialized data */
@@ -14849,7 +14849,7 @@ L4:
     z__3.r = cdk * z__4.r, z__3.i = cdk * z__4.i;
     z__6.r = sdk * fj->r, z__6.i = sdk * fj->i;
     z__7.r = t2.r + t1.r, z__7.i = t2.i + t1.i;
-    z__5.r = z__6.r * z__7.r - z__6.i * z__7.i, z__5.i = z__6.r * z__7.i + 
+    z__5.r = z__6.r * z__7.r - z__6.i * z__7.i, z__5.i = z__6.r * z__7.i +
 	    z__6.i * z__7.r;
     z__2.r = z__3.r - z__5.r, z__2.i = z__3.i - z__5.i;
     z__1.r = hss * z__2.r, z__1.i = hss * z__2.i;
@@ -14859,7 +14859,7 @@ L4:
     z__2.r = d__1 * z__3.r, z__2.i = d__1 * z__3.i;
     z__5.r = cdk * fj->r, z__5.i = cdk * fj->i;
     z__6.r = t2.r - t1.r, z__6.i = t2.i - t1.i;
-    z__4.r = z__5.r * z__6.r - z__5.i * z__6.i, z__4.i = z__5.r * z__6.i + 
+    z__4.r = z__5.r * z__6.r - z__5.i * z__6.i, z__4.i = z__5.r * z__6.i +
 	    z__5.i * z__6.r;
     z__1.r = z__2.r - z__4.r, z__1.i = z__2.i - z__4.i;
     hpc->r = z__1.r, hpc->i = z__1.i;
@@ -14867,10 +14867,10 @@ L4:
     d__1 = tp * 2.f * *rh;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
     cons.r = z__1.r, cons.i = z__1.i;
-    z__1.r = cons.r * hps->r - cons.i * hps->i, z__1.i = cons.r * hps->i + 
+    z__1.r = cons.r * hps->r - cons.i * hps->i, z__1.i = cons.r * hps->i +
 	    cons.i * hps->r;
     hps->r = z__1.r, hps->i = z__1.i;
-    z__1.r = cons.r * hpc->r - cons.i * hpc->i, z__1.i = cons.r * hpc->i + 
+    z__1.r = cons.r * hpc->r - cons.i * hpc->i, z__1.i = cons.r * hpc->i +
 	    cons.i * hpc->r;
     hpc->r = z__1.r, hpc->i = z__1.i;
     return 0;
@@ -14894,17 +14894,17 @@ L5:
     z__5.r = ekr1.r + ekr2.r, z__5.i = ekr1.i + ekr2.i;
     z__4.r = sdk * z__5.r, z__4.i = sdk * z__5.i;
     z__3.r = t1.r + z__4.r, z__3.i = t1.i + z__4.i;
-    z__2.r = t2.r * z__3.r - t2.i * z__3.i, z__2.i = t2.r * z__3.i + t2.i * 
+    z__2.r = t2.r * z__3.r - t2.i * z__3.i, z__2.i = t2.r * z__3.i + t2.i *
 	    z__3.r;
     z__1.r = hss * z__2.r, z__1.i = hss * z__2.i;
     hps->r = z__1.r, hps->i = z__1.i;
     z__4.r = -fj->r, z__4.i = -fj->i;
-    z__3.r = z__4.r * t1.r - z__4.i * t1.i, z__3.i = z__4.r * t1.i + z__4.i * 
+    z__3.r = z__4.r * t1.r - z__4.i * t1.i, z__3.i = z__4.r * t1.i + z__4.i *
 	    t1.r;
     z__6.r = ekr1.r - ekr2.r, z__6.i = ekr1.i - ekr2.i;
     z__5.r = cdk * z__6.r, z__5.i = cdk * z__6.i;
     z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-    z__1.r = t2.r * z__2.r - t2.i * z__2.i, z__1.i = t2.r * z__2.i + t2.i * 
+    z__1.r = t2.r * z__2.r - t2.i * z__2.i, z__1.i = t2.r * z__2.i + t2.i *
 	    z__2.r;
     hpc->r = z__1.r, hpc->i = z__1.i;
     return 0;
@@ -14921,7 +14921,7 @@ L6:
 #undef fj
 
 
-/* Subroutine */ int intrp_(doublereal *x, doublereal *y, doublecomplex *f1, 
+/* Subroutine */ int intrp_(doublereal *x, doublereal *y, doublecomplex *f1,
 	doublecomplex *f2, doublecomplex *f3, doublecomplex *f4)
 {
     /* Initialized data */
@@ -15047,7 +15047,7 @@ L6:
     if (ix < ixeg || iy < iyeg) {
 	goto L1;
     }
-    if ((i__1 = ix - ixs, abs(i__1)) < 2 && (i__2 = iy - iys, abs(i__2)) < 2) 
+    if ((i__1 = ix - ixs, abs(i__1)) < 2 && (i__2 = iy - iys, abs(i__2)) < 2)
 	    {
 	goto L12;
     }
@@ -15476,7 +15476,7 @@ L12:
 #undef a
 
 
-/* Subroutine */ int intx_(doublereal *el1, doublereal *el2, doublereal *b, 
+/* Subroutine */ int intx_(doublereal *el1, doublereal *el2, doublereal *b,
 	integer *ij, doublereal *sgr, doublereal *sgi)
 {
     /* Initialized data */
@@ -15498,8 +15498,8 @@ L12:
     extern /* Subroutine */ int gf_(doublereal *, doublereal *, doublereal *);
     doublereal ep, dz, ze;
     integer ns, nt;
-    doublereal zp, g1i, g3i, g5i, g2i, g4i, g1r, g2r, g3r, g4r, g5r, t00i, 
-	    t01i, t10i, t02i, fnm, t11i, t20i, t00r, fns, t01r, t10r, t02r, 
+    doublereal zp, g1i, g3i, g5i, g2i, g4i, g1r, g2r, g3r, g4r, g5r, t00i,
+	    t01i, t10i, t02i, fnm, t11i, t20i, t00r, fns, t01r, t10r, t02r,
 	    t11r, t20r, te1i, te2i, te1r, te2r, zend;
     extern /* Subroutine */ int test_(doublereal *, doublereal *, doublereal *
 	    , doublereal *, doublereal *, doublereal *, doublereal *);
@@ -15757,7 +15757,7 @@ L5:
 
 } /* isegno_ */
 
-/* Subroutine */ int lfactr_(doublecomplex *a, integer *nrow, integer *ix1, 
+/* Subroutine */ int lfactr_(doublecomplex *a, integer *nrow, integer *ix1,
 	integer *ix2, integer *ip)
 {
     /* Format strings */
@@ -15769,7 +15769,7 @@ L5:
     doublecomplex z__1, z__2;
 
     /* Builtin functions */
-    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void d_cnjg(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
     integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
@@ -15875,7 +15875,7 @@ L5:
 	    a[i__3].r = ajr.r, a[i__3].i = ajr.i;
 	    i__3 = pj - 1;
 	    i__4 = j - 1;
-	    scratm_1.d__[i__3].r = scratm_1.d__[i__4].r, scratm_1.d__[i__3].i 
+	    scratm_1.d__[i__3].r = scratm_1.d__[i__4].r, scratm_1.d__[i__3].i
 		    = scratm_1.d__[i__4].i;
 	    jp1 = j + 1;
 	    i__3 = *nrow;
@@ -15915,7 +15915,7 @@ L9:
 L11:
 	i__2 = j2p1 - 1;
 	d_cnjg(&z__2, &scratm_1.d__[j2p1 - 1]);
-	z__1.r = scratm_1.d__[i__2].r * z__2.r - scratm_1.d__[i__2].i * 
+	z__1.r = scratm_1.d__[i__2].r * z__2.r - scratm_1.d__[i__2].i *
 		z__2.i, z__1.i = scratm_1.d__[i__2].r * z__2.i + scratm_1.d__[
 		i__2].i * z__2.r;
 	dmax__ = z__1.r;
@@ -15928,8 +15928,8 @@ L11:
 	for (i__ = j2p2; i__ <= i__2; ++i__) {
 	    i__3 = i__ - 1;
 	    d_cnjg(&z__2, &scratm_1.d__[i__ - 1]);
-	    z__1.r = scratm_1.d__[i__3].r * z__2.r - scratm_1.d__[i__3].i * 
-		    z__2.i, z__1.i = scratm_1.d__[i__3].r * z__2.i + 
+	    z__1.r = scratm_1.d__[i__3].r * z__2.r - scratm_1.d__[i__3].i *
+		    z__2.i, z__1.i = scratm_1.d__[i__3].r * z__2.i +
 		    scratm_1.d__[i__3].i * z__2.r;
 	    elmag = z__1.r;
 	    if (elmag < dmax__) {
@@ -15950,7 +15950,7 @@ L13:
 	a[i__2].r = scratm_1.d__[i__3].r, a[i__2].i = scratm_1.d__[i__3].i;
 	i__2 = pr - 1;
 	i__3 = j2p1 - 1;
-	scratm_1.d__[i__2].r = scratm_1.d__[i__3].r, scratm_1.d__[i__2].i = 
+	scratm_1.d__[i__2].r = scratm_1.d__[i__3].r, scratm_1.d__[i__2].i =
 		scratm_1.d__[i__3].i;
 
 /*     STEP 5 */
@@ -15964,8 +15964,8 @@ L13:
 	for (i__ = j2p2; i__ <= i__2; ++i__) {
 	    i__3 = i__ + r__ * a_dim1;
 	    i__4 = i__ - 1;
-	    z__1.r = scratm_1.d__[i__4].r * ajr.r - scratm_1.d__[i__4].i * 
-		    ajr.i, z__1.i = scratm_1.d__[i__4].r * ajr.i + 
+	    z__1.r = scratm_1.d__[i__4].r * ajr.r - scratm_1.d__[i__4].i *
+		    ajr.i, z__1.i = scratm_1.d__[i__4].r * ajr.i +
 		    scratm_1.d__[i__4].i * ajr.r;
 	    a[i__3].r = z__1.r, a[i__3].i = z__1.i;
 /* L14: */
@@ -15986,7 +15986,7 @@ L16:
 
 } /* lfactr_ */
 
-/* Subroutine */ int load_(integer *ldtyp, integer *ldtag, integer *ldtagf, 
+/* Subroutine */ int load_(integer *ldtyp, integer *ldtag, integer *ldtagf,
 	integer *ldtagt, doublereal *zlr, doublereal *zli, doublereal *zlc)
 {
     /* Initialized data */
@@ -16029,10 +16029,10 @@ L16:
     integer nop, ichk;
 #define tpcj ((doublecomplex *)&equiv_0)
     integer jump;
-    extern /* Subroutine */ int prnt_(integer *, integer *, integer *, 
-	    doublereal *, doublereal *, doublereal *, doublereal *, 
+    extern /* Subroutine */ int prnt_(integer *, integer *, integer *,
+	    doublereal *, doublereal *, doublereal *, doublereal *,
 	    doublereal *, doublereal *, char *, ftnlen);
-    extern /* Double Complex */ VOID zint_(doublecomplex *, doublereal *, 
+    extern /* Double Complex */ VOID zint_(doublecomplex *, doublereal *,
 	    doublereal *);
     integer iwarn, istep;
 #define tpcjx ((doublereal *)&equiv_0)
@@ -16194,7 +16194,7 @@ L10:
 	if ((d__1 = zlc[istep], abs(d__1)) > 1e-20) {
 	    z__3.r = data_1.wlam, z__3.i = 0.;
 	    i__1 = i__ - 1;
-	    z__5.r = data_1.si[i__1] * tpcj->r, z__5.i = data_1.si[i__1] * 
+	    z__5.r = data_1.si[i__1] * tpcj->r, z__5.i = data_1.si[i__1] *
 		    tpcj->i;
 	    i__2 = istep;
 	    z__4.r = zlc[i__2] * z__5.r, z__4.i = zlc[i__2] * z__5.i;
@@ -16205,7 +16205,7 @@ L10:
 	goto L16;
 L11:
 	i__1 = i__ - 1;
-	z__3.r = data_1.si[i__1] * tpcj->r, z__3.i = data_1.si[i__1] * 
+	z__3.r = data_1.si[i__1] * tpcj->r, z__3.i = data_1.si[i__1] *
 		tpcj->i;
 	i__2 = istep;
 	z__2.r = zlc[i__2] * z__3.r, z__2.i = zlc[i__2] * z__3.i;
@@ -16236,10 +16236,10 @@ L12:
 	zt.r = z__1.r, zt.i = z__1.i;
 	if ((d__1 = zlc[istep], abs(d__1)) > 1e-20) {
 	    i__1 = i__ - 1;
-	    z__5.r = data_1.si[i__1] * tpcj->r, z__5.i = data_1.si[i__1] * 
+	    z__5.r = data_1.si[i__1] * tpcj->r, z__5.i = data_1.si[i__1] *
 		    tpcj->i;
 	    i__2 = i__ - 1;
-	    z__4.r = data_1.si[i__2] * z__5.r, z__4.i = data_1.si[i__2] * 
+	    z__4.r = data_1.si[i__2] * z__5.r, z__4.i = data_1.si[i__2] *
 		    z__5.i;
 	    i__4 = istep;
 	    z__3.r = zlc[i__4] * z__4.r, z__3.i = zlc[i__4] * z__4.i;
@@ -16250,7 +16250,7 @@ L12:
 	goto L16;
 L13:
 	i__1 = i__ - 1;
-	z__3.r = data_1.si[i__1] * tpcj->r, z__3.i = data_1.si[i__1] * 
+	z__3.r = data_1.si[i__1] * tpcj->r, z__3.i = data_1.si[i__1] *
 		tpcj->i;
 	i__2 = i__ - 1;
 	z__2.r = data_1.si[i__2] * z__3.r, z__2.i = data_1.si[i__2] * z__3.i;
@@ -16336,12 +16336,12 @@ L22:
 	    ftnlen)20);
     goto L2;
 L23:
-    prnt_(&ldtags, &ldtagf[istep], &ldtagt[istep], &c_b636, &c_b636, &c_b636, 
+    prnt_(&ldtags, &ldtagf[istep], &ldtagt[istep], &c_b636, &c_b636, &c_b636,
 	    &zlr[istep], &zli[istep], &c_b636, "FIXED IMPEDANCE ", (ftnlen)16)
 	    ;
     goto L2;
 L24:
-    prnt_(&ldtags, &ldtagf[istep], &ldtagt[istep], &c_b636, &c_b636, &c_b636, 
+    prnt_(&ldtags, &ldtagf[istep], &ldtagt[istep], &c_b636, &c_b636, &c_b636,
 	    &c_b636, &c_b636, &zlr[istep], "  WIRE  ", (ftnlen)8);
     goto L2;
 
@@ -16351,12 +16351,12 @@ L24:
 #undef tpcj
 
 
-/* Subroutine */ int ltsolv_(doublecomplex *a, integer *nrow, integer *ix, 
+/* Subroutine */ int ltsolv_(doublecomplex *a, integer *nrow, integer *ix,
 	doublecomplex *b, integer *neq, integer *nrh, integer *ifl1, integer *
 	ifl2)
 {
     /* System generated locals */
-    integer a_dim1, a_offset, b_dim1, b_offset, i__1, i__2, i__3, i__4, i__5, 
+    integer a_dim1, a_offset, b_dim1, b_offset, i__1, i__2, i__3, i__4, i__5,
 	    i__6;
     doublecomplex z__1, z__2;
 
@@ -16424,7 +16424,7 @@ L24:
 /* L1: */
 		    i__5 = i__ + k * a_dim1;
 		    i__6 = i__ + ic * b_dim1;
-		    z__2.r = a[i__5].r * b[i__6].r - a[i__5].i * b[i__6].i, 
+		    z__2.r = a[i__5].r * b[i__6].r - a[i__5].i * b[i__6].i,
 			    z__2.i = a[i__5].r * b[i__6].i + a[i__5].i * b[
 			    i__6].r;
 		    z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
@@ -16470,7 +16470,7 @@ L2:
 /* L5: */
 		    i__6 = i__ + kp * a_dim1;
 		    i__4 = i__ + ic * b_dim1;
-		    z__2.r = a[i__6].r * b[i__4].r - a[i__6].i * b[i__4].i, 
+		    z__2.r = a[i__6].r * b[i__4].r - a[i__6].i * b[i__4].i,
 			    z__2.i = a[i__6].r * b[i__4].i + a[i__6].i * b[
 			    i__4].r;
 		    z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
@@ -16512,7 +16512,7 @@ L6:
     return 0;
 } /* ltsolv_ */
 
-/* Subroutine */ int lunscr_(doublecomplex *a, integer *nrow, integer *nop, 
+/* Subroutine */ int lunscr_(doublecomplex *a, integer *nrow, integer *nop,
 	integer *ix, integer *ip, integer *iu2, integer *iu3, integer *iu4)
 {
     /* System generated locals */
@@ -16527,7 +16527,7 @@ L6:
     doublecomplex temp;
     integer ixblk1;
     extern /* Subroutine */ int blckin_(doublecomplex *, integer *, integer *,
-	     integer *, integer *, integer *), blckot_(doublecomplex *, 
+	     integer *, integer *, integer *), blckot_(doublecomplex *,
 	    integer *, integer *, integer *, integer *, integer *);
 
 /* *** */
@@ -16643,8 +16643,8 @@ L9:
     return 0;
 } /* lunscr_ */
 
-/* Subroutine */ int move_(doublereal *rox, doublereal *roy, doublereal *roz, 
-	doublereal *xs, doublereal *ys, doublereal *zs, integer *its, integer 
+/* Subroutine */ int move_(doublereal *rox, doublereal *roy, doublereal *roz,
+	doublereal *xs, doublereal *ys, doublereal *zs, integer *its, integer
 	*nrpt, integer *itgi)
 {
     /* System generated locals */
@@ -16844,7 +16844,7 @@ L6:
 #define t2yj ((doublereal *)&dataj_1 + 27)
 #define t2zj ((doublereal *)&dataj_1 + 28)
     extern /* Subroutine */ int efld_(doublereal *, doublereal *, doublereal *
-	    , doublereal *, integer *), unere_(doublereal *, doublereal *, 
+	    , doublereal *, integer *), unere_(doublereal *, doublereal *,
 	    doublereal *);
 
 /* *** */
@@ -16872,12 +16872,12 @@ L6:
 	dataj_1.xj = *xob - data_1.x[i__ - 1];
 	dataj_1.yj = *yob - data_1.y[i__ - 1];
 	dataj_1.zj = *zob - data_1.z__[i__ - 1];
-	zp = cab[i__ - 1] * dataj_1.xj + sab[i__ - 1] * dataj_1.yj + 
+	zp = cab[i__ - 1] * dataj_1.xj + sab[i__ - 1] * dataj_1.yj +
 		angl_1.salp[i__ - 1] * dataj_1.zj;
 	if (abs(zp) > data_1.si[i__ - 1] * .5001f) {
 	    goto L1;
 	}
-	zp = dataj_1.xj * dataj_1.xj + dataj_1.yj * dataj_1.yj + dataj_1.zj * 
+	zp = dataj_1.xj * dataj_1.xj + dataj_1.yj * dataj_1.yj + dataj_1.zj *
 		dataj_1.zj - zp * zp;
 	dataj_1.xj = data_1.bi[i__ - 1];
 	if (zp > dataj_1.xj * .9f * dataj_1.xj) {
@@ -16920,7 +16920,7 @@ L4:
 	if (ipr != i__) {
 	    goto L5;
 	}
-	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8) 
+	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8)
 		{
 	    goto L9;
 	}
@@ -16965,7 +16965,7 @@ L12:
 	if (ipr != i__) {
 	    goto L13;
 	}
-	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8) 
+	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8)
 		{
 	    goto L17;
 	}
@@ -17005,34 +17005,34 @@ L18:
 	i__3 = i__ - 1;
 	z__1.r = crnt_1.cir[i__2], z__1.i = crnt_1.cii[i__3];
 	ccx.r = z__1.r, ccx.i = z__1.i;
-	z__4.r = dataj_1.exk.r * acx.r - dataj_1.exk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.exk.r * acx.r - dataj_1.exk.i * acx.i, z__4.i =
 		dataj_1.exk.r * acx.i + dataj_1.exk.i * acx.r;
 	z__3.r = ex->r + z__4.r, z__3.i = ex->i + z__4.i;
-	z__5.r = dataj_1.exs.r * bcx.r - dataj_1.exs.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.exs.r * bcx.r - dataj_1.exs.i * bcx.i, z__5.i =
 		dataj_1.exs.r * bcx.i + dataj_1.exs.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.exc.r * ccx.r - dataj_1.exc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.exc.r * ccx.r - dataj_1.exc.i * ccx.i, z__6.i =
 		dataj_1.exc.r * ccx.i + dataj_1.exc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	ex->r = z__1.r, ex->i = z__1.i;
-	z__4.r = dataj_1.eyk.r * acx.r - dataj_1.eyk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.eyk.r * acx.r - dataj_1.eyk.i * acx.i, z__4.i =
 		dataj_1.eyk.r * acx.i + dataj_1.eyk.i * acx.r;
 	z__3.r = ey->r + z__4.r, z__3.i = ey->i + z__4.i;
-	z__5.r = dataj_1.eys.r * bcx.r - dataj_1.eys.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.eys.r * bcx.r - dataj_1.eys.i * bcx.i, z__5.i =
 		dataj_1.eys.r * bcx.i + dataj_1.eys.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.eyc.r * ccx.r - dataj_1.eyc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.eyc.r * ccx.r - dataj_1.eyc.i * ccx.i, z__6.i =
 		dataj_1.eyc.r * ccx.i + dataj_1.eyc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	ey->r = z__1.r, ey->i = z__1.i;
 /* L19: */
-	z__4.r = dataj_1.ezk.r * acx.r - dataj_1.ezk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.ezk.r * acx.r - dataj_1.ezk.i * acx.i, z__4.i =
 		dataj_1.ezk.r * acx.i + dataj_1.ezk.i * acx.r;
 	z__3.r = ez->r + z__4.r, z__3.i = ez->i + z__4.i;
-	z__5.r = dataj_1.ezs.r * bcx.r - dataj_1.ezs.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.ezs.r * bcx.r - dataj_1.ezs.i * bcx.i, z__5.i =
 		dataj_1.ezs.r * bcx.i + dataj_1.ezs.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.ezc.r * ccx.r - dataj_1.ezc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.ezc.r * ccx.r - dataj_1.ezc.i * ccx.i, z__6.i =
 		dataj_1.ezc.r * ccx.i + dataj_1.ezc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	ez->r = z__1.r, ez->i = z__1.i;
@@ -17085,25 +17085,25 @@ L20:
 	for (ip = 1; ip <= i__2; ++ip) {
 	    dataj_1.ipgnd = ip;
 	    unere_(xob, yob, zob);
-	    z__3.r = acx.r * dataj_1.exk.r - acx.i * dataj_1.exk.i, z__3.i = 
+	    z__3.r = acx.r * dataj_1.exk.r - acx.i * dataj_1.exk.i, z__3.i =
 		    acx.r * dataj_1.exk.i + acx.i * dataj_1.exk.r;
 	    z__2.r = ex->r + z__3.r, z__2.i = ex->i + z__3.i;
-	    z__4.r = bcx.r * dataj_1.exs.r - bcx.i * dataj_1.exs.i, z__4.i = 
+	    z__4.r = bcx.r * dataj_1.exs.r - bcx.i * dataj_1.exs.i, z__4.i =
 		    bcx.r * dataj_1.exs.i + bcx.i * dataj_1.exs.r;
 	    z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	    ex->r = z__1.r, ex->i = z__1.i;
-	    z__3.r = acx.r * dataj_1.eyk.r - acx.i * dataj_1.eyk.i, z__3.i = 
+	    z__3.r = acx.r * dataj_1.eyk.r - acx.i * dataj_1.eyk.i, z__3.i =
 		    acx.r * dataj_1.eyk.i + acx.i * dataj_1.eyk.r;
 	    z__2.r = ey->r + z__3.r, z__2.i = ey->i + z__3.i;
-	    z__4.r = bcx.r * dataj_1.eys.r - bcx.i * dataj_1.eys.i, z__4.i = 
+	    z__4.r = bcx.r * dataj_1.eys.r - bcx.i * dataj_1.eys.i, z__4.i =
 		    bcx.r * dataj_1.eys.i + bcx.i * dataj_1.eys.r;
 	    z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	    ey->r = z__1.r, ey->i = z__1.i;
 /* L21: */
-	    z__3.r = acx.r * dataj_1.ezk.r - acx.i * dataj_1.ezk.i, z__3.i = 
+	    z__3.r = acx.r * dataj_1.ezk.r - acx.i * dataj_1.ezk.i, z__3.i =
 		    acx.r * dataj_1.ezk.i + acx.i * dataj_1.ezk.r;
 	    z__2.r = ez->r + z__3.r, z__2.i = ez->i + z__3.i;
-	    z__4.r = bcx.r * dataj_1.ezs.r - bcx.i * dataj_1.ezs.i, z__4.i = 
+	    z__4.r = bcx.r * dataj_1.ezs.r - bcx.i * dataj_1.ezs.i, z__4.i =
 		    bcx.r * dataj_1.ezs.i + bcx.i * dataj_1.ezs.r;
 	    z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	    ez->r = z__1.r, ez->i = z__1.i;
@@ -17128,7 +17128,7 @@ L20:
 #undef t1x
 
 
-/* Subroutine */ int netwk_(doublecomplex *cm, doublecomplex *cmb, 
+/* Subroutine */ int netwk_(doublecomplex *cm, doublecomplex *cmb,
 	doublecomplex *cmc, doublecomplex *cmd, integer *ip, doublecomplex *
 	einc)
 {
@@ -17188,13 +17188,13 @@ L20:
     integer ntsc;
     doublecomplex ymit;
     integer nseg1, nseg2, neqz2, irow1, irow2;
-    extern /* Subroutine */ int factr_(integer *, doublecomplex *, integer *, 
+    extern /* Subroutine */ int factr_(integer *, doublecomplex *, integer *,
 	    integer *);
     integer nteqa[30], ntsca[30];
-    extern /* Subroutine */ int solgf_(doublecomplex *, doublecomplex *, 
-	    doublecomplex *, doublecomplex *, doublecomplex *, integer *, 
-	    integer *, integer *, integer *, integer *, integer *, integer *, 
-	    integer *, integer *, integer *), solve_(integer *, doublecomplex 
+    extern /* Subroutine */ int solgf_(doublecomplex *, doublecomplex *,
+	    doublecomplex *, doublecomplex *, doublecomplex *, integer *,
+	    integer *, integer *, integer *, integer *, integer *, integer *,
+	    integer *, integer *, integer *), solve_(integer *, doublecomplex
 	    *, integer *, doublecomplex *, integer *);
 
     /* Fortran I/O blocks */
@@ -17579,7 +17579,7 @@ L35:
 	z__4.r = y11r, z__4.i = y11i;
 	i__1 = isc1 - 1;
 	z__3.r = z__4.r * vsorc_2.vsant[i__1].r - z__4.i * vsorc_2.vsant[i__1]
-		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i * 
+		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i *
 		vsorc_2.vsant[i__1].r;
 	z__2.r = z__3.r / data_1.wlam, z__2.i = z__3.i / data_1.wlam;
 	z__1.r = rhnx[i__4].r + z__2.r, z__1.i = rhnx[i__4].i + z__2.i;
@@ -17589,7 +17589,7 @@ L35:
 	z__4.r = y12r, z__4.i = y12i;
 	i__1 = isc1 - 1;
 	z__3.r = z__4.r * vsorc_2.vsant[i__1].r - z__4.i * vsorc_2.vsant[i__1]
-		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i * 
+		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i *
 		vsorc_2.vsant[i__1].r;
 	z__2.r = z__3.r / data_1.wlam, z__2.i = z__3.i / data_1.wlam;
 	z__1.r = rhnx[i__4].r + z__2.r, z__1.i = rhnx[i__4].i + z__2.i;
@@ -17619,7 +17619,7 @@ L37:
 	z__4.r = y12r, z__4.i = y12i;
 	i__1 = isc2 - 1;
 	z__3.r = z__4.r * vsorc_2.vsant[i__1].r - z__4.i * vsorc_2.vsant[i__1]
-		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i * 
+		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i *
 		vsorc_2.vsant[i__1].r;
 	z__2.r = z__3.r / data_1.wlam, z__2.i = z__3.i / data_1.wlam;
 	z__1.r = rhnx[i__4].r + z__2.r, z__1.i = rhnx[i__4].i + z__2.i;
@@ -17629,7 +17629,7 @@ L37:
 	z__4.r = y22r, z__4.i = y22i;
 	i__1 = isc2 - 1;
 	z__3.r = z__4.r * vsorc_2.vsant[i__1].r - z__4.i * vsorc_2.vsant[i__1]
-		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i * 
+		.i, z__3.i = z__4.r * vsorc_2.vsant[i__1].i + z__4.i *
 		vsorc_2.vsant[i__1].r;
 	z__2.r = z__3.r / data_1.wlam, z__2.i = z__3.i / data_1.wlam;
 	z__1.r = rhnx[i__4].r + z__2.r, z__1.i = rhnx[i__4].i + z__2.i;
@@ -17739,7 +17739,7 @@ L42:
 	irow1 = nteqa[i__ - 1];
 	i__5 = i__ - 1;
 	i__2 = irow1 - 1;
-	z__2.r = data_1.si[i__2] * rhnt[i__5].r, z__2.i = data_1.si[i__2] * 
+	z__2.r = data_1.si[i__2] * rhnt[i__5].r, z__2.i = data_1.si[i__2] *
 		rhnt[i__5].i;
 	z__1.r = data_1.wlam * z__2.r, z__1.i = data_1.wlam * z__2.i;
 	vlt.r = z__1.r, vlt.i = z__1.i;
@@ -17753,7 +17753,7 @@ L42:
 	netcx_2.zped.r = z__1.r, netcx_2.zped.i = z__1.i;
 	irow2 = data_1.itag[irow1 - 1];
 	d_cnjg(&z__2, &cux);
-	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i + 
+	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i +
 		vlt.i * z__2.r;
 	pwr = z__1.r * .5f;
 	netcx_2.pnls -= pwr;
@@ -17788,7 +17788,7 @@ L42:
 	netcx_2.zped.r = z__1.r, netcx_2.zped.i = z__1.i;
 	irow2 = data_1.itag[irow1 - 1];
 	d_cnjg(&z__2, &cux);
-	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i + 
+	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i +
 		vlt.i * z__2.r;
 	pwr = z__1.r * .5f;
 	netcx_2.pnls -= pwr;
@@ -17857,7 +17857,7 @@ L52:
 /* L53: */
 	    i__2 = j + irow1 * 30 - 31;
 	    i__1 = j - 1;
-	    z__2.r = cmn[i__2].r * rhnt[i__1].r - cmn[i__2].i * rhnt[i__1].i, 
+	    z__2.r = cmn[i__2].r * rhnt[i__1].r - cmn[i__2].i * rhnt[i__1].i,
 		    z__2.i = cmn[i__2].r * rhnt[i__1].i + cmn[i__2].i * rhnt[
 		    i__1].r;
 	    z__1.r = cux.r - z__2.r, z__1.i = cux.i - z__2.i;
@@ -17873,7 +17873,7 @@ L54:
 	z_div(&z__1, &vlt, &cux);
 	netcx_2.zped.r = z__1.r, netcx_2.zped.i = z__1.i;
 	d_cnjg(&z__2, &cux);
-	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i + 
+	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i +
 		vlt.i * z__2.r;
 	pwr = z__1.r * .5f;
 	netcx_2.pin += pwr;
@@ -17927,7 +17927,7 @@ L56:
 	z_div(&z__1, &vlt, &cux);
 	netcx_2.zped.r = z__1.r, netcx_2.zped.i = z__1.i;
 	d_cnjg(&z__2, &cux);
-	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i + 
+	z__1.r = vlt.r * z__2.r - vlt.i * z__2.i, z__1.i = vlt.r * z__2.i +
 		vlt.i * z__2.r;
 	pwr = z__1.r * .5f;
 	netcx_2.pin += pwr;
@@ -17988,9 +17988,9 @@ L56:
 	     tmp5, tmp6;
     extern doublereal cang_(doublecomplex *);
     doublereal xnrt, ynrt, znrt;
-    extern /* Subroutine */ int nefld_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int nefld_(doublereal *, doublereal *, doublereal
 	    *, doublecomplex *, doublecomplex *, doublecomplex *), nhfld_(
-	    doublereal *, doublereal *, doublereal *, doublecomplex *, 
+	    doublereal *, doublereal *, doublereal *, doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
     /* Fortran I/O blocks */
@@ -18243,9 +18243,9 @@ L9:
 #define t2yj ((doublereal *)&dataj_1 + 27)
 #define t2zj ((doublereal *)&dataj_1 + 28)
     doublereal delt;
-    doublecomplex exmx, exmy, exmz, expx, expy, expz, eypx, eymx, eypy, eymy, 
+    doublecomplex exmx, exmy, exmz, expx, expy, expz, eypx, eymx, eypy, eymy,
 	    eypz, eymz, ezpx, ezmx, ezpy, ezmy, ezpz, ezmz;
-    extern /* Subroutine */ int nefld_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int nefld_(doublereal *, doublereal *, doublereal
 	    *, doublecomplex *, doublecomplex *, doublecomplex *), hsfld_(
 	    doublereal *, doublereal *, doublereal *, doublereal *), hintg_(
 	    doublereal *, doublereal *, doublereal *);
@@ -18278,12 +18278,12 @@ L9:
 	dataj_1.xj = *xob - data_1.x[i__ - 1];
 	dataj_1.yj = *yob - data_1.y[i__ - 1];
 	dataj_1.zj = *zob - data_1.z__[i__ - 1];
-	zp = cab[i__ - 1] * dataj_1.xj + sab[i__ - 1] * dataj_1.yj + 
+	zp = cab[i__ - 1] * dataj_1.xj + sab[i__ - 1] * dataj_1.yj +
 		angl_1.salp[i__ - 1] * dataj_1.zj;
 	if (abs(zp) > data_1.si[i__ - 1] * .5001f) {
 	    goto L1;
 	}
-	zp = dataj_1.xj * dataj_1.xj + dataj_1.yj * dataj_1.yj + dataj_1.zj * 
+	zp = dataj_1.xj * dataj_1.xj + dataj_1.yj * dataj_1.yj + dataj_1.zj *
 		dataj_1.zj - zp * zp;
 	dataj_1.xj = data_1.bi[i__ - 1];
 	if (zp > dataj_1.xj * .9f * dataj_1.xj) {
@@ -18318,34 +18318,34 @@ L2:
 	i__3 = i__ - 1;
 	z__1.r = crnt_1.cir[i__2], z__1.i = crnt_1.cii[i__3];
 	ccx.r = z__1.r, ccx.i = z__1.i;
-	z__4.r = dataj_1.exk.r * acx.r - dataj_1.exk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.exk.r * acx.r - dataj_1.exk.i * acx.i, z__4.i =
 		dataj_1.exk.r * acx.i + dataj_1.exk.i * acx.r;
 	z__3.r = hx->r + z__4.r, z__3.i = hx->i + z__4.i;
-	z__5.r = dataj_1.exs.r * bcx.r - dataj_1.exs.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.exs.r * bcx.r - dataj_1.exs.i * bcx.i, z__5.i =
 		dataj_1.exs.r * bcx.i + dataj_1.exs.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.exc.r * ccx.r - dataj_1.exc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.exc.r * ccx.r - dataj_1.exc.i * ccx.i, z__6.i =
 		dataj_1.exc.r * ccx.i + dataj_1.exc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	hx->r = z__1.r, hx->i = z__1.i;
-	z__4.r = dataj_1.eyk.r * acx.r - dataj_1.eyk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.eyk.r * acx.r - dataj_1.eyk.i * acx.i, z__4.i =
 		dataj_1.eyk.r * acx.i + dataj_1.eyk.i * acx.r;
 	z__3.r = hy->r + z__4.r, z__3.i = hy->i + z__4.i;
-	z__5.r = dataj_1.eys.r * bcx.r - dataj_1.eys.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.eys.r * bcx.r - dataj_1.eys.i * bcx.i, z__5.i =
 		dataj_1.eys.r * bcx.i + dataj_1.eys.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.eyc.r * ccx.r - dataj_1.eyc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.eyc.r * ccx.r - dataj_1.eyc.i * ccx.i, z__6.i =
 		dataj_1.eyc.r * ccx.i + dataj_1.eyc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	hy->r = z__1.r, hy->i = z__1.i;
 /* L3: */
-	z__4.r = dataj_1.ezk.r * acx.r - dataj_1.ezk.i * acx.i, z__4.i = 
+	z__4.r = dataj_1.ezk.r * acx.r - dataj_1.ezk.i * acx.i, z__4.i =
 		dataj_1.ezk.r * acx.i + dataj_1.ezk.i * acx.r;
 	z__3.r = hz->r + z__4.r, z__3.i = hz->i + z__4.i;
-	z__5.r = dataj_1.ezs.r * bcx.r - dataj_1.ezs.i * bcx.i, z__5.i = 
+	z__5.r = dataj_1.ezs.r * bcx.r - dataj_1.ezs.i * bcx.i, z__5.i =
 		dataj_1.ezs.r * bcx.i + dataj_1.ezs.i * bcx.r;
 	z__2.r = z__3.r + z__5.r, z__2.i = z__3.i + z__5.i;
-	z__6.r = dataj_1.ezc.r * ccx.r - dataj_1.ezc.i * ccx.i, z__6.i = 
+	z__6.r = dataj_1.ezc.r * ccx.r - dataj_1.ezc.i * ccx.i, z__6.i =
 		dataj_1.ezc.r * ccx.i + dataj_1.ezc.i * ccx.r;
 	z__1.r = z__2.r + z__6.r, z__1.i = z__2.i + z__6.i;
 	hz->r = z__1.r, hz->i = z__1.i;
@@ -18395,25 +18395,25 @@ L4:
 		.i;
 	z__1.r = z__2.r + z__5.r, z__1.i = z__2.i + z__5.i;
 	bcx.r = z__1.r, bcx.i = z__1.i;
-	z__3.r = acx.r * dataj_1.exk.r - acx.i * dataj_1.exk.i, z__3.i = 
+	z__3.r = acx.r * dataj_1.exk.r - acx.i * dataj_1.exk.i, z__3.i =
 		acx.r * dataj_1.exk.i + acx.i * dataj_1.exk.r;
 	z__2.r = hx->r + z__3.r, z__2.i = hx->i + z__3.i;
-	z__4.r = bcx.r * dataj_1.exs.r - bcx.i * dataj_1.exs.i, z__4.i = 
+	z__4.r = bcx.r * dataj_1.exs.r - bcx.i * dataj_1.exs.i, z__4.i =
 		bcx.r * dataj_1.exs.i + bcx.i * dataj_1.exs.r;
 	z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	hx->r = z__1.r, hx->i = z__1.i;
-	z__3.r = acx.r * dataj_1.eyk.r - acx.i * dataj_1.eyk.i, z__3.i = 
+	z__3.r = acx.r * dataj_1.eyk.r - acx.i * dataj_1.eyk.i, z__3.i =
 		acx.r * dataj_1.eyk.i + acx.i * dataj_1.eyk.r;
 	z__2.r = hy->r + z__3.r, z__2.i = hy->i + z__3.i;
-	z__4.r = bcx.r * dataj_1.eys.r - bcx.i * dataj_1.eys.i, z__4.i = 
+	z__4.r = bcx.r * dataj_1.eys.r - bcx.i * dataj_1.eys.i, z__4.i =
 		bcx.r * dataj_1.eys.i + bcx.i * dataj_1.eys.r;
 	z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	hy->r = z__1.r, hy->i = z__1.i;
 /* L5: */
-	z__3.r = acx.r * dataj_1.ezk.r - acx.i * dataj_1.ezk.i, z__3.i = 
+	z__3.r = acx.r * dataj_1.ezk.r - acx.i * dataj_1.ezk.i, z__3.i =
 		acx.r * dataj_1.ezk.i + acx.i * dataj_1.ezk.r;
 	z__2.r = hz->r + z__3.r, z__2.i = hz->i + z__3.i;
-	z__4.r = bcx.r * dataj_1.ezs.r - bcx.i * dataj_1.ezs.i, z__4.i = 
+	z__4.r = bcx.r * dataj_1.ezs.r - bcx.i * dataj_1.ezs.i, z__4.i =
 		bcx.r * dataj_1.ezs.i + bcx.i * dataj_1.ezs.r;
 	z__1.r = z__2.r + z__4.r, z__1.i = z__2.i + z__4.i;
 	hz->r = z__1.r, hz->i = z__1.i;
@@ -18442,7 +18442,7 @@ L6:
     z__5.r = ezpy.r - ezmy.r, z__5.i = ezpy.i - ezmy.i;
     z__4.r = z__5.r - eypz.r, z__4.i = z__5.i - eypz.i;
     z__3.r = z__4.r + eymz.r, z__3.i = z__4.i + eymz.i;
-    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i 
+    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i
 	    * z__3.r;
     d__1 = delt * 2.f;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
@@ -18450,7 +18450,7 @@ L6:
     z__5.r = expz.r - exmz.r, z__5.i = expz.i - exmz.i;
     z__4.r = z__5.r - ezpx.r, z__4.i = z__5.i - ezpx.i;
     z__3.r = z__4.r + ezmx.r, z__3.i = z__4.i + ezmx.i;
-    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i 
+    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i
 	    * z__3.r;
     d__1 = delt * 2.f;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
@@ -18458,7 +18458,7 @@ L6:
     z__5.r = eypx.r - eymx.r, z__5.i = eypx.i - eymx.i;
     z__4.r = z__5.r - expy.r, z__4.i = z__5.i - expy.i;
     z__3.r = z__4.r + exmy.r, z__3.i = z__4.i + exmy.i;
-    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i 
+    z__2.r = con.r * z__3.r - con.i * z__3.i, z__2.i = con.r * z__3.i + con.i
 	    * z__3.r;
     d__1 = delt * 2.f;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
@@ -18486,8 +18486,8 @@ L6:
 
 
 /* Subroutine */ int patch_0_(int n__, integer *nx, integer *ny, doublereal *
-	x1, doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2, 
-	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3, 
+	x1, doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2,
+	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3,
 	doublereal *x4, doublereal *y4, doublereal *z4)
 {
     /* Format strings */
@@ -18626,11 +18626,11 @@ L5:
     zn2 = s1x * s2y - s1y * s2x;
     xst = sqrt(xn2 * xn2 + yn2 * yn2 + zn2 * zn2);
     salpn = 1.f / ((xa + xst) * 3.f);
-    data_1.x[mi - 1] = (xa * (*x1 + *x2 + *x3) + xst * (*x1 + *x3 + *x4)) * 
+    data_1.x[mi - 1] = (xa * (*x1 + *x2 + *x3) + xst * (*x1 + *x3 + *x4)) *
 	    salpn;
-    data_1.y[mi - 1] = (xa * (*y1 + *y2 + *y3) + xst * (*y1 + *y3 + *y4)) * 
+    data_1.y[mi - 1] = (xa * (*y1 + *y2 + *y3) + xst * (*y1 + *y3 + *y4)) *
 	    salpn;
-    data_1.z__[mi - 1] = (xa * (*z1 + *z2 + *z3) + xst * (*z1 + *z3 + *z4)) * 
+    data_1.z__[mi - 1] = (xa * (*z1 + *z2 + *z3) + xst * (*z1 + *z3 + *z4)) *
 	    salpn;
     data_1.bi[mi - 1] = (xa + xst) * .5f;
     s1x = (xnv * xn2 + ynv * yn2 + znv * zn2) / xst;
@@ -18781,25 +18781,25 @@ L12:
 #undef t1x
 
 
-/* Subroutine */ int patch_(integer *nx, integer *ny, doublereal *x1, 
-	doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2, 
-	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3, 
+/* Subroutine */ int patch_(integer *nx, integer *ny, doublereal *x1,
+	doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2,
+	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3,
 	doublereal *x4, doublereal *y4, doublereal *z4)
 {
     return patch_0_(0, nx, ny, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4)
 	    ;
     }
 
-/* Subroutine */ int subph_(integer *nx, integer *ny, doublereal *x1, 
-	doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2, 
-	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3, 
+/* Subroutine */ int subph_(integer *nx, integer *ny, doublereal *x1,
+	doublereal *y1, doublereal *z1, doublereal *x2, doublereal *y2,
+	doublereal *z2, doublereal *x3, doublereal *y3, doublereal *z3,
 	doublereal *x4, doublereal *y4, doublereal *z4)
 {
     return patch_0_(1, nx, ny, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4)
 	    ;
     }
 
-/* Subroutine */ int pcint_(doublereal *xi, doublereal *yi, doublereal *zi, 
+/* Subroutine */ int pcint_(doublereal *xi, doublereal *yi, doublereal *zi,
 	doublereal *cabi, doublereal *sabi, doublereal *salpi, doublecomplex *
 	e)
 {
@@ -18828,7 +18828,7 @@ L12:
 #define t2yj ((doublereal *)&dataj_1 + 27)
 #define t2zj ((doublereal *)&dataj_1 + 28)
     doublereal fcon, gcon;
-    extern /* Subroutine */ int unere_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int unere_(doublereal *, doublereal *, doublereal
 	    *);
 
 /* *** */
@@ -18957,8 +18957,8 @@ L12:
 #undef t1xj
 
 
-/* Subroutine */ int prnt_(integer *in1, integer *in2, integer *in3, 
-	doublereal *fl1, doublereal *fl2, doublereal *fl3, doublereal *fl4, 
+/* Subroutine */ int prnt_(integer *in1, integer *in2, integer *in3,
+	doublereal *fl1, doublereal *fl2, doublereal *fl3, doublereal *fl4,
 	doublereal *fl5, doublereal *fl6, char *ctype, ftnlen ctype_len)
 {
     /* Format strings */
@@ -19152,7 +19152,7 @@ L12:
     doublereal sabi;
 #define ccjx ((doublereal *)&equiv_0)
     doublecomplex curd;
-    extern /* Subroutine */ int hsfld_(doublereal *, doublereal *, doublereal 
+    extern /* Subroutine */ int hsfld_(doublereal *, doublereal *, doublereal
 	    *, doublereal *);
     doublereal salpi;
 
@@ -19178,10 +19178,10 @@ L12:
     tbf_(is, &c__0);
     data_1.icon1[*is - 1] = i__;
     dataj_1.s = data_1.si[*is - 1] * .5f;
-    z__2.r = ccj->r * v->r - ccj->i * v->i, z__2.i = ccj->r * v->i + ccj->i * 
+    z__2.r = ccj->r * v->r - ccj->i * v->i, z__2.i = ccj->r * v->i + ccj->i *
 	    v->r;
     d__1 = (log(dataj_1.s * 2.f / data_1.bi[*is - 1]) - 1.f) * (segj_1.bx[
-	    segj_1.jsno - 1] * cos(tp * dataj_1.s) + segj_1.cx[segj_1.jsno - 
+	    segj_1.jsno - 1] * cos(tp * dataj_1.s) + segj_1.cx[segj_1.jsno -
 	    1] * sin(tp * dataj_1.s)) * data_1.wlam;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
     curd.r = z__1.r, curd.i = z__1.i;
@@ -19221,7 +19221,7 @@ L2:
 	if (ipr != j) {
 	    goto L3;
 	}
-	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8) 
+	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8)
 		{
 	    goto L7;
 	}
@@ -19266,7 +19266,7 @@ L10:
 	if (ipr != j) {
 	    goto L11;
 	}
-	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8) 
+	if (dataj_1.cabj * dataj_1.cabj + dataj_1.sabj * dataj_1.sabj > 1e-8)
 		{
 	    goto L15;
 	}
@@ -19326,17 +19326,17 @@ L16:
 	    i__3 = i__;
 	    i__4 = i__;
 	    i__5 = jx - 1;
-	    z__5.r = segj_1.ax[i__5] * etk.r, z__5.i = segj_1.ax[i__5] * 
+	    z__5.r = segj_1.ax[i__5] * etk.r, z__5.i = segj_1.ax[i__5] *
 		    etk.i;
 	    i__6 = jx - 1;
-	    z__6.r = segj_1.bx[i__6] * ets.r, z__6.i = segj_1.bx[i__6] * 
+	    z__6.r = segj_1.bx[i__6] * ets.r, z__6.i = segj_1.bx[i__6] *
 		    ets.i;
 	    z__4.r = z__5.r + z__6.r, z__4.i = z__5.i + z__6.i;
 	    i__7 = jx - 1;
-	    z__7.r = segj_1.cx[i__7] * etc.r, z__7.i = segj_1.cx[i__7] * 
+	    z__7.r = segj_1.cx[i__7] * etc.r, z__7.i = segj_1.cx[i__7] *
 		    etc.i;
 	    z__3.r = z__4.r + z__7.r, z__3.i = z__4.i + z__7.i;
-	    z__2.r = z__3.r * curd.r - z__3.i * curd.i, z__2.i = z__3.r * 
+	    z__2.r = z__3.r * curd.r - z__3.i * curd.i, z__2.i = z__3.r *
 		    curd.i + z__3.i * curd.r;
 	    z__1.r = e[i__4].r - z__2.r, z__1.i = e[i__4].i - z__2.i;
 	    e[i__3].r = z__1.r, e[i__3].i = z__1.i;
@@ -19378,20 +19378,20 @@ L16:
 	    i__4 = i1;
 	    i__5 = i1;
 	    i__6 = jx - 1;
-	    z__6.r = segj_1.ax[i__6] * etk.r, z__6.i = segj_1.ax[i__6] * 
+	    z__6.r = segj_1.ax[i__6] * etk.r, z__6.i = segj_1.ax[i__6] *
 		    etk.i;
 	    i__7 = jx - 1;
-	    z__7.r = segj_1.bx[i__7] * ets.r, z__7.i = segj_1.bx[i__7] * 
+	    z__7.r = segj_1.bx[i__7] * ets.r, z__7.i = segj_1.bx[i__7] *
 		    ets.i;
 	    z__5.r = z__6.r + z__7.r, z__5.i = z__6.i + z__7.i;
 	    i__2 = jx - 1;
-	    z__8.r = segj_1.cx[i__2] * etc.r, z__8.i = segj_1.cx[i__2] * 
+	    z__8.r = segj_1.cx[i__2] * etc.r, z__8.i = segj_1.cx[i__2] *
 		    etc.i;
 	    z__4.r = z__5.r + z__8.r, z__4.i = z__5.i + z__8.i;
-	    z__3.r = z__4.r * curd.r - z__4.i * curd.i, z__3.i = z__4.r * 
+	    z__3.r = z__4.r * curd.r - z__4.i * curd.i, z__3.i = z__4.r *
 		    curd.i + z__4.i * curd.r;
 	    i__8 = ij - 1;
-	    z__2.r = angl_1.salp[i__8] * z__3.r, z__2.i = angl_1.salp[i__8] * 
+	    z__2.r = angl_1.salp[i__8] * z__3.r, z__2.i = angl_1.salp[i__8] *
 		    z__3.i;
 	    z__1.r = e[i__5].r + z__2.r, z__1.i = e[i__5].i + z__2.i;
 	    e[i__4].r = z__1.r, e[i__4].i = z__1.i;
@@ -19421,20 +19421,20 @@ L16:
 	    i__4 = i1;
 	    i__5 = i1;
 	    i__6 = jx - 1;
-	    z__6.r = segj_1.ax[i__6] * etk.r, z__6.i = segj_1.ax[i__6] * 
+	    z__6.r = segj_1.ax[i__6] * etk.r, z__6.i = segj_1.ax[i__6] *
 		    etk.i;
 	    i__7 = jx - 1;
-	    z__7.r = segj_1.bx[i__7] * ets.r, z__7.i = segj_1.bx[i__7] * 
+	    z__7.r = segj_1.bx[i__7] * ets.r, z__7.i = segj_1.bx[i__7] *
 		    ets.i;
 	    z__5.r = z__6.r + z__7.r, z__5.i = z__6.i + z__7.i;
 	    i__2 = jx - 1;
-	    z__8.r = segj_1.cx[i__2] * etc.r, z__8.i = segj_1.cx[i__2] * 
+	    z__8.r = segj_1.cx[i__2] * etc.r, z__8.i = segj_1.cx[i__2] *
 		    etc.i;
 	    z__4.r = z__5.r + z__8.r, z__4.i = z__5.i + z__8.i;
-	    z__3.r = z__4.r * curd.r - z__4.i * curd.i, z__3.i = z__4.r * 
+	    z__3.r = z__4.r * curd.r - z__4.i * curd.i, z__3.i = z__4.r *
 		    curd.i + z__4.i * curd.r;
 	    i__8 = ij - 1;
-	    z__2.r = angl_1.salp[i__8] * z__3.r, z__2.i = angl_1.salp[i__8] * 
+	    z__2.r = angl_1.salp[i__8] * z__3.r, z__2.i = angl_1.salp[i__8] *
 		    z__3.i;
 	    z__1.r = e[i__5].r + z__2.r, z__1.i = e[i__5].i + z__2.i;
 	    e[i__4].r = z__1.r, e[i__4].i = z__1.i;
@@ -19444,8 +19444,8 @@ L19:
 	    i__4 = j;
 	    i__5 = j;
 	    i__6 = j - 1;
-	    z__3.r = zload_1.zarray[i__6].r * curd.r - zload_1.zarray[i__6].i 
-		    * curd.i, z__3.i = zload_1.zarray[i__6].r * curd.i + 
+	    z__3.r = zload_1.zarray[i__6].r * curd.r - zload_1.zarray[i__6].i
+		    * curd.i, z__3.i = zload_1.zarray[i__6].r * curd.i +
 		    zload_1.zarray[i__6].i * curd.r;
 	    d__1 = segj_1.ax[jx - 1] + segj_1.cx[jx - 1];
 	    z__2.r = d__1 * z__3.r, z__2.i = d__1 * z__3.i;
@@ -19577,7 +19577,7 @@ L19:
     double d_int(doublereal *), z_abs(doublecomplex *);
     void d_cnjg(doublecomplex *, doublecomplex *);
     double sqrt(doublereal), cos(doublereal), sin(doublereal);
-    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
+    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen),
 	    e_wsle(void);
 
     /* Local variables */
@@ -19590,16 +19590,16 @@ L19:
     integer kph, kth;
     doublereal tha, gnv, gnh, tmp1, tmp2, tmp3, tmp4, tmp5, tmp6;
     extern doublereal cang_(doublecomplex *);
-    extern /* Subroutine */ int ffld_(doublereal *, doublereal *, 
-	    doublecomplex *, doublecomplex *), gfld_(doublereal *, doublereal 
+    extern /* Subroutine */ int ffld_(doublereal *, doublereal *,
+	    doublecomplex *, doublecomplex *), gfld_(doublereal *, doublereal
 	    *, doublereal *, doublecomplex *, doublecomplex *, doublecomplex *
 	    , doublecomplex *, integer *);
-    doublereal erda, epha, etha, prad, gcon, gcop, gmax, exra, pint, exrm, 
+    doublereal erda, epha, etha, prad, gcon, gcop, gmax, exra, pint, exrm,
 	    thet, erdm, ethm, ephm, dfaz, gnmj, gnmn, gtot, dfaz2, ephm2;
     extern doublereal atgn2_(doublereal *, doublereal *);
     doublereal ethm2;
     integer itmp1, itmp2, itmp3, itmp4;
-    doublereal hclif, cdfaz, tilta, axrat, isens, emajr2, eminr2, tstor1, 
+    doublereal hclif, cdfaz, tilta, axrat, isens, emajr2, eminr2, tstor1,
 	    tstor2, stilta;
 
     /* Fortran I/O blocks */
@@ -19723,7 +19723,7 @@ L5:
     gcop = gcon;
     goto L8;
 L6:
-    fpat_1.pinr = fpat_1.xpr6 * 394.51f * fpat_1.xpr6 * data_1.wlam * 
+    fpat_1.pinr = fpat_1.xpr6 * 394.51f * fpat_1.xpr6 * data_1.wlam *
 	    data_1.wlam;
 L7:
     gcop = data_1.wlam * data_1.wlam * 2.f * pi / (fpat_1.pinr * 376.73f);
@@ -19765,13 +19765,13 @@ L9:
 	    erda = cang_(&erd);
 L10:
 	    d_cnjg(&z__2, &eth);
-	    z__1.r = eth.r * z__2.r - eth.i * z__2.i, z__1.i = eth.r * z__2.i 
+	    z__1.r = eth.r * z__2.r - eth.i * z__2.i, z__1.i = eth.r * z__2.i
 		    + eth.i * z__2.r;
 	    ethm2 = z__1.r;
 	    ethm = sqrt(ethm2);
 	    etha = cang_(&eth);
 	    d_cnjg(&z__2, &eph);
-	    z__1.r = eph.r * z__2.r - eph.i * z__2.i, z__1.i = eph.r * z__2.i 
+	    z__1.r = eph.r * z__2.r - eph.i * z__2.i, z__1.i = eph.r * z__2.i
 		    + eph.i * z__2.r;
 	    ephm2 = z__1.r;
 	    ephm = sqrt(ephm2);
@@ -20092,15 +20092,15 @@ L30:
 	++itmp3;
 	++itmp4;
 	j = (i__ - 1) / fpat_1.nth;
-	tmp1 = fpat_1.thets + (doublereal) (i__ - j * fpat_1.nth - 1) * 
+	tmp1 = fpat_1.thets + (doublereal) (i__ - j * fpat_1.nth - 1) *
 		fpat_1.dth;
 	tmp2 = fpat_1.phis + (doublereal) j * fpat_1.dph;
 	j = (itmp3 - 1) / fpat_1.nth;
-	tmp3 = fpat_1.thets + (doublereal) (itmp3 - j * fpat_1.nth - 1) * 
+	tmp3 = fpat_1.thets + (doublereal) (itmp3 - j * fpat_1.nth - 1) *
 		fpat_1.dth;
 	tmp4 = fpat_1.phis + (doublereal) j * fpat_1.dph;
 	j = (itmp4 - 1) / fpat_1.nth;
-	tmp5 = fpat_1.thets + (doublereal) (itmp4 - j * fpat_1.nth - 1) * 
+	tmp5 = fpat_1.thets + (doublereal) (itmp4 - j * fpat_1.nth - 1) *
 		fpat_1.dth;
 	tmp6 = fpat_1.phis + (doublereal) j * fpat_1.dph;
 	tstor1 = scratm_3.gain[i__ - 1] - gmax;
@@ -20156,9 +20156,9 @@ L34:
 #undef hpol
 
 
-/* Subroutine */ int readgm_(integer *inunit__, char *code, integer *i1, 
-	integer *i2, doublereal *r1, doublereal *r2, doublereal *r3, 
-	doublereal *r4, doublereal *r5, doublereal *r6, doublereal *r7, 
+/* Subroutine */ int readgm_(integer *inunit__, char *code, integer *i1,
+	integer *i2, doublereal *r1, doublereal *r2, doublereal *r3,
+	doublereal *r4, doublereal *r5, doublereal *r6, doublereal *r7,
 	ftnlen code_len)
 {
     /* Builtin functions */
@@ -20168,7 +20168,7 @@ L34:
     integer ieof;
     doublereal reaval[7];
     integer intval[2];
-    extern /* Subroutine */ int parsit_(integer *, integer *, integer *, char 
+    extern /* Subroutine */ int parsit_(integer *, integer *, integer *, char
 	    *, integer *, doublereal *, integer *, ftnlen);
 
 
@@ -20201,9 +20201,9 @@ L34:
     return 0;
 } /* readgm_ */
 
-/* Subroutine */ int readmn_(integer *inunit__, char *code, integer *i1, 
+/* Subroutine */ int readmn_(integer *inunit__, char *code, integer *i1,
 	integer *i2, integer *i3, integer *i4, doublereal *f1, doublereal *f2,
-	 doublereal *f3, doublereal *f4, doublereal *f5, doublereal *f6, 
+	 doublereal *f3, doublereal *f4, doublereal *f5, doublereal *f6,
 	ftnlen code_len)
 {
     /* Builtin functions */
@@ -20213,7 +20213,7 @@ L34:
     integer ieof;
     doublereal reaval[6];
     integer intval[4];
-    extern /* Subroutine */ int parsit_(integer *, integer *, integer *, char 
+    extern /* Subroutine */ int parsit_(integer *, integer *, integer *, char
 	    *, integer *, doublereal *, integer *, ftnlen);
 
 
@@ -20263,8 +20263,8 @@ L34:
     /* Builtin functions */
     integer s_rsfe(cilist *), do_fio(integer *, char *, ftnlen), e_rsfe(void);
     /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
-    integer s_wsfe(cilist *), e_wsfe(void), i_indx(char *, char *, ftnlen, 
-	    ftnlen), s_rsli(icilist *), do_lio(integer *, integer *, char *, 
+    integer s_wsfe(cilist *), e_wsfe(void), i_indx(char *, char *, ftnlen,
+	    ftnlen), s_rsli(icilist *), do_lio(integer *, integer *, char *,
 	    ftnlen), e_rsli(void);
     /* Subroutine */ int s_cat(char *, char **, integer *, integer *, ftnlen),
 	     s_stop(char *, ftnlen);
@@ -20274,7 +20274,7 @@ L34:
     char rec[80];
     integer ind, inde, last, bgnfld[12], endfld[12];
     char buffer[20];
-    extern /* Subroutine */ int upcase_(char *, char *, integer *, ftnlen, 
+    extern /* Subroutine */ int upcase_(char *, char *, integer *, ftnlen,
 	    ftnlen);
     integer length;
     logical fldtrm;
@@ -20500,7 +20500,7 @@ L9010:
     return 0;
 } /* parsit_ */
 
-/* Subroutine */ int upcase_(char *intext, char *outtxt, integer *length, 
+/* Subroutine */ int upcase_(char *intext, char *outtxt, integer *length,
 	ftnlen intext_len, ftnlen outtxt_len)
 {
     /* System generated locals */
@@ -20530,16 +20530,16 @@ L9010:
     return 0;
 } /* upcase_ */
 
-/* Subroutine */ int reblk_(doublecomplex *b, doublecomplex *bx, integer *nb, 
+/* Subroutine */ int reblk_(doublecomplex *b, doublecomplex *bx, integer *nb,
 	integer *nbx, integer *n2c)
 {
     /* System generated locals */
-    integer b_dim1, b_offset, bx_dim1, bx_offset, i__1, i__2, i__3, i__4, 
+    integer b_dim1, b_offset, bx_dim1, bx_offset, i__1, i__2, i__3, i__4,
 	    i__5, i__6;
     alist al__1;
 
     /* Builtin functions */
-    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *, 
+    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_rsue(void), s_wsue(cilist *), e_wsue(void);
 
     /* Local variables */
@@ -21002,7 +21002,7 @@ L23:
 #undef x2
 
 
-/* Subroutine */ int rom2_(doublereal *a, doublereal *b, doublecomplex *sum, 
+/* Subroutine */ int rom2_(doublereal *a, doublereal *b, doublecomplex *sum,
 	doublereal *dmin__)
 {
     /* Initialized data */
@@ -21264,7 +21264,7 @@ L17:
 
 } /* rom2_ */
 
-/* Subroutine */ int sbf_(integer *i__, integer *is, doublereal *aa, 
+/* Subroutine */ int sbf_(integer *i__, integer *is, doublereal *aa,
 	doublereal *bb, doublereal *cc)
 {
     /* Initialized data */
@@ -21816,9 +21816,9 @@ L24:
     doublereal rhx;
     doublecomplex hzv;
     doublereal rhy, phx, phy, sfac, thet, zphs;
-    extern /* Subroutine */ int gwave_(doublecomplex *, doublecomplex *, 
+    extern /* Subroutine */ int gwave_(doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *, doublecomplex *), intrp_(
-	    doublereal *, doublereal *, doublecomplex *, doublecomplex *, 
+	    doublereal *, doublereal *, doublecomplex *, doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
 /* *** */
@@ -21883,21 +21883,21 @@ L2:
     gwav_1.r1 = 1.f;
     gwav_1.xx1.r = 0.f, gwav_1.xx1.i = 0.f;
     gwave_(&erv, &ezv, &erh, &ezh, &eph);
-    z__3.r = gnd_1.frati.r * -0.f - gnd_1.frati.i * -4.77134f, z__3.i = 
+    z__3.r = gnd_1.frati.r * -0.f - gnd_1.frati.i * -4.77134f, z__3.i =
 	    gnd_1.frati.r * -4.77134f + gnd_1.frati.i * -0.f;
-    z__2.r = z__3.r * gwav_1.xx2.r - z__3.i * gwav_1.xx2.i, z__2.i = z__3.r * 
+    z__2.r = z__3.r * gwav_1.xx2.r - z__3.i * gwav_1.xx2.i, z__2.i = z__3.r *
 	    gwav_1.xx2.i + z__3.i * gwav_1.xx2.r;
     d__1 = r2s * gwav_1.r2;
     z__1.r = z__2.r / d__1, z__1.i = z__2.i / d__1;
     et.r = z__1.r, et.i = z__1.i;
     z__2.r = et.r * 2.f, z__2.i = et.i * 2.f;
     z__3.r = 1., z__3.i = rk;
-    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i + 
+    z__1.r = z__2.r * z__3.r - z__2.i * z__3.i, z__1.i = z__2.r * z__3.i +
 	    z__2.i * z__3.r;
     er.r = z__1.r, er.i = z__1.i;
     d__1 = 1. - rk * rk;
     z__2.r = d__1, z__2.i = rk;
-    z__1.r = et.r * z__2.r - et.i * z__2.i, z__1.i = et.r * z__2.i + et.i * 
+    z__1.r = et.r * z__2.r - et.i * z__2.i, z__1.i = et.r * z__2.i + et.i *
 	    z__2.r;
     et.r = z__1.r, et.i = z__1.i;
     z__4.r = er.r + et.r, z__4.i = er.i + et.i;
@@ -21986,18 +21986,18 @@ L5:
     z__3.r = dataj_1.salpj * erv.r, z__3.i = dataj_1.salpj * erv.i;
     z__4.r = sfac * erh.r, z__4.i = sfac * erh.i;
     z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
-    z__1.r = gwav_1.xx2.r * z__2.r - gwav_1.xx2.i * z__2.i, z__1.i = 
+    z__1.r = gwav_1.xx2.r * z__2.r - gwav_1.xx2.i * z__2.i, z__1.i =
 	    gwav_1.xx2.r * z__2.i + gwav_1.xx2.i * z__2.r;
     erh.r = z__1.r, erh.i = z__1.i;
     z__3.r = dataj_1.salpj * ezv.r, z__3.i = dataj_1.salpj * ezv.i;
     z__4.r = sfac * erv.r, z__4.i = sfac * erv.i;
     z__2.r = z__3.r - z__4.r, z__2.i = z__3.i - z__4.i;
-    z__1.r = gwav_1.xx2.r * z__2.r - gwav_1.xx2.i * z__2.i, z__1.i = 
+    z__1.r = gwav_1.xx2.r * z__2.r - gwav_1.xx2.i * z__2.i, z__1.i =
 	    gwav_1.xx2.r * z__2.i + gwav_1.xx2.i * z__2.r;
     ezh.r = z__1.r, ezh.i = z__1.i;
     d__1 = incom_1.sn * sph;
     z__2.r = d__1 * gwav_1.xx2.r, z__2.i = d__1 * gwav_1.xx2.i;
-    z__1.r = z__2.r * eph.r - z__2.i * eph.i, z__1.i = z__2.r * eph.i + 
+    z__1.r = z__2.r * eph.r - z__2.i * eph.i, z__1.i = z__2.r * eph.i +
 	    z__2.i * eph.r;
     eph.r = z__1.r, eph.i = z__1.i;
 /*     X,Y,Z FIELDS FOR CONSTANT CURRENT */
@@ -22030,13 +22030,13 @@ L5:
     return 0;
 } /* sflds_ */
 
-/* Subroutine */ int solgf_(doublecomplex *a, doublecomplex *b, doublecomplex 
+/* Subroutine */ int solgf_(doublecomplex *a, doublecomplex *b, doublecomplex
 	*c__, doublecomplex *d__, doublecomplex *xy, integer *ip, integer *np,
-	 integer *n1, integer *n, integer *mp, integer *m1, integer *m, 
+	 integer *n1, integer *n, integer *mp, integer *m1, integer *m,
 	integer *n1c, integer *n2c, integer *n2cz)
 {
     /* System generated locals */
-    integer b_dim1, b_offset, c_dim1, c_offset, d_dim1, d_offset, i__1, i__2, 
+    integer b_dim1, b_offset, c_dim1, c_offset, d_dim1, d_offset, i__1, i__2,
 	    i__3, i__4, i__5;
     doublecomplex z__1, z__2;
     alist al__1;
@@ -22049,11 +22049,11 @@ L5:
     integer i__, j, n2, ii, jj, ni, jp, ifl, npb, neq, npm;
     doublecomplex sum;
     integer neqs, icass;
-    extern /* Subroutine */ int solve_(integer *, doublecomplex *, integer *, 
+    extern /* Subroutine */ int solve_(integer *, doublecomplex *, integer *,
 	    doublecomplex *, integer *);
     integer nlsys, npsys, nblsys;
-    extern /* Subroutine */ int solves_(doublecomplex *, integer *, 
-	    doublecomplex *, integer *, integer *, integer *, integer *, 
+    extern /* Subroutine */ int solves_(doublecomplex *, integer *,
+	    doublecomplex *, integer *, integer *, integer *, integer *,
 	    integer *, integer *, integer *, integer *), ltsolv_(
 	    doublecomplex *, integer *, integer *, doublecomplex *, integer *,
 	     integer *, integer *, integer *);
@@ -22176,7 +22176,7 @@ L7:
 /* L8: */
 		i__4 = j + i__ * c_dim1;
 		i__5 = j;
-		z__2.r = c__[i__4].r * xy[i__5].r - c__[i__4].i * xy[i__5].i, 
+		z__2.r = c__[i__4].r * xy[i__5].r - c__[i__4].i * xy[i__5].i,
 			z__2.i = c__[i__4].r * xy[i__5].i + c__[i__4].i * xy[
 			i__5].r;
 		z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
@@ -22277,7 +22277,7 @@ L13:
 /* L14: */
 		i__3 = i__ + j * b_dim1;
 		i__1 = jp;
-		z__2.r = b[i__3].r * xy[i__1].r - b[i__3].i * xy[i__1].i, 
+		z__2.r = b[i__3].r * xy[i__1].r - b[i__3].i * xy[i__1].i,
 			z__2.i = b[i__3].r * xy[i__1].i + b[i__3].i * xy[i__1]
 			.r;
 		z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
@@ -22344,7 +22344,7 @@ L22:
     return 0;
 } /* solgf_ */
 
-/* Subroutine */ int solve_(integer *n, doublecomplex *a, integer *ip, 
+/* Subroutine */ int solve_(integer *n, doublecomplex *a, integer *ip,
 	doublecomplex *b, integer *ndim)
 {
     /* System generated locals */
@@ -22429,7 +22429,7 @@ L2:
 	for (j = ip1; j <= i__2; ++j) {
 	    i__3 = i__ + j * a_dim1;
 	    i__4 = j;
-	    z__2.r = a[i__3].r * b[i__4].r - a[i__3].i * b[i__4].i, z__2.i = 
+	    z__2.r = a[i__3].r * b[i__4].r - a[i__3].i * b[i__4].i, z__2.i =
 		    a[i__3].r * b[i__4].i + a[i__3].i * b[i__4].r;
 	    z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
 	    sum.r = z__1.r, sum.i = z__1.i;
@@ -22438,7 +22438,7 @@ L2:
 L5:
 	i__2 = i__;
 	i__3 = i__ - 1;
-	z__2.r = scratm_2.y[i__3].r - sum.r, z__2.i = scratm_2.y[i__3].i - 
+	z__2.r = scratm_2.y[i__3].r - sum.r, z__2.i = scratm_2.y[i__3].i -
 		sum.i;
 	z_div(&z__1, &z__2, &a[i__ + i__ * a_dim1]);
 	b[i__2].r = z__1.r, b[i__2].i = z__1.i;
@@ -22447,8 +22447,8 @@ L5:
     return 0;
 } /* solve_ */
 
-/* Subroutine */ int solves_(doublecomplex *a, integer *ip, doublecomplex *b, 
-	integer *neq, integer *nrh, integer *np, integer *n, integer *mp, 
+/* Subroutine */ int solves_(doublecomplex *a, integer *ip, doublecomplex *b,
+	integer *neq, integer *nrh, integer *np, integer *n, integer *mp,
 	integer *m, integer *ifl1, integer *ifl2)
 {
     /* System generated locals */
@@ -22458,7 +22458,7 @@ L5:
 
     /* Builtin functions */
     void d_cnjg(doublecomplex *, doublecomplex *);
-    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *, 
+    integer f_rew(alist *), s_rsue(cilist *), do_uio(integer *, char *,
 	    ftnlen), e_rsue(void);
 
     /* Local variables */
@@ -22467,9 +22467,9 @@ L5:
     doublereal fnop;
     integer npeq, nrow;
     doublereal fnorm;
-    extern /* Subroutine */ int solve_(integer *, doublecomplex *, integer *, 
-	    doublecomplex *, integer *), ltsolv_(doublecomplex *, integer *, 
-	    integer *, doublecomplex *, integer *, integer *, integer *, 
+    extern /* Subroutine */ int solve_(integer *, doublecomplex *, integer *,
+	    doublecomplex *, integer *), ltsolv_(doublecomplex *, integer *,
+	    integer *, doublecomplex *, integer *, integer *, integer *,
 	    integer *);
 
     /* Fortran I/O blocks */
@@ -22577,7 +22577,7 @@ L6:
 	    for (k = 2; k <= i__4; ++k) {
 /* L8: */
 		i__2 = k - 1;
-		z__1.r = sum.r + scratm_2.y[i__2].r, z__1.i = sum.i + 
+		z__1.r = sum.r + scratm_2.y[i__2].r, z__1.i = sum.i +
 			scratm_2.y[i__2].i;
 		sum.r = z__1.r, sum.i = z__1.i;
 	    }
@@ -22593,8 +22593,8 @@ L6:
 /* L9: */
 		    i__5 = j - 1;
 		    d_cnjg(&z__3, &smat_1.ssx[k + (j << 4) - 17]);
-		    z__2.r = scratm_2.y[i__5].r * z__3.r - scratm_2.y[i__5].i 
-			    * z__3.i, z__2.i = scratm_2.y[i__5].r * z__3.i + 
+		    z__2.r = scratm_2.y[i__5].r * z__3.r - scratm_2.y[i__5].i
+			    * z__3.i, z__2.i = scratm_2.y[i__5].r * z__3.i +
 			    scratm_2.y[i__5].i * z__3.r;
 		    z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
 		    sum.r = z__1.r, sum.i = z__1.i;
@@ -22675,7 +22675,7 @@ L16:
 	    for (k = 2; k <= i__1; ++k) {
 /* L18: */
 		i__4 = k - 1;
-		z__1.r = sum.r + scratm_2.y[i__4].r, z__1.i = sum.i + 
+		z__1.r = sum.r + scratm_2.y[i__4].r, z__1.i = sum.i +
 			scratm_2.y[i__4].i;
 		sum.r = z__1.r, sum.i = z__1.i;
 	    }
@@ -22690,9 +22690,9 @@ L16:
 /* L19: */
 		    i__3 = j - 1;
 		    i__6 = k + (j << 4) - 17;
-		    z__2.r = scratm_2.y[i__3].r * smat_1.ssx[i__6].r - 
-			    scratm_2.y[i__3].i * smat_1.ssx[i__6].i, z__2.i = 
-			    scratm_2.y[i__3].r * smat_1.ssx[i__6].i + 
+		    z__2.r = scratm_2.y[i__3].r * smat_1.ssx[i__6].r -
+			    scratm_2.y[i__3].i * smat_1.ssx[i__6].i, z__2.i =
+			    scratm_2.y[i__3].r * smat_1.ssx[i__6].i +
 			    scratm_2.y[i__3].i * smat_1.ssx[i__6].r;
 		    z__1.r = sum.r + z__2.r, z__1.i = sum.i + z__2.i;
 		    sum.r = z__1.r, sum.i = z__1.i;
@@ -23004,7 +23004,7 @@ L28:
     return 0;
 } /* tbf_ */
 
-/* Subroutine */ int test_(doublereal *f1r, doublereal *f2r, doublereal *tr, 
+/* Subroutine */ int test_(doublereal *f1r, doublereal *f2r, doublereal *tr,
 	doublereal *f1i, doublereal *f2i, doublereal *ti, doublereal *dmin__)
 {
     /* System generated locals */
@@ -23055,7 +23055,7 @@ L1:
     /* Subroutine */ int s_stop(char *, ftnlen);
 
     /* Local variables */
-    extern /* Subroutine */ int sbf_(integer *, integer *, doublereal *, 
+    extern /* Subroutine */ int sbf_(integer *, integer *, doublereal *,
 	    doublereal *, doublereal *);
     integer iend, jend, jcox;
 
@@ -23164,7 +23164,7 @@ L9:
 
     /* Builtin functions */
     double sqrt(doublereal), cos(doublereal), sin(doublereal);
-    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *, 
+    void z_sqrt(doublecomplex *, doublecomplex *), z_div(doublecomplex *,
 	    doublecomplex *, doublecomplex *);
 
     /* Local variables */
@@ -23228,14 +23228,14 @@ L2:
     er.r = z__1.r, er.i = z__1.i;
     d__1 = tt2 - 1.f;
     z__3.r = d__1, z__3.i = tt1;
-    z__2.r = z__3.r * er.r - z__3.i * er.i, z__2.i = z__3.r * er.i + z__3.i * 
+    z__2.r = z__3.r * er.r - z__3.i * er.i, z__2.i = z__3.r * er.i + z__3.i *
 	    er.r;
     z__1.r = z__2.r / rt, z__1.i = z__2.i / rt;
     q1.r = z__1.r, q1.i = z__1.i;
     d__1 = 3.f - tt2;
     d__2 = tt1 * -3.f;
     z__3.r = d__1, z__3.i = d__2;
-    z__2.r = z__3.r * er.r - z__3.i * er.i, z__2.i = z__3.r * er.i + z__3.i * 
+    z__2.r = z__3.r * er.r - z__3.i * er.i, z__2.i = z__3.r * er.i + z__3.i *
 	    er.r;
     d__3 = rt * r2;
     z__1.r = z__2.r / d__3, z__1.i = z__2.i / d__3;
@@ -23303,8 +23303,8 @@ L4:
     px = -ry / xymag;
     py = rx / xymag;
     cth = rz / sqrt(xymag * xymag + rz * rz);
-    z__4.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * gnd_1.zrati.i, 
-	    z__4.i = gnd_1.zrati.r * gnd_1.zrati.i + gnd_1.zrati.i * 
+    z__4.r = gnd_1.zrati.r * gnd_1.zrati.r - gnd_1.zrati.i * gnd_1.zrati.i,
+	    z__4.i = gnd_1.zrati.r * gnd_1.zrati.i + gnd_1.zrati.i *
 	    gnd_1.zrati.r;
     d__1 = 1.f - cth * cth;
     z__3.r = d__1 * z__4.r, z__3.i = d__1 * z__4.i;
@@ -23318,7 +23318,7 @@ L5:
     z__3.r = rrh.r + rrv.r, z__3.i = rrh.i + rrv.i;
     z_div(&z__1, &z__2, &z__3);
     rrh.r = z__1.r, rrh.i = z__1.i;
-    z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i = 
+    z__1.r = gnd_1.zrati.r * rrv.r - gnd_1.zrati.i * rrv.i, z__1.i =
 	    gnd_1.zrati.r * rrv.i + gnd_1.zrati.i * rrv.r;
     rrv.r = z__1.r, rrv.i = z__1.i;
     z__3.r = cth - rrv.r, z__3.i = -rrv.i;
@@ -23330,40 +23330,40 @@ L5:
     z__4.r = py * dataj_1.eyk.r, z__4.i = py * dataj_1.eyk.i;
     z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
     z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i + 
+    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i +
 	    z__2.i * z__5.r;
     edp.r = z__1.r, edp.i = z__1.i;
-    z__2.r = dataj_1.exk.r * rrv.r - dataj_1.exk.i * rrv.i, z__2.i = 
+    z__2.r = dataj_1.exk.r * rrv.r - dataj_1.exk.i * rrv.i, z__2.i =
 	    dataj_1.exk.r * rrv.i + dataj_1.exk.i * rrv.r;
     z__3.r = px * edp.r, z__3.i = px * edp.i;
     z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
     dataj_1.exk.r = z__1.r, dataj_1.exk.i = z__1.i;
-    z__2.r = dataj_1.eyk.r * rrv.r - dataj_1.eyk.i * rrv.i, z__2.i = 
+    z__2.r = dataj_1.eyk.r * rrv.r - dataj_1.eyk.i * rrv.i, z__2.i =
 	    dataj_1.eyk.r * rrv.i + dataj_1.eyk.i * rrv.r;
     z__3.r = py * edp.r, z__3.i = py * edp.i;
     z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
     dataj_1.eyk.r = z__1.r, dataj_1.eyk.i = z__1.i;
-    z__1.r = dataj_1.ezk.r * rrv.r - dataj_1.ezk.i * rrv.i, z__1.i = 
+    z__1.r = dataj_1.ezk.r * rrv.r - dataj_1.ezk.i * rrv.i, z__1.i =
 	    dataj_1.ezk.r * rrv.i + dataj_1.ezk.i * rrv.r;
     dataj_1.ezk.r = z__1.r, dataj_1.ezk.i = z__1.i;
     z__3.r = px * dataj_1.exs.r, z__3.i = px * dataj_1.exs.i;
     z__4.r = py * dataj_1.eys.r, z__4.i = py * dataj_1.eys.i;
     z__2.r = z__3.r + z__4.r, z__2.i = z__3.i + z__4.i;
     z__5.r = rrh.r - rrv.r, z__5.i = rrh.i - rrv.i;
-    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i + 
+    z__1.r = z__2.r * z__5.r - z__2.i * z__5.i, z__1.i = z__2.r * z__5.i +
 	    z__2.i * z__5.r;
     edp.r = z__1.r, edp.i = z__1.i;
-    z__2.r = dataj_1.exs.r * rrv.r - dataj_1.exs.i * rrv.i, z__2.i = 
+    z__2.r = dataj_1.exs.r * rrv.r - dataj_1.exs.i * rrv.i, z__2.i =
 	    dataj_1.exs.r * rrv.i + dataj_1.exs.i * rrv.r;
     z__3.r = px * edp.r, z__3.i = px * edp.i;
     z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
     dataj_1.exs.r = z__1.r, dataj_1.exs.i = z__1.i;
-    z__2.r = dataj_1.eys.r * rrv.r - dataj_1.eys.i * rrv.i, z__2.i = 
+    z__2.r = dataj_1.eys.r * rrv.r - dataj_1.eys.i * rrv.i, z__2.i =
 	    dataj_1.eys.r * rrv.i + dataj_1.eys.i * rrv.r;
     z__3.r = py * edp.r, z__3.i = py * edp.i;
     z__1.r = z__2.r + z__3.r, z__1.i = z__2.i + z__3.i;
     dataj_1.eys.r = z__1.r, dataj_1.eys.i = z__1.i;
-    z__1.r = dataj_1.ezs.r * rrv.r - dataj_1.ezs.i * rrv.i, z__1.i = 
+    z__1.r = dataj_1.ezs.r * rrv.r - dataj_1.ezs.i * rrv.i, z__1.i =
 	    dataj_1.ezs.r * rrv.i + dataj_1.ezs.i * rrv.r;
     dataj_1.ezs.r = z__1.r, dataj_1.ezs.i = z__1.i;
 L6:
@@ -23378,8 +23378,8 @@ L6:
 #undef t1xj
 
 
-/* Subroutine */ int wire_(doublereal *xw1, doublereal *yw1, doublereal *zw1, 
-	doublereal *xw2, doublereal *yw2, doublereal *zw2, doublereal *rad, 
+/* Subroutine */ int wire_(doublereal *xw1, doublereal *yw1, doublereal *zw1,
+	doublereal *xw2, doublereal *yw2, doublereal *zw2, doublereal *rad,
 	doublereal *rdel, doublereal *rrad, integer *ns, integer *itg)
 {
     /* System generated locals */
@@ -23475,7 +23475,7 @@ L2:
 #undef x2
 
 
-/* Double Complex */ VOID zint_(doublecomplex * ret_val, doublereal *sigl, 
+/* Double Complex */ VOID zint_(doublecomplex * ret_val, doublereal *sigl,
 	doublereal *rolam)
 {
     /* Initialized data */
@@ -23495,19 +23495,19 @@ L2:
 
     static struct {
 	doublereal e_1[28];
-	} equiv_15 = { 6e-7, 1.9e-6, -3.4e-6, 5.1e-6, -2.52e-5, 0., -9.06e-5, 
-		-9.01e-5, 0., -9.765e-4, .0110486, -.0110485, 0., -.3926991, 
-		1.6e-6, -3.2e-6, 1.17e-5, -2.4e-6, 3.46e-5, 3.38e-5, 5e-7, 
-		2.452e-4, -.0013813, .0013811, -.0625001, -1e-7, .7071068, 
+	} equiv_15 = { 6e-7, 1.9e-6, -3.4e-6, 5.1e-6, -2.52e-5, 0., -9.06e-5,
+		-9.01e-5, 0., -9.765e-4, .0110486, -.0110485, 0., -.3926991,
+		1.6e-6, -3.2e-6, 1.17e-5, -2.4e-6, 3.46e-5, 3.38e-5, 5e-7,
+		2.452e-4, -.0013813, .0013811, -.0625001, -1e-7, .7071068,
 		.7071068 };
 
 
     /* System generated locals */
     doublereal d__1, d__2, d__3, d__4;
     doublecomplex z__1, z__2, z__3, z__4, z__5, z__6, z__7, z__8, z__9, z__10,
-	     z__11, z__12, z__13, z__14, z__15, z__16, z__17, z__18, z__19, 
-	    z__20, z__21, z__22, z__23, z__24, z__25, z__26, z__27, z__28, 
-	    z__29, z__30, z__31, z__32, z__33, z__34, z__35, z__36, z__37, 
+	     z__11, z__12, z__13, z__14, z__15, z__16, z__17, z__18, z__19,
+	    z__20, z__21, z__22, z__23, z__24, z__25, z__26, z__27, z__28,
+	    z__29, z__30, z__31, z__32, z__33, z__34, z__35, z__36, z__37,
 	    z__38, z__39, z__40, z__41, z__42, z__43;
 
     /* Builtin functions */
@@ -23558,15 +23558,15 @@ L2:
     y = x / 8.f;
     y *= y;
     s = y * y;
-    ber = ((((((s * -9.01e-6 + .00122552) * s - .08349609) * s + 2.641914) * 
+    ber = ((((((s * -9.01e-6 + .00122552) * s - .08349609) * s + 2.641914) *
 	    s - 32.363456) * s + 113.77778) * s - 64.f) * s + 1.f;
     bei = ((((((s * 1.1346e-4 - .01103667) * s + .52185615) * s - 10.567658) *
 	     s + 72.817777) * s - 113.77778) * s + 16.f) * y;
     z__1.r = ber, z__1.i = bei;
     br1.r = z__1.r, br1.i = z__1.i;
-    ber = ((((((s * -3.94e-6 + 4.5957e-4) * s - .02609253) * s + .66047849) * 
+    ber = ((((((s * -3.94e-6 + 4.5957e-4) * s - .02609253) * s + .66047849) *
 	    s - 6.0681481) * s + 14.222222) * s - 4.f) * y * x;
-    bei = ((((((s * 4.609e-5 - .00379386) * s + .14677204) * s - 2.3116751) * 
+    bei = ((((((s * 4.609e-5 - .00379386) * s + .14677204) * s - 2.3116751) *
 	    s + 11.377778) * s - 10.666667) * s + .5f) * x;
     z__1.r = ber, z__1.i = bei;
     br2.r = z__1.r, br2.i = z__1.i;
@@ -23593,7 +23593,7 @@ L1:
     z__5.r = z__6.r + z__8.r, z__5.i = z__6.i + z__8.i;
     z_exp(&z__4, &z__5);
     z__3.r = d__2 * z__4.r, z__3.i = d__2 * z__4.i;
-    z__2.r = fj->r * z__3.r - fj->i * z__3.i, z__2.i = fj->r * z__3.i + fj->i 
+    z__2.r = fj->r * z__3.r - fj->i * z__3.i, z__2.i = fj->r * z__3.i + fj->i
 	    * z__3.r;
     z__1.r = z__2.r / pi, z__1.i = z__2.i / pi;
     br2.r = z__1.r, br2.i = z__1.i;
@@ -23649,7 +23649,7 @@ L1:
     z__21.r = z__22.r + cc13->r, z__21.i = z__22.i + cc13->i;
     z__20.r = d__2 * z__21.r, z__20.i = d__2 * z__21.i;
     z__19.r = z__20.r + cc14->r, z__19.i = z__20.i + cc14->i;
-    z__2.r = z__3.r * z__19.r - z__3.i * z__19.i, z__2.i = z__3.r * z__19.i + 
+    z__2.r = z__3.r * z__19.r - z__3.i * z__19.i, z__2.i = z__3.r * z__19.i +
 	    z__3.i * z__19.r;
     z__43.r = d__3 * cc8->r, z__43.i = d__3 * cc8->i;
     z__42.r = z__43.r + cc9->r, z__42.i = z__43.i + cc9->i;
@@ -23663,7 +23663,7 @@ L1:
     z__34.r = z__35.r + cc13->r, z__34.i = z__35.i + cc13->i;
     z__33.r = d__3 * z__34.r, z__33.i = d__3 * z__34.i;
     z__32.r = z__33.r + cc14->r, z__32.i = z__33.i + cc14->i;
-    z__31.r = br2.r * z__32.r - br2.i * z__32.i, z__31.i = br2.r * z__32.i + 
+    z__31.r = br2.r * z__32.r - br2.i * z__32.i, z__31.i = br2.r * z__32.i +
 	    br2.i * z__32.r;
     z__1.r = z__2.r - z__31.r, z__1.i = z__2.i - z__31.i;
     br2.r = z__1.r, br2.i = z__1.i;
@@ -23675,7 +23675,7 @@ L2:
 L3:
     d__1 = sqrt(cmotp / *sigl);
     z__3.r = d__1 * fj->r, z__3.i = d__1 * fj->i;
-    z__2.r = z__3.r * br1.r - z__3.i * br1.i, z__2.i = z__3.r * br1.i + 
+    z__2.r = z__3.r * br1.r - z__3.i * br1.i, z__2.i = z__3.r * br1.i +
 	    z__3.i * br1.r;
     z__1.r = z__2.r / *rolam, z__1.i = z__2.i / *rolam;
      ret_val->r = z__1.r,  ret_val->i = z__1.i;
@@ -23702,4 +23702,8 @@ L3:
 #undef cn
 #undef fj
 
-
+// Put this here to get the above code to compile.
+int second_(double *t) {
+    *t = 0.0;
+    return 0;
+}
