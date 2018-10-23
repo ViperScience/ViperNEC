@@ -3,7 +3,7 @@
 # (c) 2018 Viper Science LLC
 
 CC := gcc-8
-CFLAGS := -g
+CFLAGS := -O
 
 OBJECTS	:= nec2dxs.o second_.o
 INCLUDE := libf2c
@@ -11,7 +11,7 @@ INCLUDE := libf2c
 all: nec2dxs
 
 nec2dxs: $(OBJECTS)
-	$(CC) $(OBJECTS) -I$(INCLUDE) -L$(INCLUDE) -lf2c -o nec2dxs
+	$(CC) $(CFLAGS) $(OBJECTS) -I$(INCLUDE) -L$(INCLUDE) -lf2c -o nec2dxs -lm
 
 nec2dxs.o: nec2dxs.c
 	$(CC) $(CFLAGS) -c -I$(INCLUDE) nec2dxs.c -o nec2dxs.o
