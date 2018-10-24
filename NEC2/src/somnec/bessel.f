@@ -1,0 +1,69 @@
+      SUBROUTINE BESSEL (Z,J0,J0P)
+C
+C     BESSEL EVALUATES THE ZERO-ORDER BESSEL FUNCTION AND ITS DERIVATIVE
+C     FOR COMPLEX ARGUMENT Z.
+C
+      COMPLEX J0,J0P,P0Z,P1Z,Q0Z,Q1Z,Z,ZI,ZI2,ZK,FJ,CZ,SZ,J0X,J0PX
+      DIMENSION M(101), A1(25), A2(25), FJX(2)
+      EQUIVALENCE (FJ,FJX)
+      DATA PI,C3,P10,P20,Q10,Q20/3.141592654,.7978845608,.0703125,.11215
+     120996,.125,.0732421875/
+      DATA P11,P21,Q11,Q21/.1171875,.1441955566,.375,.1025390625/
+      DATA POF,INIT/.7853981635,0/,FJX/0.,1./
+      IF (INIT.EQ.0) GO TO 5
+1     ZMS=Z*CONJG(Z)
+      IF (ZMS.GT.1.E-12) GO TO 2
+      J0=(1.,0.)
+      J0P=-.5*Z
+      RETURN
+2     IB=0
+      IF (ZMS.GT.37.21) GO TO 4
+      IF (ZMS.GT.36.) IB=1
+C     SERIES EXPANSION
+      IZ=1.+ZMS
+      MIZ=M(IZ)
+      J0=(1.,0.)
+      J0P=J0
+      ZK=J0
+      ZI=Z*Z
+      DO 3 K=1,MIZ
+      ZK=ZK*A1(K)*ZI
+      J0=J0+ZK
+3     J0P=J0P+A2(K)*ZK
+      J0P=-.5*Z*J0P
+      IF (IB.EQ.0) RETURN
+      J0X=J0
+      J0PX=J0P
+C     ASYMPTOTIC EXPANSION
+4     ZI=1./Z
+      ZI2=ZI*ZI
+      P0Z=1.+(P20*ZI2-P10)*ZI2
+      P1Z=1.+(P11-P21*ZI2)*ZI2
+      Q0Z=(Q20*ZI2-Q10)*ZI
+      Q1Z=(Q11-Q21*ZI2)*ZI
+      ZK=CEXP(FJ*(Z-POF))
+      ZI2=1./ZK
+      CZ=.5*(ZK+ZI2)
+      SZ=FJ*.5*(ZI2-ZK)
+      ZK=C3*CSQRT(ZI)
+      J0=ZK*(P0Z*CZ-Q0Z*SZ)
+      J0P=-ZK*(P1Z*SZ+Q1Z*CZ)
+      IF (IB.EQ.0) RETURN
+      ZMS=COS((SQRT(ZMS)-6.)*31.41592654)
+      J0=.5*(J0X*(1.+ZMS)+J0*(1.-ZMS))
+      J0P=.5*(J0PX*(1.+ZMS)+J0P*(1.-ZMS))
+      RETURN
+C     INITIALIZATION OF CONSTANTS
+5     DO 6 K=1,25
+      A1(K)=-.25/(K*K)
+6     A2(K)=1./(K+1.)
+      DO 8 I=1,101
+      TEST=1.
+      DO 7 K=1,24
+      INIT=K
+      TEST=-TEST*I*A1(K)
+      IF (TEST.LT.1.E-6) GO TO 8
+7     CONTINUE
+8     M(I)=INIT
+      GO TO 1
+      END

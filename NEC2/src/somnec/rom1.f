@@ -1,0 +1,90 @@
+      SUBROUTINE ROM1 (N,SUM,NX)
+C
+C     ROM1 INTEGRATES THE 6 SOMMERFELD INTEGRALS FROM A TO B IN LAMBDA.
+C     THE METHOD OF VARIABLE INTERVAL WIDTH ROMBERG INTEGRATION IS USED.
+C
+      COMPLEX A,B,SUM,G1,G2,G3,G4,G5,T00,T01,T10,T02,T11,T20
+      COMMON /CNTOUR/ A,B
+      DIMENSION SUM(6), G1(6), G2(6), G3(6), G4(6), G5(6), T01(6), T10(6
+     1), T20(6)
+      DATA NM,NTS,RX/131072,4,1.E-4/
+      LSTEP=0
+      Z=0.
+      ZE=1.
+      S=1.
+      EP=S/(1.E4*NM)
+      ZEND=ZE-EP
+      DO 1 I=1,N
+1     SUM(I)=(0.,0.)
+      NS=NX
+      NT=0
+      CALL SAOA (Z,G1)
+2     DZ=S/NS
+      IF (Z+DZ.LE.ZE) GO TO 3
+      DZ=ZE-Z
+      IF (DZ.LE.EP) GO TO 17
+3     DZOT=DZ*.5
+      CALL SAOA (Z+DZOT,G3)
+      CALL SAOA (Z+DZ,G5)
+4     NOGO=0
+      DO 5 I=1,N
+      T00=(G1(I)+G5(I))*DZOT
+      T01(I)=(T00+DZ*G3(I))*.5
+      T10(I)=(4.*T01(I)-T00)/3.
+C     TEST CONVERGENCE OF 3 POINT ROMBERG RESULT
+      CALL TEST (REAL(T01(I)),REAL(T10(I)),TR,AIMAG(T01(I)),AIMAG(T10
+     1(I)),TI,0.)
+      IF (TR.GT.RX.OR.TI.GT.RX) NOGO=1
+5     CONTINUE
+      IF (NOGO.NE.0) GO TO 7
+      DO 6 I=1,N
+6     SUM(I)=SUM(I)+T10(I)
+      NT=NT+2
+      GO TO 11
+7     CALL SAOA (Z+DZ*.25,G2)
+      CALL SAOA (Z+DZ*.75,G4)
+      NOGO=0
+      DO 8 I=1,N
+      T02=(T01(I)+DZOT*(G2(I)+G4(I)))*.5
+      T11=(4.*T02-T01(I))/3.
+      T20(I)=(16.*T11-T10(I))/15.
+C     TEST CONVERGENCE OF 5 POINT ROMBERG RESULT
+      CALL TEST (REAL(T11),REAL(T20(I)),TR,AIMAG(T11),AIMAG(T20(I)),TI
+     1,0.)
+      IF (TR.GT.RX.OR.TI.GT.RX) NOGO=1
+8     CONTINUE
+      IF (NOGO.NE.0) GO TO 13
+9     DO 10 I=1,N
+10    SUM(I)=SUM(I)+T20(I)
+      NT=NT+1
+11    Z=Z+DZ
+      IF (Z.GT.ZEND) GO TO 17
+      DO 12 I=1,N
+12    G1(I)=G5(I)
+      IF (NT.LT.NTS.OR.NS.LE.NX) GO TO 2
+      NS=NS/2
+      NT=1
+      GO TO 2
+13    NT=0
+      IF (NS.LT.NM) GO TO 15
+      IF (LSTEP.EQ.1) GO TO 9
+      LSTEP=1
+      CALL LAMBDA (Z,T00,T11)
+      PRINT 18, T00
+      PRINT 19, Z,DZ,A,B
+      DO 14 I=1,N
+14    PRINT 19, G1(I),G2(I),G3(I),G4(I),G5(I)
+      GO TO 9
+15    NS=NS*2
+      DZ=S/NS
+      DZOT=DZ*.5
+      DO 16 I=1,N
+      G5(I)=G3(I)
+16    G3(I)=G2(I)
+      GO TO 4
+17    CONTINUE
+      RETURN
+C
+18    FORMAT (38H ROM1 -- STEP SIZE LIMITED AT LAMBDA =,2E12.5)
+19    FORMAT (10E12.5)
+      END
