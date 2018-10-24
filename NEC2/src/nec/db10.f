@@ -1,0 +1,14 @@
+      FUNCTION DB10 (X)
+C
+C     FUNCTION DB-- RETURNS DB FOR MAGNITUDE (FIELD) OR MAG**2 (POWER) I
+C
+      F=10.
+      GO TO 1
+      ENTRY DB20(X)
+      F=20.
+1     IF (X.LT.1.E-20) GO TO 2
+      DB10=F*ALOG10(X)
+      RETURN
+2     DB10=-999.99
+      RETURN
+      END

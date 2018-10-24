@@ -1,0 +1,14 @@
+      SUBROUTINE GH (ZK,HR,HI)
+C     INTEGRAND FOR H FIELD OF A WIRE
+      COMMON /TMH/ ZPK,RHKS
+      RS=ZK-ZPK
+      RS=RHKS+RS*RS
+      R=SQRT(RS)
+      CKR=COS(R)
+      SKR=SIN(R)
+      RR2=1./RS
+      RR3=RR2/R
+      HR=SKR*RR2+CKR*RR3
+      HI=CKR*RR2-SKR*RR3
+      RETURN
+      END

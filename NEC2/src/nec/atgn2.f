@@ -1,0 +1,11 @@
+      FUNCTION ATGN2 (X,Y)
+C
+C     ATGN2 IS ARCTANGENT FUNCTION MODIFIED TO RETURN 0. WHEN X=Y=0.
+C
+      IF (X) 3,1,3
+1     IF (Y) 3,2,3
+2     ATGN2=0.
+      RETURN
+3     ATGN2=ATAN2(X,Y)
+      RETURN
+      END

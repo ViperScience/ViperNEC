@@ -1,0 +1,84 @@
+      SUBROUTINE HFK (EL1,EL2,RHK,ZPKX,SGR,SGI)
+C     HFK COMPUTES THE H FIELD OF A UNIFORM CURRENT FILAMENT BY
+C     NUMERICAL INTEGRATION
+      COMMON /TMH/ ZPK,RHKS
+      DATA NX,NM,NTS,RX/1,65536,4,1.E-4/
+      ZPK=ZPKX
+      RHKS=RHK*RHK
+      Z=EL1
+      ZE=EL2
+      S=ZE-Z
+      EP=S/(10.*NM)
+      ZEND=ZE-EP
+      SGR=0.0
+      SGI=0.0
+      NS=NX
+      NT=0
+      CALL GH (Z,G1R,G1I)
+1     DZ=S/NS
+      ZP=Z+DZ
+      IF (ZP-ZE) 3,3,2
+2     DZ=ZE-Z
+      IF (ABS(DZ)-EP) 17,17,3
+3     DZOT=DZ*.5
+      ZP=Z+DZOT
+      CALL GH (ZP,G3R,G3I)
+      ZP=Z+DZ
+      CALL GH (ZP,G5R,G5I)
+4     T00R=(G1R+G5R)*DZOT
+      T00I=(G1I+G5I)*DZOT
+      T01R=(T00R+DZ*G3R)*0.5
+      T01I=(T00I+DZ*G3I)*0.5
+      T10R=(4.0*T01R-T00R)/3.0
+      T10I=(4.0*T01I-T00I)/3.0
+      CALL TEST (T01R,T10R,TE1R,T01I,T10I,TE1I,0.)
+      IF (TE1I-RX) 5,5,6
+5     IF (TE1R-RX) 8,8,6
+6     ZP=Z+DZ*0.25
+      CALL GH (ZP,G2R,G2I)
+      ZP=Z+DZ*0.75
+      CALL GH (ZP,G4R,G4I)
+      T02R=(T01R+DZOT*(G2R+G4R))*0.5
+      T02I=(T01I+DZOT*(G2I+G4I))*0.5
+      T11R=(4.0*T02R-T01R)/3.0
+      T11I=(4.0*T02I-T01I)/3.0
+      T20R=(16.0*T11R-T10R)/15.0
+      T20I=(16.0*T11I-T10I)/15.0
+      CALL TEST (T11R,T20R,TE2R,T11I,T20I,TE2I,0.)
+      IF (TE2I-RX) 7,7,14
+7     IF (TE2R-RX) 9,9,14
+8     SGR=SGR+T10R
+      SGI=SGI+T10I
+      NT=NT+2
+      GO TO 10
+9     SGR=SGR+T20R
+      SGI=SGI+T20I
+      NT=NT+1
+10    Z=Z+DZ
+      IF (Z-ZEND) 11,17,17
+11    G1R=G5R
+      G1I=G5I
+      IF (NT-NTS) 1,12,12
+12    IF (NS-NX) 1,1,13
+13    NS=NS/2
+      NT=1
+      GO TO 1
+14    NT=0
+      IF (NS-NM) 16,15,15
+15    PRINT 18, Z
+      GO TO 9
+16    NS=NS*2
+      DZ=S/NS
+      DZOT=DZ*0.5
+      G5R=G3R
+      G5I=G3I
+      G3R=G2R
+      G3I=G2I
+      GO TO 4
+17    CONTINUE
+      SGR=SGR*RHK*.5
+      SGI=SGI*RHK*.5
+      RETURN
+C
+18    FORMAT (24H STEP SIZE LIMITED AT Z=,F10.5)
+      END

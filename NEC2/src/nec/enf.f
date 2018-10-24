@@ -1,0 +1,7 @@
+      LOGICAL FUNCTION ENF(NUNIT)
+      IF (EOF,NUNIT) 1,2
+1     ENF=.TRUE.
+      RETURN
+2     ENF=.FALSE.
+      RETURN
+      END

@@ -1,0 +1,59 @@
+      SUBROUTINE WIRE (XW1,YW1,ZW1,XW2,YW2,ZW2,RAD,RDEL,RRAD,NS,ITG)
+C
+C     SUBROUTINE WIRE GENERATES SEGMENT GEOMETRY DATA FOR A STRAIGHT
+C     WIRE OF NS SEGMENTS.
+C
+      COMMON /DATA/ LD,N1,N2,N,NP,M1,M2,M,MP,X(300),Y(300),Z(300),SI(300
+     1),BI(300),ALP(300),BET(300),ICON1(300),ICON2(300),ITAG(300),ICONX(
+     2300),WLAM,IPSYM
+      DIMENSION X2(1), Y2(1), Z2(1)
+      EQUIVALENCE (X2(1),SI(1)), (Y2(1),ALP(1)), (Z2(1),BET(1))
+      IST=N+1
+      N=N+NS
+      NP=N
+      MP=M
+      IPSYM=0
+      IF (NS.LT.1) RETURN
+      XD=XW2-XW1
+      YD=YW2-YW1
+      ZD=ZW2-ZW1
+      IF (ABS(RDEL-1.).LT.1.E-6) GO TO 1
+      DELZ=SQRT(XD*XD+YD*YD+ZD*ZD)
+      XD=XD/DELZ
+      YD=YD/DELZ
+      ZD=ZD/DELZ
+      DELZ=DELZ*(1.-RDEL)/(1.-RDEL**NS)
+      RD=RDEL
+      GO TO 2
+1     FNS=NS
+      XD=XD/FNS
+      YD=YD/FNS
+      ZD=ZD/FNS
+      DELZ=1.
+      RD=1.
+2     RADZ=RAD
+      XS1=XW1
+      YS1=YW1
+      ZS1=ZW1
+      DO 3 I=IST,N
+      ITAG(I)=ITG
+      XS2=XS1+XD*DELZ
+      YS2=YS1+YD*DELZ
+      ZS2=ZS1+ZD*DELZ
+      X(I)=XS1
+      Y(I)=YS1
+      Z(I)=ZS1
+      X2(I)=XS2
+      Y2(I)=YS2
+      Z2(I)=ZS2
+      BI(I)=RADZ
+      DELZ=DELZ*RD
+      RADZ=RADZ*RRAD
+      XS1=XS2
+      YS1=YS2
+3     ZS1=ZS2
+      X2(N)=XW2
+      Y2(N)=YW2
+      Z2(N)=ZW2
+      RETURN
+      END
