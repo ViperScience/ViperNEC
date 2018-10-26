@@ -1,0 +1,55 @@
+CEEXAMPLE 1.  CENTER FED LINEAR ANTENNA                                                         
+GW       7    0.        0.       -.25      0.        0.         .25      .001
+GE
+EX  0    0    4    0    1.
+XQ
+LD  0    0    4    4   10.     3.000E-09 5.300E-11
+PQ
+NE  0    1    1   15   .001      0         0          0.        0.      .01786
+NX
+CMEXAMPLE 2.  CENTER FED LINEAR ANTENNA.
+CM            CURRENT SLOPE DISCONTINUITY SOURCE.
+CM            1. THIN PERFECTLY CONDUCTING WIRE 
+CE            2. THIN ALUMINUM WIRE
+GW  0    8   0.        0.        -.25      0.        0.        .25      .00001
+GE
+FR  0    3    0    0   200.      50.
+EX  5    0    5    1   1.        0.        50.
+XQ
+LD  5    0    0    0 3.720E+07
+FR  0    1    0    0   300.
+EX  5    0    5    0   1.
+XQ
+NX
+CMEXAMPLE 3.  VERTICAL HALF WAVELENGTH ANTENNA OVER GROUND
+CM            EXTENDED THIN WIRE KERNEL USED
+CM            1. PERFECT GROUND
+CM            2. IMPERFECT GROUND INCLUDING GROUND WAVE AND RECEIVING
+CE               PATTERN CALCULATIONS
+GW       9   0.        0.        2.        0.        0.        7.       .3
+GE  1
+EK
+FR       1             30.
+EX  0    0    5    0   1.
+GN  1
+RP  0   10    2 1301   0.        0.        10.       90.
+GN  0    0    0        6.      1.000E-03     
+RP  0   10    2 1301   0.        0.        10.       90.
+RP  1   10    1        1.        0.        2.        0.      1.000E+05
+EX  1   10    1        0.        0.        0.        10.
+PT  2    0    5    5
+XQ
+NX
+CEEXAMPLE 4.  T ANTENNA ON A BOX OVER PERFECT GROUND
+SP           .1        .05       .05       0.        0.         .01
+SP           .05       .1        .05       0.        90.        .01
+GX     110
+SP           0.        0.        .1        90.       0.         .04
+GW  1    4   0.        0.        .1        0.        0.         .3      .001
+GW  2    2   0.        0.        .3        .15       0.         .3      .001
+GW  3    2   0.        0.        .3        -.15      0.         .3      .001
+GE  1
+GN  1
+EX       1    1    0   1.
+RP      10    4 1001   0.        0.        10.       30.
+EN
